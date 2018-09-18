@@ -1,0 +1,31 @@
+$gr-breakpoints: (
+  s: (
+    min: null,
+    max: 600px,
+    gutter: 12px,
+    container: (
+      max-width: null,
+      padding: null
+    )
+  ),
+  m: (
+    min: 601px,
+    max: 1000px,
+    gutter: 12px,
+    container: (
+      max-width: null,
+      padding: null
+    )
+  ),
+  l: (
+    min: 1001px,
+    max: null,
+    gutter: 12px,
+    container: (
+      max-width: null,
+      padding: null
+    )
+  )
+);
+
+@import '../../index';

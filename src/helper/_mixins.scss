@@ -1,0 +1,57 @@
+@mixin gr-clearfix {
+
+  &::after {
+
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin gr-media ($start, $end: false) {
+
+  $str: null;
+  $min: false;
+  $max: false;
+  $breakpoint-start: map-get($_gr-breakpoints, $start);
+
+  @if $breakpoint-start {
+    @if $start and not $end {
+
+      $min: map-get($breakpoint-start, 'min');
+      $max: map-get($breakpoint-start, 'max');
+    } @else {
+
+      $breakpoint-end: map-get($_gr-breakpoints, $end);
+      $min: map-get($breakpoint-start, 'min');
+      $max: map-get($breakpoint-end, 'max');
+    }
+  }
+
+  @if $max or $min {
+
+    @if $min and not $max {
+
+      $str: 'screen and (min-width: #{$min})';
+
+    } @else if $max and not $min {
+
+      $str: 'screen and (max-width: #{$max})';
+
+    } @else {
+
+      $str: 'screen and (min-width: #{$min}) and (max-width: #{$max})';
+    }
+  }
+
+  @if $str {
+
+    @media #{$str} {
+
+      @content;
+    }
+  } @else {
+
+    @content
+  }
+}

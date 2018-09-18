@@ -1,0 +1,7 @@
+// default settings
+
+$columns: 12 !default;
+$container-max-width: 1200px !default;
+$gr-breakpoints: () !default;
+
+$_gr-breakpoints: map-merge((), $gr-breakpoints);

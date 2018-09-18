@@ -1,0 +1,29 @@
+{
+  "name": "gr.scss",
+  "version": "0.0.1",
+  "description": "Flexbox based grid system",
+  "main": "index.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node-sass -w -r --include-path src demo/src/demo.scss demo/styles/gr.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schllng/gr.scss.git"
+  },
+  "keywords": [
+    "grid",
+    "scss",
+    "flexbox"
+  ],
+  "author": "Peter Schilling",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schllng/gr.scss/issues"
+  },
+  "homepage": "https://github.com/schllng/gr.scss#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "node-sass": "^4.9.3"
+  }
+}

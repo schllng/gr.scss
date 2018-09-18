@@ -1,0 +1,25 @@
+@function multi-map-get($map, $targets...) {
+
+  $val: $map;
+  $curr-map: $val;
+
+  @each $target in $targets {
+
+    $val: map-get($curr-map, $target);
+    $curr-map: $val;
+  }
+
+  @return $val;
+}
+
+@function resp-size($br, $targets...) {
+
+  @return multi-map-get($config, $br, $targets...);
+}
+
+@function map-set($map, $key, $value) {
+
+  $new: ($key: $value);
+
+  @return map-merge($map, $new);
+}
