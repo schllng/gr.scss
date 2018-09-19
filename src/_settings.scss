@@ -19,6 +19,7 @@ $gr-states: () !default;
 $_gr-states: map-merge((), $gr-states);
 
 // extend state settings with defaults as fallbacks
+// TODO handle container-sizes
 @if length($_gr-states) > 0 {
 
   @each $state, $state-config in $_gr-states {

@@ -35,23 +35,29 @@ $gr-set-container-style: true;
 
 @import '../../index';
 
-@include gr-build-classes((
+@include gr-build-classes();
 
-));
+// TODO test
+.test-container {
+  @include gr-container;
+}
 
-// TODO
-// .test-row {
-//   @include gr-row();
-// }
-//
-// .test-row-m {
-//   @include gr-row(m);
-// }
-//
-// .test-col {
-//   @include gr-col(5);
-// }
-//
-// .test-col-m {
-//   @include gr-col(5, m);
-// }
+.test-container-m {
+  @include gr-container(m);
+}
+
+.test-row {
+  @include gr-row();
+}
+
+.test-row-m {
+  @include gr-row(m);
+}
+
+.test-col {
+  @include gr-col(5);
+}
+
+.test-col-m {
+  @include gr-col(5, m);
+}

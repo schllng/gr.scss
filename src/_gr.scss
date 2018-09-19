@@ -5,7 +5,7 @@
 
 @import './mixins';
 
-@mixin gr-build-classes($config) {
+@mixin gr-build-classes() {
 
   // generate grid classes without media query definitions
   @if length($_gr-states) == 0 {
@@ -17,7 +17,6 @@
   }
 }
 
-// TODO
 @mixin gr-row($state: null) {
 
   @if $state and length($_gr-states) > 0 {
@@ -29,8 +28,15 @@
     }
   } @elseif not $state and length($_gr-states) > 0 {
 
-    // TODO
     @include _gr-row-base;
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-row(_gr-get-resp-val($state, gutter));
+      }
+    }
   } @else {
 
     @include _gr-row-base;
@@ -38,7 +44,6 @@
   }
 }
 
-// TODO
 @mixin gr-col($width, $state: null) {
 
   @if $state and length($_gr-states) > 0 {
@@ -50,11 +55,46 @@
     }
   } @elseif not $state and length($_gr-states) > 0 {
 
-    // TODO
+    @each $state, $state-config in $_gr-states {
 
+      @include _gr-media($state) {
+
+        @include _gr-col-base(_gr-get-resp-val($state, gutter));
+        @include _gr-col($width, _gr-get-resp-val($state, columns));
+      }
+    }
   } @else {
 
     @include _gr-col-base($gr-gutter);
     @include _gr-col($width, $gr-columns);
+  }
+}
+
+@mixin gr-container($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      $container-max-width: _gr-get-resp-val($state, container, max-width);
+      $container-padding: _gr-get-resp-val($state, container, padding);
+
+      @include _gr-container($container-max-width, $container-padding);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        $container-max-width: _gr-get-resp-val($state, container, max-width);
+        $container-padding: _gr-get-resp-val($state, container, padding);
+
+        @include _gr-container($container-max-width, $container-padding);
+      }
+    }
+  } @else {
+
+    @include _gr-container($gr-grid-max-width, $gr-container-padding);
   }
 }

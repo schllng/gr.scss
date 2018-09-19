@@ -4,16 +4,14 @@
 
     .#{$gr-container-class} {
 
-      max-width: $gr-grid-max-width;
-      padding-left: $gr-container-padding;
-      padding-right: $gr-container-padding;
-      box-sizing: border-box;
+      @include _gr-container($gr-grid-max-width, $gr-container-padding);
     }
   }
 
   .#{$gr-row-class} {
 
-    @include gr-row();
+    @include _gr-row-base;
+    @include _gr-row($gr-gutter);
   }
 
   @include _gr-col-selector-all {
@@ -49,18 +47,7 @@
           $container-max-width: _gr-get-resp-val($state, container, max-width);
           $container-padding: _gr-get-resp-val($state, container, padding);
 
-          @if $container-max-width {
-
-            max-width: $container-max-width;
-          }
-
-          @if $container-padding {
-
-            padding-left: $container-padding;
-            padding-right: $container-padding;
-          }
-
-          box-sizing: border-box;
+          @include _gr-container($container-max-width, $container-padding);
         }
       }
 
@@ -72,7 +59,7 @@
 
       @include _gr-col-selector-all($state) {
 
-        @include _gr-col-base(_gr-get-resp-val($state, gutter))
+        @include _gr-col-base(_gr-get-resp-val($state, gutter));
       }
 
       // seperate columns without state modifier
@@ -172,3 +159,19 @@
   margin-left: #{ $gutter / -2};
   margin-right: #{ $gutter / -2};
 };
+
+@mixin _gr-container($max-width, $padding) {
+
+  @if $max-width {
+
+    max-width: $max-width;
+  }
+
+  @if $padding {
+
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  box-sizing: border-box;
+}
