@@ -7,13 +7,19 @@
 
     <style media="screen">
 
-      [class*="gr-"] {
+      .row {
+
+      }
+
+      .gr-col,
+      .gr-inner {
 
         background-color: rgba(152, 83, 147, 0.43);
       }
 
       .gr-inner {
 
+        margin: 8px 0;
         border: 1px solid rgba(255, 44, 240, 0.84);
         min-height: 60px;
       }
@@ -23,28 +29,87 @@
     <div class="container">
       <div class="row">
         <div class="gr-12">
+          <h2>generated classes</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="gr-12 gr-col">
           <div class="gr-inner">
             gr-12
           </div>
         </div>
-        <div class="gr-6 gr-1@m gr-2@l">
+        <div class="gr-6 gr-1@m gr-5@l gr-col">
           <div class="gr-inner">
-            gr-6 gr-1@m gr-2@l
+            gr-6 gr-1@m gr-3@l
           </div>
         </div>
-        <div class="gr-3 gr-1@m gr-2@l">
+        <div class="gr-3@s gr-1@m gr-1@l gr-col">
           <div class="gr-inner">
-            gr-3 gr-1@m gr-2@l
+            gr-3@s gr-1@m gr-1@l
           </div>
         </div>
-        <div class="gr-2 gr-8@m gr-6@l">
+        <div class="gr-2 gr-8@m gr-6@l gr-col">
           <div class="gr-inner">
             gr-2 gr-8@m gr-6@l
           </div>
         </div>
-        <div class="gr-1@s gr-2">
+        <div class="gr-2 gr-1@s gr-12@l gr-col">
           <div class="gr-inner">
-            gr-1@s gr-2
+            gr-2 gr-1@s gr-12@l
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="gr-4 gr-col">
+          <div class="gr-inner">
+            gr-4
+          </div>
+        </div>
+        <div class="gr-4 gr-col">
+          <div class="gr-inner">
+            gr-4
+          </div>
+        </div>
+        <div class="gr-4 gr-col">
+          <div class="gr-inner">
+            gr-4
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="test-container">
+      <div class="test-row">
+        <div class="test-gr-12">
+          <h2>custom</h2>
+        </div>
+      </div>
+      <div class="test-row">
+        <div class="test-gr-12 gr-col">
+          <div class="gr-inner">
+            gr-12
+          </div>
+        </div>
+        <div class="test-gr-6 test-gr-1@m test-gr-5@l gr-col">
+          <div class="gr-inner">
+            gr-6 gr-1@m gr-3@l
+          </div>
+        </div>
+        <div class="test-gr-3@s test-gr-1@m test-gr-1@l gr-col">
+          <div class="gr-inner">
+            gr-3@s gr-1@m gr-1@l
+          </div>
+        </div>
+        <div class="test-gr-2 test-gr-8@m test-gr-6@l gr-col">
+          <div class="gr-inner">
+            gr-2 gr-8@m gr-6@l
+          </div>
+        </div>
+        <div class="test-gr-2 test-gr-1@s test-gr-12@l gr-col">
+          <div class="gr-inner">
+            gr-2 gr-1@s gr-12@l
           </div>
         </div>
       </div>

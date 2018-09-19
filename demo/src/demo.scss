@@ -42,22 +42,69 @@ $gr-set-container-style: true;
   @include gr-container;
 }
 
-.test-container-m {
-  @include gr-container(m);
-}
+// .test-container-m {
+//   @include gr-container(m);
+// }
 
 .test-row {
   @include gr-row();
 }
 
-.test-row-m {
-  @include gr-row(m);
+// .test-row-m {
+//   @include gr-row(m);
+// }
+
+.test-gr-2 {
+
+  @include gr-col(2);
 }
 
-.test-col {
-  @include gr-col(5);
+.test-gr-6 {
+
+  @include gr-col(6);
 }
 
-.test-col-m {
-  @include gr-col(5, m);
+.test-gr-12 {
+
+  @include gr-col(12);
+}
+
+.test-gr-1\@s {
+
+  @include gr-col(1, s);
+}
+
+.test-gr-3\@s {
+
+  @include gr-col(3, s);
+}
+
+.test-gr-1\@m {
+
+  @include gr-col(1, m);
+}
+
+.test-gr-8\@m {
+
+  @include gr-col(8, m);
+}
+
+.test-gr-1\@l {
+
+  @include gr-col(1, l);
+}
+
+.test-gr-5\@l {
+
+  @include gr-col(5, l);
+}
+
+.test-gr-6\@l {
+
+  @include gr-col(6, l);
+}
+
+.test-gr-12\@l {
+
+  @include gr-col(12, l);
 }
