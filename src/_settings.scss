@@ -1,7 +1,36 @@
 // default settings
 
-$columns: 12 !default;
-$container-max-width: 1200px !default;
-$gr-breakpoints: () !default;
+//
+$gr-set-container-style: false !default;
 
-$_gr-breakpoints: map-merge((), $gr-breakpoints);
+// class names
+$gr-container-class: 'container' !default;
+$gr-row-class: 'row' !default;
+$gr-column-class: 'gr' !default;
+$gr-state-class-divider: '\\@' !default;
+
+// grid
+$gr-columns: 12 !default;
+$gr-gutter: 24px !default;
+$gr-grid-max-width: 1200px !default;
+$gr-container-padding: 20px !default;
+$gr-states: () !default;
+
+$_gr-states: map-merge((), $gr-states);
+
+// extend state settings with defaults as fallbacks
+@if length($_gr-states) > 0 {
+
+  @each $state, $state-config in $_gr-states {
+
+    $_gutter: map-get($state-config, gutter);
+    $_gutter: if($_gutter, $_gutter, $gr-gutter);
+    $state-config: _gr-map-set($state-config, gutter, $_gutter);
+
+    $_columns: map-get($state-config, columns);
+    $_columns: if($_columns, $_columns, $gr-columns);
+    $state-config: _gr-map-set($state-config, columns, $_columns);
+
+    $_gr-states: _gr-map-set($_gr-states, $state, $state-config);
+  }
+}

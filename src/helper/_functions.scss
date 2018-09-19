@@ -1,4 +1,4 @@
-@function multi-map-get($map, $targets...) {
+@function _gr-multi-map-get($map, $targets...) {
 
   $val: $map;
   $curr-map: $val;
@@ -12,12 +12,12 @@
   @return $val;
 }
 
-@function resp-size($br, $targets...) {
+@function _gr-get-resp-val($br, $targets...) {
 
-  @return multi-map-get($config, $br, $targets...);
+  @return _gr-multi-map-get($_gr-states, $br, $targets...);
 }
 
-@function map-set($map, $key, $value) {
+@function _gr-map-set($map, $key, $value) {
 
   $new: ($key: $value);
 

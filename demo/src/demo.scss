@@ -1,31 +1,57 @@
-$gr-breakpoints: (
+$gr-states: (
   s: (
     min: null,
     max: 600px,
     gutter: 12px,
+    columns: null,
     container: (
-      max-width: null,
-      padding: null
+      max-width: 100%,
+      padding: 30px
     )
   ),
   m: (
     min: 601px,
     max: 1000px,
-    gutter: 12px,
+    gutter: 14px,
+    columns: null,
     container: (
-      max-width: null,
+      max-width: 600px,
       padding: null
     )
   ),
   l: (
     min: 1001px,
     max: null,
-    gutter: 12px,
+    gutter: null,
+    columns: null,
     container: (
-      max-width: null,
-      padding: null
+      max-width: 1200px,
+      padding: 60px
     )
   )
 );
 
+$gr-set-container-style: true;
+
 @import '../../index';
+
+@include gr-build-classes((
+
+));
+
+// TODO
+// .test-row {
+//   @include gr-row();
+// }
+//
+// .test-row-m {
+//   @include gr-row(m);
+// }
+//
+// .test-col {
+//   @include gr-col(5);
+// }
+//
+// .test-col-m {
+//   @include gr-col(5, m);
+// }

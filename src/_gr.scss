@@ -2,3 +2,59 @@
 @import './helper/mixins';
 
 @import './settings';
+
+@import './mixins';
+
+@mixin gr-build-classes($config) {
+
+  // generate grid classes without media query definitions
+  @if length($_gr-states) == 0 {
+
+    @include _gr-build-classes-without-states;
+  } @else {
+
+    @include _gr-build-classes;
+  }
+}
+
+// TODO
+@mixin gr-row($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-row-base;
+      @include _gr-row(_gr-get-resp-val($state, gutter));
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    // TODO
+    @include _gr-row-base;
+  } @else {
+
+    @include _gr-row-base;
+    @include _gr-row($gr-gutter);
+  }
+}
+
+// TODO
+@mixin gr-col($width, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-col-base(_gr-get-resp-val($state, gutter));
+      @include _gr-col($width, _gr-get-resp-val($state, columns));
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    // TODO
+
+  } @else {
+
+    @include _gr-col-base($gr-gutter);
+    @include _gr-col($width, $gr-columns);
+  }
+}

@@ -1,0 +1,174 @@
+@mixin _gr-build-classes-without-states() {
+
+  @if $gr-set-container-style {
+
+    .#{$gr-container-class} {
+
+      max-width: $gr-grid-max-width;
+      padding-left: $gr-container-padding;
+      padding-right: $gr-container-padding;
+      box-sizing: border-box;
+    }
+  }
+
+  .#{$gr-row-class} {
+
+    @include gr-row();
+  }
+
+  @include _gr-col-selector-all {
+
+    @include _gr-col-base($gr-gutter);
+  }
+
+  @for $i from 1 to $gr-columns + 1 {
+
+    .#{$gr-column-class}-#{$i} {
+
+      @include _gr-col($i, $gr-columns);
+    }
+  }
+}
+
+@mixin _gr-build-classes() {
+
+  @include _gr-row-selector-states {
+
+    @include _gr-row-base;
+  }
+
+  @each $state, $state-config in $_gr-states {
+
+    @include _gr-media($state) {
+
+      @if $gr-set-container-style {
+
+        .#{$gr-container-class},
+        .#{$gr-container-class}#{$gr-state-class-divider}#{$state} {
+
+          $container-max-width: _gr-get-resp-val($state, container, max-width);
+          $container-padding: _gr-get-resp-val($state, container, padding);
+
+          @if $container-max-width {
+
+            max-width: $container-max-width;
+          }
+
+          @if $container-padding {
+
+            padding-left: $container-padding;
+            padding-right: $container-padding;
+          }
+
+          box-sizing: border-box;
+        }
+      }
+
+      .#{$gr-row-class},
+      .#{$gr-row-class}#{$gr-state-class-divider}#{$state} {
+
+        @include _gr-row(_gr-get-resp-val($state, gutter));
+      }
+
+      @include _gr-col-selector-all($state) {
+
+        @include _gr-col-base(_gr-get-resp-val($state, gutter))
+      }
+
+      // seperate columns without state modifier
+      // to override them by column classes with modifier
+      @for $i from 1 to _gr-get-resp-val($state, columns) + 1 {
+
+        .#{$gr-column-class}-#{$i} {
+
+          @include _gr-col($i, _gr-get-resp-val($state, columns));
+        }
+      }
+
+      @for $i from 1 to _gr-get-resp-val($state, columns) + 1 {
+
+        .#{$gr-column-class}-#{$i}#{$gr-state-class-divider}#{$state} {
+
+          @include _gr-col($i, _gr-get-resp-val($state, columns));
+        }
+      }
+    }
+  }
+}
+
+@mixin _gr-col-selector-all($state, $only-state: false) {
+  $_gr-classes: '';
+  $column-count: if($state, _gr-get-resp-val($state, columns) + 1, $gr-columns + 1);
+
+  @for $i from 1 to $column-count {
+
+    @if $i == 1 {
+
+      $_gr-classes: '.#{$gr-column-class}-#{$i}';
+    } @else {
+
+      $_gr-classes: $_gr-classes + ', ' + '.#{$gr-column-class}-#{$i}';
+    }
+  }
+
+  @if $state {
+
+    @for $i from 1 to $column-count {
+
+      @if $i == 1 and $only-state {
+
+        $_gr-classes: '.#{$gr-column-class}-#{$i}#{$gr-state-class-divider}#{$state}';
+      } @else {
+
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-column-class}-#{$i}#{$gr-state-class-divider}#{$state}';
+      }
+    }
+  }
+
+  #{$_gr-classes} {
+
+    @content;
+  }
+}
+
+@mixin _gr-row-selector-states() {
+
+  $_gr-row-classes: '.row';
+
+  @each $state, $state-config in $_gr-states {
+
+    $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-row-class}#{$gr-state-class-divider}#{$state}';
+  }
+
+  #{$_gr-row-classes} {
+
+    @content;
+  }
+}
+
+@mixin _gr-col-base($gutter) {
+
+  padding-left: $gutter / 2;
+  padding-right: $gutter / 2;
+  box-sizing: border-box;
+}
+
+@mixin _gr-col($width, $columns) {
+
+  width: #{100% / $columns * $width};
+}
+
+@mixin _gr-row-base() {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: auto;
+  box-sizing: border-box;
+};
+
+@mixin _gr-row($gutter) {
+
+  margin-left: #{ $gutter / -2};
+  margin-right: #{ $gutter / -2};
+};
