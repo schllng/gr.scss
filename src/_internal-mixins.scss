@@ -74,32 +74,3 @@
 @mixin _gr-show() {}
 @mixin _gr-first() {}
 @mixin _gr-last() {}
-
-@mixin _gr-row-no-gutter($left: false, $right: false) {
-
-  @include _gr-no-gutter('margin', $left, $right);
-}
-
-@mixin _gr-col-no-gutter($left: false, $right: false) {
-
-  @include _gr-no-gutter('padding', $left, $right);
-}
-
-@mixin _gr-no-gutter($prop, $left: false, $right: false) {
-
-  @if not $left and not $right {
-
-    $left: true;
-    $right: true;
-  }
-
-  @if $left {
-
-    #{$prop}-left: 0;
-  }
-
-  @if $right {
-
-    #{$prop}-right: 0;
-  }
-}

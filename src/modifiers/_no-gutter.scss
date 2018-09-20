@@ -1,0 +1,127 @@
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-no-gutter-classes($modifier, $state, $columns) {
+
+  .#{$gr-row-class}-no-gutter,
+  .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+    @include _gr-row-no-gutter;
+  }
+
+  .#{$gr-row-class}-no-gutter,
+  .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+    @include _gr-row-no-gutter(true);
+  }
+
+  .#{$gr-row-class}-no-gutter,
+  .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+    @include _gr-row-no-gutter(false, true);
+  }
+
+  .#{$gr-column-class}-no-gutter,
+  .#{$gr-column-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+    @include _gr-col-no-gutter;
+  }
+
+  .#{$gr-column-class}-no-gutter--left,
+  .#{$gr-column-class}-no-gutter--left#{$gr-state-class-divider}#{$state} {
+
+    @include _gr-col-no-gutter(true);
+  }
+
+  .#{$gr-column-class}-no-gutter--right,
+  .#{$gr-column-class}-no-gutter--right#{$gr-state-class-divider}#{$state} {
+
+    @include _gr-col-no-gutter(false, true);
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-no-gutter($left: false, $right: false) {
+
+  @include _gr-no-gutter('margin', $left, $right);
+}
+
+@mixin _gr-col-no-gutter($left: false, $right: false) {
+
+  @include _gr-no-gutter('padding', $left, $right);
+}
+
+@mixin _gr-no-gutter($prop, $left: false, $right: false) {
+
+  @if not $left and not $right {
+
+    $left: true;
+    $right: true;
+  }
+
+  @if $left {
+
+    #{$prop}-left: 0;
+  }
+
+  @if $right {
+
+    #{$prop}-right: 0;
+  }
+}
+
+@mixin gr-no-gutter-row($state: null, $left: false, $right: false) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-row-no-gutter($left, $right);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-row-no-gutter($left, $right);
+      }
+    }
+  } @else {
+
+    @include _gr-row-no-gutter($left, $right);
+  }
+}
+
+// ==============
+// public
+// ==============
+
+@mixin gr-no-gutter($state: null, $left: false, $right: false) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-col-no-gutter($left, $right);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-col-no-gutter($left, $right);
+      }
+    }
+  } @else {
+
+    @include _gr-col-no-gutter($left, $right);
+  }
+}
