@@ -75,7 +75,13 @@
 @mixin _gr-first() {}
 @mixin _gr-last() {}
 
-@mixin _gr-no-gutter($left, $right) {
+@mixin _gr-no-gutter($left: false, $right: false) {
+
+  @if not $left and not $right {
+
+    $left: true;
+    $right: true;
+  }
 
   @if $left {
 

@@ -110,12 +110,6 @@
 
 @mixin gr-no-gutter($state: null, $left: false, $right: false) {
 
-  @if not $left and not $right {
-
-    $left: true;
-    $right: true;
-  }
-
   @if $state and length($_gr-states) > 0 {
 
     @include _gr-media($state) {

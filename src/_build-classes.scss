@@ -79,11 +79,14 @@
           @include _gr-col($i, _gr-get-resp-val($state, columns));
         }
       }
+
+      @include _gr-build-col-modifier-classes($modifier, $state, _gr-get-resp-val($state, columns));
     }
   }
 }
 
 @mixin _gr-col-selector-all($state, $only-state: false) {
+
   $_gr-classes: '';
   $column-count: if($state, _gr-get-resp-val($state, columns) + 1, $gr-columns + 1);
 
@@ -130,5 +133,32 @@
   #{$_gr-row-classes} {
 
     @content;
+  }
+}
+
+
+@mixin _gr-build-col-modifier-classes($modifier, $state, $columns) {
+
+  $set-no-gutter-classes: map-get($modifier, no-gutter);
+
+  @if $set-no-gutter-classes {
+
+    .#{$gr-column-class}-no-gutter,
+    .#{$gr-column-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+      @include _gr-no-gutter();
+    }
+
+    .#{$gr-column-class}-no-gutter--left,
+    .#{$gr-column-class}-no-gutter--left#{$gr-state-class-divider}#{$state} {
+
+      @include _gr-no-gutter(true);
+    }
+
+    .#{$gr-column-class}-no-gutter--right,
+    .#{$gr-column-class}-no-gutter--right#{$gr-state-class-divider}#{$state} {
+
+      @include _gr-no-gutter(false, true);
+    }
   }
 }
