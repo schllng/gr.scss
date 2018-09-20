@@ -5,15 +5,15 @@
 
 @import './mixins';
 
-@mixin gr-build-classes() {
+@mixin gr-build-classes($modifier: ()) {
 
   // generate grid classes without media query definitions
   @if length($_gr-states) == 0 {
 
-    @include _gr-build-classes-without-states;
+    @include _gr-build-classes-without-states($modifier);
   } @else {
 
-    @include _gr-build-classes;
+    @include _gr-build-classes($modifier);
   }
 }
 
@@ -96,5 +96,45 @@
   } @else {
 
     @include _gr-container($gr-grid-max-width, $gr-container-padding);
+  }
+}
+
+@mixin gr-push($width, $state: null) {}
+@mixin gr-pull($width, $state: null) {}
+@mixin gr-prefix($width, $state: null) {}
+@mixin gr-suffix($width, $state: null) {}
+@mixin gr-row-reverse() {}
+@mixin gr-hide() {}
+@mixin gr-show() {}
+@mixin gr-first() {}
+@mixin gr-last() {}
+@mixin gr-align() {}
+
+@mixin gr-no-gutter($state: null, $left: false, $right: false) {
+
+  @if not $left and not $right {
+
+    $left: true;
+    $right: true;
+  }
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-no-gutter($left, $right);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-no-gutter($left, $right);
+      }
+    }
+  } @else {
+
+    @include _gr-no-gutter($left, $right);
   }
 }

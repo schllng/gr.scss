@@ -1,4 +1,4 @@
-@mixin _gr-build-classes-without-states() {
+@mixin _gr-build-classes-without-states($modifier) {
 
   @if $gr-set-container-style {
 
@@ -28,7 +28,7 @@
   }
 }
 
-@mixin _gr-build-classes() {
+@mixin _gr-build-classes($modifier) {
 
   @include _gr-row-selector-states {
 
@@ -174,4 +174,46 @@
   }
 
   box-sizing: border-box;
+}
+
+@mixin _gr-push($width, $columns) {
+
+  left: #{100% / $columns * $width};
+  right: auto;
+}
+
+@mixin _gr-pull($width, $columns) {
+
+  left: auto;
+  right: #{100% / $columns * $width};
+}
+
+@mixin _gr-prefix($width, $columns) {
+
+  margin-left: #{100% / $columns * $width};
+}
+
+@mixin _gr-suffix($width, $columns) {
+
+  margin-right: #{100% / $columns * $width};
+}
+
+@mixin _gr-row-reverse() {}
+@mixin _gr-align() {}
+@mixin _gr-hide() {}
+@mixin _gr-show() {}
+@mixin _gr-first() {}
+@mixin _gr-last() {}
+
+@mixin _gr-no-gutter($left, $right) {
+
+  @if $left {
+
+    padding-left: 0;
+  }
+
+  @if $right {
+
+    padding-right: 0;
+  }
 }
