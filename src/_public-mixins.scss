@@ -108,13 +108,13 @@
 @mixin gr-last() {}
 @mixin gr-align() {}
 
-@mixin gr-no-gutter($state: null, $left: false, $right: false) {
+@mixin gr-no-gutter-row($state: null, $left: false, $right: false) {
 
   @if $state and length($_gr-states) > 0 {
 
     @include _gr-media($state) {
 
-      @include _gr-no-gutter($left, $right);
+      @include _gr-row-no-gutter($left, $right);
     }
   } @elseif not $state and length($_gr-states) > 0 {
 
@@ -122,11 +122,34 @@
 
       @include _gr-media($state) {
 
-        @include _gr-no-gutter($left, $right);
+        @include _gr-row-no-gutter($left, $right);
       }
     }
   } @else {
 
-    @include _gr-no-gutter($left, $right);
+    @include _gr-row-no-gutter($left, $right);
+  }
+}
+
+@mixin gr-no-gutter($state: null, $left: false, $right: false) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-col-no-gutter($left, $right);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-col-no-gutter($left, $right);
+      }
+    }
+  } @else {
+
+    @include _gr-col-no-gutter($left, $right);
   }
 }

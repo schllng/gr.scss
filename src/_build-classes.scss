@@ -80,7 +80,7 @@
         }
       }
 
-      @include _gr-build-col-modifier-classes($modifier, $state, _gr-get-resp-val($state, columns));
+      @include _gr-build-modifier-classes($modifier, $state, _gr-get-resp-val($state, columns));
     }
   }
 }
@@ -137,28 +137,46 @@
 }
 
 
-@mixin _gr-build-col-modifier-classes($modifier, $state, $columns) {
+@mixin _gr-build-modifier-classes($modifier, $state, $columns) {
 
   $set-no-gutter-classes: map-get($modifier, no-gutter);
 
   @if $set-no-gutter-classes {
 
+    .#{$gr-row-class}-no-gutter,
+    .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+      @include _gr-row-no-gutter;
+    }
+
+    .#{$gr-row-class}-no-gutter,
+    .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+      @include _gr-row-no-gutter(true);
+    }
+
+    .#{$gr-row-class}-no-gutter,
+    .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+
+      @include _gr-row-no-gutter(false, true);
+    }
+
     .#{$gr-column-class}-no-gutter,
     .#{$gr-column-class}-no-gutter#{$gr-state-class-divider}#{$state} {
 
-      @include _gr-no-gutter();
+      @include _gr-col-no-gutter;
     }
 
     .#{$gr-column-class}-no-gutter--left,
     .#{$gr-column-class}-no-gutter--left#{$gr-state-class-divider}#{$state} {
 
-      @include _gr-no-gutter(true);
+      @include _gr-col-no-gutter(true);
     }
 
     .#{$gr-column-class}-no-gutter--right,
     .#{$gr-column-class}-no-gutter--right#{$gr-state-class-divider}#{$state} {
 
-      @include _gr-no-gutter(false, true);
+      @include _gr-col-no-gutter(false, true);
     }
   }
 }
