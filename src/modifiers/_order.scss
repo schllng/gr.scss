@@ -1,0 +1,70 @@
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-order-classes($modifier, $columns, $state: null) {
+
+  $order-list: first, last;
+
+  @for $i from 1 to $columns + 1 {
+
+    $order-list: append($order-list, $i);
+  }
+
+  @each $position in $order-list {
+
+    $order-selector: '.#{$gr-column-class}--order-#{$position}';
+
+    @if $state {
+
+      $order-selector: '#{$order-selector}, #{$order-selector}#{$gr-state-class-divider}#{$state}';
+    }
+
+    #{$order-selector} {
+
+      @include _gr-order($position);
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-order($position) {
+
+  $position: if($position == 'first', -1, $position);
+  $position: if($position == 'last', 9999, $position);
+
+  order: $position;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-order($position, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-order($position);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-order($position);
+      }
+    }
+  } @else {
+
+    @include _gr-order($position);
+  }
+}

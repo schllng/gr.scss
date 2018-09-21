@@ -3,7 +3,7 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-no-gutter-classes($modifier, $columns, $state) {
+@mixin _gr-build-modifier-no-gutter-classes($modifier, $state) {
 
   $no-gutter-row-selector: '.#{$gr-row-class}--no-gutter';
   $no-gutter-row-selector--left: '.#{$gr-row-class}--no-gutter--left';

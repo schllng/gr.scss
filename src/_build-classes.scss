@@ -144,10 +144,11 @@
   $set-row-full-classes: map-get($modifier, row-full);
   $set-row-reverse-classes: map-get($modifier, row-reverse);
   $set-align-classes: map-get($modifier, align);
+  $set-order-classes: map-get($modifier, order);
 
   @if $set-no-gutter-classes {
 
-    @include _gr-build-modifier-no-gutter-classes($modifier, $columns, $state);
+    @include _gr-build-modifier-no-gutter-classes($modifier, $state);
   }
 
   @if $set-row-full-classes {
@@ -163,5 +164,10 @@
   @if $set-align-classes {
 
     @include _gr-build-modifier-align-classes($modifier, $state);
+  }
+
+  @if $set-order-classes {
+
+    @include _gr-build-modifier-order-classes($modifier, $columns, $state);
   }
 }
