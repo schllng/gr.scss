@@ -44,7 +44,7 @@ pull: true,
   row-reverse: false,
 hide-show: true,
 first-last: true,
-align: true,
+  align: true,
   no-gutter: false,
 row-debug: true
 ));
@@ -122,6 +122,9 @@ row-debug: true
 }
 
 .test-gr-6 {
+
+  // @include gr-align(top);
+  // @include gr-align('end', m);
   // @include gr-row-reverse();
   // @include gr-row-reverse(m);
   // @include gr-row-full();

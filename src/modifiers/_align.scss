@@ -1,0 +1,72 @@
+
+$_gr-align-directions: (
+  start: (property: 'justify-content', value: 'flex-start'),
+  center: (property: 'justify-content', value: 'center'),
+  end: (property: 'justify-content', value: 'flex-end'),
+  top: (property: 'align-items', value: 'flex-start'),
+  middle: (property: 'align-items', value: 'center'),
+  bottom: (property: 'align-items', value: 'flex-end'),
+  around: (property: 'justify-content', value: 'space-around'),
+  between: (property: 'justify-content', value: 'space-between')
+);
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-align-classes($modifier, $state) {
+
+  @each $direction, $direction-styles in $_gr-align-directions {
+
+    $align-row-selector: '.#{$gr-row-class}--align-#{$direction}';
+
+    @if $state {
+
+      $align-row-selector: '#{$align-row-selector}, #{$align-row-selector}#{$gr-state-class-divider}#{$state}';
+    }
+
+    #{$align-row-selector} {
+
+      @include _gr-align($direction);
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+// $direction: start, center, end, top, middle, bottom, around, between
+@mixin _gr-align($direction) {
+
+  #{_gr-multi-map-get($_gr-align-directions, $direction, property)}: #{_gr-multi-map-get($_gr-align-directions, $direction, value)};
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-align($direction, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-align($direction);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-align($direction);
+      }
+    }
+  } @else {
+
+    @include _gr-align($direction);
+  }
+}
