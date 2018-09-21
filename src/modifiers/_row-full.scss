@@ -39,5 +39,23 @@
 
 @mixin gr-row-full($state: null) {
 
-  @include _gr-row-full($state);
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-row-full($state);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-row-full($state);
+      }
+    }
+  } @else {
+
+    @include _gr-row-full($state);
+  }
 }
