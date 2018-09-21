@@ -1,0 +1,135 @@
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-col-base($gutter) {
+
+  padding-left: $gutter / 2;
+  padding-right: $gutter / 2;
+  box-sizing: border-box;
+}
+
+@mixin _gr-col($width, $columns) {
+
+  width: #{100% / $columns * $width};
+}
+
+@mixin _gr-row-base() {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: auto;
+  box-sizing: border-box;
+};
+
+@mixin _gr-row($gutter) {
+
+  margin-left: #{ $gutter / -2};
+  margin-right: #{ $gutter / -2};
+};
+
+@mixin _gr-container($max-width, $padding) {
+
+  @if $max-width {
+
+    max-width: $max-width;
+  }
+
+  @if $padding {
+
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  box-sizing: border-box;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-col($width, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-col-base(_gr-get-resp-val($state, gutter));
+      @include _gr-col($width, _gr-get-resp-val($state, columns));
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-col-base(_gr-get-resp-val($state, gutter));
+        @include _gr-col($width, _gr-get-resp-val($state, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-col-base($gr-gutter);
+    @include _gr-col($width, $gr-columns);
+  }
+}
+
+@mixin gr-row($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-row-base;
+      @include _gr-row(_gr-get-resp-val($state, gutter));
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @include _gr-row-base;
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-row(_gr-get-resp-val($state, gutter));
+      }
+    }
+  } @else {
+
+    @include _gr-row-base;
+    @include _gr-row($gr-gutter);
+  }
+}
+
+@mixin gr-container($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      $container-max-width: _gr-get-resp-val($state, container, max-width);
+      $container-padding: _gr-get-resp-val($state, container, padding);
+
+      @include _gr-container($container-max-width, $container-padding);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        $container-max-width: _gr-get-resp-val($state, container, max-width);
+        $container-padding: _gr-get-resp-val($state, container, padding);
+
+        @include _gr-container($container-max-width, $container-padding);
+      }
+    }
+  } @else {
+
+    @include _gr-container($gr-grid-max-width, $gr-container-padding);
+  }
+}

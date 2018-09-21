@@ -1,3 +1,15 @@
+@mixin gr-build-classes($modifier: ()) {
+
+  // generate grid classes without media query definitions
+  @if length($_gr-states) == 0 {
+
+    @include _gr-build-classes-without-states($modifier);
+  } @else {
+
+    @include _gr-build-classes($modifier);
+  }
+}
+
 @mixin _gr-build-classes-without-states($modifier) {
 
   @if $gr-set-container-style {
