@@ -1,0 +1,83 @@
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-prefix-suffix-classes($columns, $state: null) {
+
+  // $prefix-selector: '.#{$gr-column-class}--full';
+  //
+  // @if $state {
+  //
+  //   $prefix-selector: '#{$prefix-selector}, #{$prefix-selector}#{$gr-state-class-divider}#{$state}';
+  // }
+  //
+  // #{$prefix-selector} {
+  //
+  //   @include _gr-prefix($state);
+  // }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-prefix($width, $state: null) {
+
+}
+
+@mixin _gr-suffix($width, $state: null) {
+
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-prefix($width, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-prefix($width, $state);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($width, $state) {
+
+        @include _gr-prefix($state);
+      }
+    }
+  } @else {
+
+    @include _gr-prefix($width, $state);
+  }
+}
+
+@mixin gr-suffix($width, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-suffix($width, $state);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($width, $state) {
+
+        @include _gr-suffix($state);
+      }
+    }
+  } @else {
+
+    @include _gr-suffix($width, $state);
+  }
+}

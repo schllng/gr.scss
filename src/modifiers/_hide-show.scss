@@ -18,7 +18,7 @@ $_gr-hide-show-types: (
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-hide-show-classes($modifier, $state: null) {
+@mixin _gr-build-modifier-hide-show-classes($state: null) {
 
   $_gr-hide-show-type-selectors: $_gr-hide-show-types;
 

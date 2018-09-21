@@ -3,7 +3,7 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-order-classes($modifier, $columns, $state: null) {
+@mixin _gr-build-modifier-order-classes($columns, $state: null) {
 
   $order-list: first, last;
 

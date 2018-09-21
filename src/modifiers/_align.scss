@@ -14,7 +14,7 @@ $_gr-align-directions: (
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-align-classes($modifier, $state) {
+@mixin _gr-build-modifier-align-classes($state) {
 
   @each $direction, $direction-styles in $_gr-align-directions {
 

@@ -146,34 +146,41 @@
   $set-align-classes: map-get($modifier, align);
   $set-order-classes: map-get($modifier, order);
   $set-hide-show-classes: map-get($modifier, hide-show);
+  $set-prefix-classes: map-get($modifier, prefix);
+  $set-suffix-classes: map-get($modifier, suffix);
+
+  @if  $set-prefix-classes or $set-suffix-classes {
+
+    @include _gr-build-modifier-prefix-suffix-classes($columns, $state);
+  }
 
   @if $set-no-gutter-classes {
 
-    @include _gr-build-modifier-no-gutter-classes($modifier, $state);
+    @include _gr-build-modifier-no-gutter-classes($state);
   }
 
   @if $set-row-full-classes {
 
-    @include _gr-build-modifier-row-full-classes($modifier, $state);
+    @include _gr-build-modifier-row-full-classes($state);
   }
 
   @if $set-row-reverse-classes {
 
-    @include _gr-build-modifier-row-reverse-classes($modifier, $state);
+    @include _gr-build-modifier-row-reverse-classes($state);
   }
 
   @if $set-align-classes {
 
-    @include _gr-build-modifier-align-classes($modifier, $state);
+    @include _gr-build-modifier-align-classes($state);
   }
 
   @if $set-order-classes {
 
-    @include _gr-build-modifier-order-classes($modifier, $columns, $state);
+    @include _gr-build-modifier-order-classes($columns, $state);
   }
 
   @if $set-hide-show-classes {
 
-    @include _gr-build-modifier-hide-show-classes($modifier, $state);
+    @include _gr-build-modifier-hide-show-classes($state);
   }
 }

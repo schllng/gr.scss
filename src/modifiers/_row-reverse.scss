@@ -3,7 +3,7 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-row-reverse-classes($modifier, $state: null) {
+@mixin _gr-build-modifier-row-reverse-classes($state: null) {
 
   $row-reverse-selector: '.#{$gr-row-class}--reverse';
 

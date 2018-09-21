@@ -3,7 +3,7 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-row-full-classes($modifier, $state: null) {
+@mixin _gr-build-modifier-row-full-classes($state: null) {
 
   $row-full-selector: '.#{$gr-row-class}--full';
 
