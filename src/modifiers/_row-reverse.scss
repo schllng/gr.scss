@@ -1,0 +1,57 @@
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-reverse-classes($modifier, $state: null) {
+
+  $row-reverse-selector: '.#{$gr-row-class}--reverse';
+
+  @if $state {
+
+    $row-reverse-selector: '#{$row-reverse-selector}, #{$row-reverse-selector}#{$gr-state-class-divider}#{$state}';
+  }
+
+  #{$row-reverse-selector} {
+
+    @include _gr-row-reverse($state);
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-reverse($state: null) {
+
+  flex-direction: row-reverse;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-reverse($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-row-reverse();
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-row-reverse();
+      }
+    }
+  } @else {
+
+    @include _gr-row-reverse();
+  }
+}
