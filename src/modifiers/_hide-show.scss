@@ -1,0 +1,188 @@
+
+$_gr-hide-show-types: (
+  hide: (
+    selector: '.gr-hide'
+  ),
+  show: (
+    selector: '.gr-show'
+  ),
+  hidden: (
+    selector: '.gr-hidden'
+  ),
+  visible: (
+    selector: '.gr-visible'
+  )
+);
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-hide-show-classes($modifier, $state: null) {
+
+  $_gr-hide-show-type-selectors: $_gr-hide-show-types;
+
+  @each $type, $selector-map in $_gr-hide-show-types {
+
+    $selector: map-get($selector-map, selector);
+
+    @if $state {
+
+      $selector: '#{$selector}, #{$selector}#{$gr-state-class-divider}#{$state}';
+    }
+
+    @if $type == hide {
+
+      #{$selector} {
+
+        @include _gr-hide($state);
+      }
+    }
+
+    @if $type == show {
+
+      #{$selector} {
+
+        @include _gr-show(', $stateblock');
+      }
+    }
+
+    @if $type == hidden {
+
+      #{$selector} {
+
+        @include _gr-hidden($state);
+      }
+    }
+
+    @if $type == visible {
+
+      #{$selector} {
+
+        @include _gr-visible($state);
+      }
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-hide($state: null) {
+
+  display: none;
+}
+
+@mixin _gr-show($state: null, $disblay-type: 'block') {
+
+  display: #{$disblay-type};
+}
+
+@mixin _gr-hidden($state: null) {
+
+  visibility: hidden;
+}
+
+@mixin _gr-visible($state: null) {
+
+  visibility: visible;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-hide($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-hide($state);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-hide($state);
+      }
+    }
+  } @else {
+
+    @include _gr-hide($state);
+  }
+}
+
+@mixin gr-show($state: null, $disblay-type: 'block') {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-show($state, $disblay-type);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-show($state, $disblay-type);
+      }
+    }
+  } @else {
+
+    @include _gr-show($state, $disblay-type);
+  }
+}
+
+@mixin gr-hidden($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-hidden($state);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-hidden($state);
+      }
+    }
+  } @else {
+
+    @include _gr-hidden($state);
+  }
+}
+
+@mixin gr-visible($state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-visible($state);
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-visible($state);
+      }
+    }
+  } @else {
+
+    @include _gr-visible($state);
+  }
+}

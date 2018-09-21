@@ -145,6 +145,7 @@
   $set-row-reverse-classes: map-get($modifier, row-reverse);
   $set-align-classes: map-get($modifier, align);
   $set-order-classes: map-get($modifier, order);
+  $set-hide-show-classes: map-get($modifier, hide-show);
 
   @if $set-no-gutter-classes {
 
@@ -169,5 +170,10 @@
   @if $set-order-classes {
 
     @include _gr-build-modifier-order-classes($modifier, $columns, $state);
+  }
+
+  @if $set-hide-show-classes {
+
+    @include _gr-build-modifier-hide-show-classes($modifier, $state);
   }
 }

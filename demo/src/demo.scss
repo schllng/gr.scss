@@ -42,7 +42,7 @@ push: true,
 pull: true,
   row-full: false,
   row-reverse: false,
-hide-show: true,
+  hide-show: false,
   order: false,
   align: false,
   no-gutter: false,
@@ -123,16 +123,27 @@ row-debug: true
 
 .test-gr-6 {
 
+  // @include gr-hide(m);
+  // @include gr-show(m);
+  // @include gr-show();
+  // @include gr-show(null, 'inline');
+  // @include gr-hidden(l);
+  // @include gr-visible(s);
+
   // @include gr-order(3);
   // @include gr-order(last, m);
+
   // @include gr-align(top);
   // @include gr-align('end', m);
+
   // @include gr-row-reverse();
   // @include gr-row-reverse(m);
+
   // @include gr-row-full();
   // @include gr-row-full(m);
+
   // @include gr-no-gutter-row();
-  @include gr-no-gutter(m);
-  @include gr-no-gutter(s, true);
-  @include gr-no-gutter(l, false, true);
+  // @include gr-no-gutter(m);
+  // @include gr-no-gutter(s, true);
+  // @include gr-no-gutter(l, false, true);
 }
