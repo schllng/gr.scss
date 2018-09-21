@@ -89,6 +89,11 @@
   }
 }
 
+
+// ==============
+// public
+// ==============
+
 @mixin gr-no-gutter-row($state: null, $left: false, $right: false) {
 
   @if $state and length($_gr-states) > 0 {
@@ -111,10 +116,6 @@
     @include _gr-row-no-gutter($left, $right);
   }
 }
-
-// ==============
-// public
-// ==============
 
 @mixin gr-no-gutter($state: null, $left: false, $right: false) {
 
