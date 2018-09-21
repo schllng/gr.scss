@@ -1,7 +1,7 @@
 @mixin _gr-build-classes-without-states($modifier) {
-
+@debug '1';
   @if $gr-set-container-style {
-
+@debug '2';
     .#{$gr-container-class} {
 
       @include _gr-container($gr-grid-max-width, $gr-container-padding);
@@ -26,6 +26,8 @@
       @include _gr-col($i, $gr-columns);
     }
   }
+
+  @include _gr-build-modifier-classes($modifier, $gr-columns);
 }
 
 @mixin _gr-build-classes($modifier) {
@@ -80,12 +82,12 @@
         }
       }
 
-      @include _gr-build-modifier-classes($modifier, $state, _gr-get-resp-val($state, columns));
+      @include _gr-build-modifier-classes($modifier, _gr-get-resp-val($state, columns), $state);
     }
   }
 }
 
-@mixin _gr-col-selector-all($state, $only-state: false) {
+@mixin _gr-col-selector-all($state: null, $only-state: false) {
 
   $_gr-classes: '';
   $column-count: if($state, _gr-get-resp-val($state, columns) + 1, $gr-columns + 1);
@@ -136,12 +138,12 @@
   }
 }
 
-@mixin _gr-build-modifier-classes($modifier, $state, $columns) {
+@mixin _gr-build-modifier-classes($modifier, $columns, $state: null) {
 
   $set-no-gutter-classes: map-get($modifier, no-gutter);
 
   @if $set-no-gutter-classes {
 
-    @include _gr-build-modifier-no-gutter-classes($modifier, $state, $columns)
+    @include _gr-build-modifier-no-gutter-classes($modifier, $columns, $state)
   }
 }

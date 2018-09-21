@@ -3,40 +3,53 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-no-gutter-classes($modifier, $state, $columns) {
+@mixin _gr-build-modifier-no-gutter-classes($modifier, $columns, $state) {
 
-  .#{$gr-row-class}-no-gutter,
-  .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+  $no-gutter-row-selector: '.#{$gr-row-class}-no-gutter';
+  $no-gutter-row-selector--left: '.#{$gr-row-class}-no-gutter--left';
+  $no-gutter-row-selector--right: '.#{$gr-row-class}-no-gutter--right';
+
+  $no-gutter-col-selector: '.#{$gr-column-class}-no-gutter';
+  $no-gutter-col-selector--left: '.#{$gr-column-class}-no-gutter--left';
+  $no-gutter-col-selector--right: '.#{$gr-column-class}-no-gutter--right';
+
+  @if $state {
+
+    $no-gutter-row-selector: '#{$no-gutter-row-selector}, #{$no-gutter-row-selector}#{$gr-state-class-divider}#{$state}';
+    $no-gutter-row-selector--left: '#{$no-gutter-row-selector--left}, #{$no-gutter-row-selector--left}#{$gr-state-class-divider}#{$state}';
+    $no-gutter-row-selector--right: '#{$no-gutter-row-selector--right}, #{$no-gutter-row-selector--right}#{$gr-state-class-divider}#{$state}';
+
+    $no-gutter-col-selector: '#{$no-gutter-col-selector}, #{$no-gutter-col-selector}#{$gr-state-class-divider}#{$state}';
+    $no-gutter-col-selector--left: '#{$no-gutter-col-selector--left}, #{$no-gutter-col-selector--left}#{$gr-state-class-divider}#{$state}';
+    $no-gutter-col-selector--right: '#{$no-gutter-col-selector--right}, #{$no-gutter-col-selector--right}#{$gr-state-class-divider}#{$state}';
+  }
+
+  #{$no-gutter-row-selector} {
 
     @include _gr-row-no-gutter;
   }
 
-  .#{$gr-row-class}-no-gutter,
-  .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+  #{$no-gutter-row-selector--left} {
 
     @include _gr-row-no-gutter(true);
   }
 
-  .#{$gr-row-class}-no-gutter,
-  .#{$gr-row-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+  #{$no-gutter-row-selector--right} {
 
     @include _gr-row-no-gutter(false, true);
   }
 
-  .#{$gr-column-class}-no-gutter,
-  .#{$gr-column-class}-no-gutter#{$gr-state-class-divider}#{$state} {
+  #{$no-gutter-col-selector} {
 
     @include _gr-col-no-gutter;
   }
 
-  .#{$gr-column-class}-no-gutter--left,
-  .#{$gr-column-class}-no-gutter--left#{$gr-state-class-divider}#{$state} {
+  #{$no-gutter-col-selector--left} {
 
     @include _gr-col-no-gutter(true);
   }
 
-  .#{$gr-column-class}-no-gutter--right,
-  .#{$gr-column-class}-no-gutter--right#{$gr-state-class-divider}#{$state} {
+  #{$no-gutter-col-selector--right} {
 
     @include _gr-col-no-gutter(false, true);
   }
