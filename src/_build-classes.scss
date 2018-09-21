@@ -1,7 +1,7 @@
 @mixin _gr-build-classes-without-states($modifier) {
-@debug '1';
+
   @if $gr-set-container-style {
-@debug '2';
+
     .#{$gr-container-class} {
 
       @include _gr-container($gr-grid-max-width, $gr-container-padding);
@@ -141,9 +141,15 @@
 @mixin _gr-build-modifier-classes($modifier, $columns, $state: null) {
 
   $set-no-gutter-classes: map-get($modifier, no-gutter);
+  $set-row-full-classes: map-get($modifier, row-full);
 
   @if $set-no-gutter-classes {
 
     @include _gr-build-modifier-no-gutter-classes($modifier, $columns, $state)
+  }
+
+  @if $set-row-full-classes {
+
+    @include _gr-build-modifier-row-full-classes($modifier, $state)
   }
 }

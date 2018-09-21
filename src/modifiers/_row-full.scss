@@ -1,0 +1,43 @@
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-full-classes($modifier, $state: null) {
+
+  $row-full-selector: '.#{$gr-row-class}--full';
+
+  @if $state {
+
+    $row-full-selector: '#{$row-full-selector}, #{$row-full-selector}#{$gr-state-class-divider}#{$state}';
+  }
+
+  #{$row-full-selector} {
+
+    @include _gr-row-full($state);
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-full($state: null) {
+
+  $gutter: if($state, _gr-get-resp-val($state, gutter), $gr-gutter);
+
+  width: calc(100vw + #{$gutter});
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-full($state: null) {
+
+  @include _gr-row-full($state);
+}

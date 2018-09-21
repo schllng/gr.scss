@@ -40,12 +40,12 @@ prefix: true,
 suffix: true,
 push: true,
 pull: true,
-row-full: true,
+  row-full: false,
 row-reverse: true,
 hide-show: true,
 first-last: true,
 align: true,
-  no-gutter: true,
+  no-gutter: false,
 row-debug: true
 ));
 
@@ -122,7 +122,9 @@ row-debug: true
 }
 
 .test-gr-6 {
-  @include gr-no-gutter-row();
+  // @include gr-row-full();
+  // @include gr-row-full(m);
+  // @include gr-no-gutter-row();
   @include gr-no-gutter(m);
   @include gr-no-gutter(s, true);
   @include gr-no-gutter(l, false, true);
