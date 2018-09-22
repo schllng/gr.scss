@@ -123,6 +123,11 @@ row-debug: true
 
 .test-gr-6 {
 
+  // @include gr-prefix(4);
+  // @include gr-prefix(6, m);
+  // @include gr-suffix(4);
+  // @include gr-suffix(6, m);
+
   // @include gr-hide(m);
   // @include gr-show(m);
   // @include gr-show();
