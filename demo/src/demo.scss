@@ -36,16 +36,16 @@ $gr-set-container-style: true;
 @import '../../index';
 
 @include gr-build-classes((
-  prefix: false,
-  suffix: false,
+  prefix: true,
+  suffix: true,
   push: true,
   pull: true,
-  row-full: false,
-  row-reverse: false,
-  hide-show: false,
-  order: false,
-  align: false,
-  no-gutter: false,
+  row-full: true,
+  row-reverse: true,
+  hide-show: true,
+  order: true,
+  align: true,
+  no-gutter: true,
 row-debug: true
 ));
 
@@ -122,6 +122,11 @@ row-debug: true
 }
 
 .test-gr-6 {
+
+  @include gr-push(4);
+  @include gr-push(6, m);
+  @include gr-pull(4);
+  @include gr-pull(6, m);
 
   // @include gr-prefix(4);
   // @include gr-prefix(6, m);

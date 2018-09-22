@@ -93,8 +93,8 @@
 
     #{$push-pull-classes} {
 
-      position: relative;
-    }  
+      @include _gr-push-pull-base;
+    }
   }
 }
 
@@ -115,6 +115,11 @@
   left: auto;
 }
 
+@mixin _gr-push-pull-base {
+
+  position: relative;
+}
+
 
 // ==============
 // public
@@ -126,6 +131,7 @@
 
     @include _gr-media($state) {
 
+      @include _gr-push-pull-base;
       @include _gr-push($width, _gr-get-resp-val($state, columns));
     }
   } @elseif not $state and length($_gr-states) > 0 {
@@ -134,11 +140,13 @@
 
       @include _gr-media($state) {
 
+        @include _gr-push-pull-base;
         @include _gr-push($width, _gr-get-resp-val($state, columns));
       }
     }
   } @else {
 
+    @include _gr-push-pull-base;
     @include _gr-push($width, $gr-columns);
   }
 }
@@ -149,6 +157,7 @@
 
     @include _gr-media($state) {
 
+      @include _gr-push-pull-base;
       @include _gr-pull($width, _gr-get-resp-val($state, columns));
     }
   } @elseif not $state and length($_gr-states) > 0 {
@@ -157,11 +166,13 @@
 
       @include _gr-media($state) {
 
+        @include _gr-push-pull-base;
         @include _gr-pull($width, _gr-get-resp-val($state, columns));
       }
     }
   } @else {
 
+    @include _gr-push-pull-base;
     @include _gr-pull($width, $gr-columns);
   }
 }
