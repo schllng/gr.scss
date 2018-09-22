@@ -36,16 +36,16 @@ $gr-set-container-style: true;
 @import '../../index';
 
 @include gr-build-classes((
-prefix: true,
-suffix: true,
+  prefix: true,
+  suffix: true,
 push: true,
 pull: true,
-  row-full: false,
-  row-reverse: false,
-  hide-show: false,
-  order: false,
-  align: false,
-  no-gutter: false,
+  row-full: true,
+  row-reverse: true,
+  hide-show: true,
+  order: true,
+  align: true,
+  no-gutter: true,
 row-debug: true
 ));
 
