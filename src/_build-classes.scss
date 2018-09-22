@@ -161,9 +161,9 @@
   $set-prefix-classes: map-get($modifier, prefix);
   $set-suffix-classes: map-get($modifier, suffix);
 
-  @if  $set-prefix-classes or $set-suffix-classes {
+  @if $set-prefix-classes or $set-suffix-classes {
 
-    @include _gr-build-modifier-prefix-suffix-classes($columns, $state);
+    @include _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes, $set-suffix-classes, $state);
   }
 
   @if $set-no-gutter-classes {

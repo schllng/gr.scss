@@ -2,20 +2,54 @@
 // ==============
 // build classes
 // ==============
+// .gr--prefix-2@s
+@mixin _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes: false, $set-suffix-classes: false, $state: null) {
 
-@mixin _gr-build-modifier-prefix-suffix-classes($columns, $state: null) {
+  $prefix-selector: '.#{$gr-column-class}--prefix';
+  $suffix-selector: '.#{$gr-column-class}--suffix';
 
-  // $prefix-selector: '.#{$gr-column-class}--full';
-  //
-  // @if $state {
-  //
-  //   $prefix-selector: '#{$prefix-selector}, #{$prefix-selector}#{$gr-state-class-divider}#{$state}';
-  // }
-  //
-  // #{$prefix-selector} {
-  //
-  //   @include _gr-prefix($state);
-  // }
+  // seperate columns without state modifier
+  // to override them by column classes with modifier
+  @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+
+    @if $set-prefix-classes {
+
+      #{$prefix-selector}-#{$i} {
+
+        @include _gr-prefix($i, _gr-get-resp-val($state, columns));
+      }
+    }
+
+    @if $set-suffix-classes {
+
+      #{$suffix-selector}-#{$i} {
+
+        @include _gr-suffix($i, _gr-get-resp-val($state, columns));
+      }
+    }
+  }
+
+  @if $state {
+
+    @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+
+      @if $set-prefix-classes {
+
+        #{$prefix-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
+
+          @include _gr-prefix($i, _gr-get-resp-val($state, columns));
+        }
+      }
+
+      @if $set-suffix-classes {
+
+        #{$suffix-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
+
+          @include _gr-suffix($i, _gr-get-resp-val($state, columns));
+        }
+      }
+    }
+  }
 }
 
 
@@ -23,12 +57,14 @@
 // internals
 // ==============
 
-@mixin _gr-prefix($width, $state: null) {
+@mixin _gr-prefix($width, $columns) {
 
+  margin-left: #{100% / $columns * $width};
 }
 
-@mixin _gr-suffix($width, $state: null) {
+@mixin _gr-suffix($width, $columns) {
 
+  margin-right: #{100% / $columns * $width};
 }
 
 
@@ -42,20 +78,20 @@
 
     @include _gr-media($state) {
 
-      @include _gr-prefix($width, $state);
+      @include _gr-prefix($width, _gr-get-resp-val($state, columns));
     }
   } @elseif not $state and length($_gr-states) > 0 {
 
     @each $state, $state-config in $_gr-states {
 
-      @include _gr-media($width, $state) {
+      @include _gr-media($state) {
 
-        @include _gr-prefix($state);
+        @include _gr-prefix($width, _gr-get-resp-val($state, columns));
       }
     }
   } @else {
 
-    @include _gr-prefix($width, $state);
+    @include _gr-prefix($width, $gr-columns);
   }
 }
 
@@ -65,19 +101,19 @@
 
     @include _gr-media($state) {
 
-      @include _gr-suffix($width, $state);
+      @include _gr-suffix($width, _gr-get-resp-val($state, columns));
     }
   } @elseif not $state and length($_gr-states) > 0 {
 
     @each $state, $state-config in $_gr-states {
 
-      @include _gr-media($width, $state) {
+      @include _gr-media($state) {
 
-        @include _gr-suffix($state);
+        @include _gr-suffix($width, _gr-get-resp-val($state, columns));
       }
     }
   } @else {
 
-    @include _gr-suffix($width, $state);
+    @include _gr-suffix($width, $gr-columns);
   }
 }
