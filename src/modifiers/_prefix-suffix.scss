@@ -8,28 +8,28 @@
   $prefix-selector: '.#{$gr-column-class}--prefix';
   $suffix-selector: '.#{$gr-column-class}--suffix';
 
-  // seperate columns without state modifier
-  // to override them by column classes with modifier
-  @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
-
-    @if $set-prefix-classes {
-
-      #{$prefix-selector}-#{$i} {
-
-        @include _gr-prefix($i, _gr-get-resp-val($state, columns));
-      }
-    }
-
-    @if $set-suffix-classes {
-
-      #{$suffix-selector}-#{$i} {
-
-        @include _gr-suffix($i, _gr-get-resp-val($state, columns));
-      }
-    }
-  }
-
   @if $state {
+
+    // seperate columns without state modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+
+      @if $set-prefix-classes {
+
+        #{$prefix-selector}-#{$i} {
+
+          @include _gr-prefix($i, _gr-get-resp-val($state, columns));
+        }
+      }
+
+      @if $set-suffix-classes {
+
+        #{$suffix-selector}-#{$i} {
+
+          @include _gr-suffix($i, _gr-get-resp-val($state, columns));
+        }
+      }
+    }
 
     @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
 
@@ -46,6 +46,28 @@
         #{$suffix-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
 
           @include _gr-suffix($i, _gr-get-resp-val($state, columns));
+        }
+      }
+    }
+  } @else {
+
+    // seperate columns without state modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to $gr-columns + 1 {
+
+      @if $set-prefix-classes {
+
+        #{$prefix-selector}-#{$i} {
+
+          @include _gr-prefix($i, $gr-columns);
+        }
+      }
+
+      @if $set-suffix-classes {
+
+        #{$suffix-selector}-#{$i} {
+
+          @include _gr-suffix($i, $gr-columns);
         }
       }
     }
