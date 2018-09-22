@@ -5,7 +5,8 @@
   "main": "index.scss",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node-sass demo/src/demo.scss demo/styles/gr.css && node-sass -w -r --include-path src demo/src/demo.scss demo/styles/gr.css"
+    "dev": "node-sass demo/src/demo.scss demo/styles/gr.css && node-sass -w -r --include-path src demo/src/demo.scss demo/styles/gr.css",
+    "build": "node-sass --output-style compressed demo/src/demo.scss demo/styles/gr.css"
   },
   "repository": {
     "type": "git",
