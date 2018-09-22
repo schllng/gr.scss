@@ -160,10 +160,17 @@
   $set-hide-show-classes: map-get($modifier, hide-show);
   $set-prefix-classes: map-get($modifier, prefix);
   $set-suffix-classes: map-get($modifier, suffix);
+  $set-push-classes: map-get($modifier, push);
+  $set-pull-classes: map-get($modifier, pull);
 
   @if $set-prefix-classes or $set-suffix-classes {
 
     @include _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes, $set-suffix-classes, $state);
+  }
+
+  @if $set-push-classes or $set-pull-classes {
+
+    @include _gr-build-modifier-push-pull-classes($columns, $set-push-classes, $set-pull-classes, $state);
   }
 
   @if $set-no-gutter-classes {

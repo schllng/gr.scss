@@ -1,0 +1,167 @@
+
+// ==============
+// build classes
+// ==============
+// .gr--prefix-2@s
+@mixin _gr-build-modifier-push-pull-classes($columns, $set-push-classes: false, $set-pull-classes: false, $state: null) {
+
+  $push-selector: '.#{$gr-column-class}--push';
+  $pull-selector: '.#{$gr-column-class}--pull';
+
+  $push-pull-classes: ();
+
+  @if $state {
+
+    // seperate columns without state modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+
+      @if $set-push-classes {
+
+        $push-pull-classes: append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
+
+        #{$push-selector}-#{$i} {
+
+          @include _gr-push($i, _gr-get-resp-val($state, columns));
+        }
+      }
+
+      @if $set-pull-classes {
+
+        $push-pull-classes: append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
+
+        #{$pull-selector}-#{$i} {
+
+          @include _gr-pull($i, _gr-get-resp-val($state, columns));
+        }
+      }
+    }
+
+    @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+
+      @if $set-push-classes {
+
+        $push-pull-classes: append($push-pull-classes, #{$push-selector}-#{$i}#{$gr-state-class-divider}#{$state}, 'comma');
+
+        #{$push-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
+
+          @include _gr-push($i, _gr-get-resp-val($state, columns));
+        }
+      }
+
+      @if $set-pull-classes {
+
+        $push-pull-classes: append($push-pull-classes, #{$pull-selector}-#{$i}#{$gr-state-class-divider}#{$state}, 'comma');
+
+        #{$pull-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
+
+          @include _gr-pull($i, _gr-get-resp-val($state, columns));
+        }
+      }
+    }
+  } @else {
+
+    // seperate columns without state modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to $gr-columns + 1 {
+
+      @if $set-push-classes {
+
+        $push-pull-classes: append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
+
+        #{$push-selector}-#{$i} {
+
+          @include _gr-push($i, $gr-columns);
+        }
+      }
+
+      @if $set-pull-classes {
+
+        $push-pull-classes: append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
+
+        #{$pull-selector}-#{$i} {
+
+          @include _gr-pull($i, $gr-columns);
+        }
+      }
+    }
+  }
+
+  // @debug $push-pull-classes;
+
+  @if length($push-pull-classes) > 0 {
+
+    #{$push-pull-classes} {
+
+      position: relative;
+    }  
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-push($width, $columns) {
+
+  right: auto;
+  left: #{100% / $columns * $width};
+}
+
+@mixin _gr-pull($width, $columns) {
+
+  right: #{100% / $columns * $width};
+  left: auto;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-push($width, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-push($width, _gr-get-resp-val($state, columns));
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-push($width, _gr-get-resp-val($state, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-push($width, $gr-columns);
+  }
+}
+
+@mixin gr-pull($width, $state: null) {
+
+  @if $state and length($_gr-states) > 0 {
+
+    @include _gr-media($state) {
+
+      @include _gr-pull($width, _gr-get-resp-val($state, columns));
+    }
+  } @elseif not $state and length($_gr-states) > 0 {
+
+    @each $state, $state-config in $_gr-states {
+
+      @include _gr-media($state) {
+
+        @include _gr-pull($width, _gr-get-resp-val($state, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-pull($width, $gr-columns);
+  }
+}
