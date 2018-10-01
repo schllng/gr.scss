@@ -18,7 +18,7 @@ $_gr-align-directions: (
 
   @each $direction, $direction-styles in $_gr-align-directions {
 
-    $align-row-selector: '.#{$gr-row-class}--align-#{$direction}';
+    $align-row-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--align-#{$direction}';
 
     @if $state {
 

@@ -5,7 +5,7 @@
 
 @mixin _gr-build-modifier-row-full-classes($state: null) {
 
-  $row-full-selector: '.#{$gr-row-class}--full';
+  $row-full-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--full';
 
   @if $state {
 

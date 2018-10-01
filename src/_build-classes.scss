@@ -14,13 +14,13 @@
 
   @if $gr-set-container-style {
 
-    .#{$gr-container-class} {
+    .#{$gr-namespace-class}-#{$gr-container-class} {
 
       @include _gr-container($gr-grid-max-width, $gr-container-padding);
     }
   }
 
-  .#{$gr-row-class} {
+  .#{$gr-namespace-class}-#{$gr-row-class} {
 
     @include _gr-row-base;
     @include _gr-row($gr-gutter);
@@ -33,7 +33,7 @@
 
   @for $i from 1 to $gr-columns + 1 {
 
-    .#{$gr-column-class}-#{$i} {
+    .#{$gr-namespace-class}-#{$i} {
 
       @include _gr-col($i, $gr-columns);
     }
@@ -55,8 +55,8 @@
 
       @if $gr-set-container-style {
 
-        .#{$gr-container-class},
-        .#{$gr-container-class}#{$gr-state-class-divider}#{$state} {
+        .#{$gr-namespace-class}-#{$gr-container-class},
+        .#{$gr-namespace-class}-#{$gr-container-class}#{$gr-state-class-divider}#{$state} {
 
           $container-max-width: _gr-get-resp-val($state, container, max-width);
           $container-padding: _gr-get-resp-val($state, container, padding);
@@ -65,8 +65,8 @@
         }
       }
 
-      .#{$gr-row-class},
-      .#{$gr-row-class}#{$gr-state-class-divider}#{$state} {
+      .#{$gr-namespace-class}-#{$gr-row-class},
+      .#{$gr-namespace-class}-#{$gr-row-class}#{$gr-state-class-divider}#{$state} {
 
         @include _gr-row(_gr-get-resp-val($state, gutter));
       }
@@ -80,7 +80,7 @@
       // to override them by column classes with modifier
       @for $i from 1 to _gr-get-resp-val($state, columns) + 1 {
 
-        .#{$gr-column-class}-#{$i} {
+        .#{$gr-namespace-class}-#{$i} {
 
           @include _gr-col($i, _gr-get-resp-val($state, columns));
         }
@@ -88,7 +88,7 @@
 
       @for $i from 1 to _gr-get-resp-val($state, columns) + 1 {
 
-        .#{$gr-column-class}-#{$i}#{$gr-state-class-divider}#{$state} {
+        .#{$gr-namespace-class}-#{$i}#{$gr-state-class-divider}#{$state} {
 
           @include _gr-col($i, _gr-get-resp-val($state, columns));
         }
@@ -115,10 +115,10 @@
 
       @if $i == 1 {
 
-        $_gr-classes: '.#{$gr-column-class}-#{$i}';
+        $_gr-classes: '.#{$gr-namespace-class}-#{$i}';
       } @else {
 
-        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-column-class}-#{$i}';
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-namespace-class}-#{$i}';
       }
     }
   }
@@ -129,10 +129,10 @@
 
       @if $i == 1 and $only-state {
 
-        $_gr-classes: '.#{$gr-column-class}-#{$i}#{$gr-state-class-divider}#{$state}';
+        $_gr-classes: '.#{$gr-namespace-class}-#{$i}#{$gr-state-class-divider}#{$state}';
       } @else {
 
-        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-column-class}-#{$i}#{$gr-state-class-divider}#{$state}';
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-namespace-class}-#{$i}#{$gr-state-class-divider}#{$state}';
       }
     }
   }
@@ -144,15 +144,15 @@
 }
 
 /**
- * Generates selectors for all row elements (.row, .row@...) and sets styles for them
+ * Generates selectors for all row elements (.gr-row, .gr-row@...) and sets styles for them
  */
 @mixin _gr-row-selector-states() {
 
-  $_gr-row-classes: '.row';
+  $_gr-row-classes: '.#{$gr-namespace-class}-#{$gr-row-class}';
 
   @each $state, $state-config in $_gr-states {
 
-    $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-row-class}#{$gr-state-class-divider}#{$state}';
+    $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-namespace-class}-#{$gr-row-class}#{$gr-state-class-divider}#{$state}';
   }
 
   #{$_gr-row-classes} {

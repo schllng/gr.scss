@@ -5,8 +5,8 @@
 // .gr--prefix-2@s
 @mixin _gr-build-modifier-push-pull-classes($columns, $set-push-classes: false, $set-pull-classes: false, $state: null) {
 
-  $push-selector: '.#{$gr-column-class}--push';
-  $pull-selector: '.#{$gr-column-class}--pull';
+  $push-selector: '.#{$gr-namespace-class}--push';
+  $pull-selector: '.#{$gr-namespace-class}--pull';
 
   $push-pull-classes: ();
 

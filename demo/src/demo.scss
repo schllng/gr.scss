@@ -48,112 +48,112 @@ $gr-set-container-style: true;
   no-gutter: true,
 row-debug: true
 ));
-
-// TODO test
-.test-container {
-  @include gr-container;
-}
-
-// .test-container-m {
-//   @include gr-container(m);
+//
+// // TODO test
+// .test-container {
+//   @include gr-container;
 // }
-
-.test-row {
-  @include gr-row();
-}
-
-// .test-row-m {
-//   @include gr-row(m);
+//
+// // .test-container-m {
+// //   @include gr-container(m);
+// // }
+//
+// .test-row {
+//   @include gr-row();
 // }
-
-.test-gr-2 {
-
-  @include gr-col(2);
-}
-
-.test-gr-6 {
-
-  @include gr-col(6);
-}
-
-.test-gr-12 {
-
-  @include gr-col(12);
-}
-
-.test-gr-1\@s {
-
-  @include gr-col(1, s);
-}
-
-.test-gr-3\@s {
-
-  @include gr-col(3, s);
-}
-
-.test-gr-1\@m {
-
-  @include gr-col(1, m);
-}
-
-.test-gr-8\@m {
-
-  @include gr-col(8, m);
-}
-
-.test-gr-1\@l {
-
-  @include gr-col(1, l);
-}
-
-.test-gr-5\@l {
-
-  @include gr-col(5, l);
-}
-
-.test-gr-6\@l {
-
-  @include gr-col(6, l);
-}
-
-.test-gr-12\@l {
-
-  @include gr-col(12, l);
-}
-
-.test-gr-6 {
-
-  @include gr-push(4);
-  @include gr-push(6, m);
-  @include gr-pull(4);
-  @include gr-pull(6, m);
-
-  // @include gr-prefix(4);
-  // @include gr-prefix(6, m);
-  // @include gr-suffix(4);
-  // @include gr-suffix(6, m);
-
-  // @include gr-hide(m);
-  // @include gr-show(m);
-  // @include gr-show();
-  // @include gr-show(null, 'inline');
-  // @include gr-hidden(l);
-  // @include gr-visible(s);
-
-  // @include gr-order(3);
-  // @include gr-order(last, m);
-
-  // @include gr-align(top);
-  // @include gr-align('end', m);
-
-  // @include gr-row-reverse();
-  // @include gr-row-reverse(m);
-
-  // @include gr-row-full();
-  // @include gr-row-full(m);
-
-  // @include gr-no-gutter-row();
-  // @include gr-no-gutter(m);
-  // @include gr-no-gutter(s, true);
-  // @include gr-no-gutter(l, false, true);
-}
+//
+// // .test-row-m {
+// //   @include gr-row(m);
+// // }
+//
+// .test-gr-2 {
+//
+//   @include gr-col(2);
+// }
+//
+// .test-gr-6 {
+//
+//   @include gr-col(6);
+// }
+//
+// .test-gr-12 {
+//
+//   @include gr-col(12);
+// }
+//
+// .test-gr-1\@s {
+//
+//   @include gr-col(1, s);
+// }
+//
+// .test-gr-3\@s {
+//
+//   @include gr-col(3, s);
+// }
+//
+// .test-gr-1\@m {
+//
+//   @include gr-col(1, m);
+// }
+//
+// .test-gr-8\@m {
+//
+//   @include gr-col(8, m);
+// }
+//
+// .test-gr-1\@l {
+//
+//   @include gr-col(1, l);
+// }
+//
+// .test-gr-5\@l {
+//
+//   @include gr-col(5, l);
+// }
+//
+// .test-gr-6\@l {
+//
+//   @include gr-col(6, l);
+// }
+//
+// .test-gr-12\@l {
+//
+//   @include gr-col(12, l);
+// }
+//
+// .test-gr-6 {
+//
+//   @include gr-push(4);
+//   @include gr-push(6, m);
+//   @include gr-pull(4);
+//   @include gr-pull(6, m);
+//
+//   // @include gr-prefix(4);
+//   // @include gr-prefix(6, m);
+//   // @include gr-suffix(4);
+//   // @include gr-suffix(6, m);
+//
+//   // @include gr-hide(m);
+//   // @include gr-show(m);
+//   // @include gr-show();
+//   // @include gr-show(null, 'inline');
+//   // @include gr-hidden(l);
+//   // @include gr-visible(s);
+//
+//   // @include gr-order(3);
+//   // @include gr-order(last, m);
+//
+//   // @include gr-align(top);
+//   // @include gr-align('end', m);
+//
+//   // @include gr-row-reverse();
+//   // @include gr-row-reverse(m);
+//
+//   // @include gr-row-full();
+//   // @include gr-row-full(m);
+//
+//   // @include gr-no-gutter-row();
+//   // @include gr-no-gutter(m);
+//   // @include gr-no-gutter(s, true);
+//   // @include gr-no-gutter(l, false, true);
+// }

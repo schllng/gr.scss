@@ -5,13 +5,13 @@
 
 @mixin _gr-build-modifier-no-gutter-classes($state) {
 
-  $no-gutter-row-selector: '.#{$gr-row-class}--no-gutter';
-  $no-gutter-row-selector-left: '.#{$gr-row-class}--no-gutter-left';
-  $no-gutter-row-selector-right: '.#{$gr-row-class}--no-gutter-right';
+  $no-gutter-row-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter';
+  $no-gutter-row-selector-left: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter-left';
+  $no-gutter-row-selector-right: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter-right';
 
-  $no-gutter-col-selector: '.#{$gr-column-class}--no-gutter';
-  $no-gutter-col-selector-left: '.#{$gr-column-class}--no-gutter-left';
-  $no-gutter-col-selector-right: '.#{$gr-column-class}--no-gutter-right';
+  $no-gutter-col-selector: '.#{$gr-namespace-class}--no-gutter';
+  $no-gutter-col-selector-left: '.#{$gr-namespace-class}--no-gutter-left';
+  $no-gutter-col-selector-right: '.#{$gr-namespace-class}--no-gutter-right';
 
   @if $state {
 

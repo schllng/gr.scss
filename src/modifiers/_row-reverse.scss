@@ -5,7 +5,7 @@
 
 @mixin _gr-build-modifier-row-reverse-classes($state: null) {
 
-  $row-reverse-selector: '.#{$gr-row-class}--reverse';
+  $row-reverse-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--reverse';
 
   @if $state {
 

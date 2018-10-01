@@ -14,7 +14,7 @@
 
   @each $position in $order-list {
 
-    $order-selector: '.#{$gr-column-class}--order-#{$position}';
+    $order-selector: '.#{$gr-namespace-class}--order-#{$position}';
 
     @if $state {
 

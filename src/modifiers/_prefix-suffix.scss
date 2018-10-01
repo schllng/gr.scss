@@ -5,8 +5,8 @@
 // .gr--prefix-2@s
 @mixin _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes: false, $set-suffix-classes: false, $state: null) {
 
-  $prefix-selector: '.#{$gr-column-class}--prefix';
-  $suffix-selector: '.#{$gr-column-class}--suffix';
+  $prefix-selector: '.#{$gr-namespace-class}--prefix';
+  $suffix-selector: '.#{$gr-namespace-class}--suffix';
 
   @if $state {
 

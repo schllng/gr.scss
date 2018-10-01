@@ -1,6 +1,6 @@
 {
   "name": "ingrid",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Flexbox based grid system",
   "main": "index.scss",
   "scripts": {
