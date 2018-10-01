@@ -1,3 +1,10 @@
+/**
+ * Iterates over given keys to get the value of a multi dimensional map.
+ * Each given key but the last must return another map with the next key in it.
+ * @param  {Map}          $map       The map containing the first given key
+ * @param  {...String}    $targets   A string or a list of strings with key names
+ * @return {Mixed}                   The value of the last given key
+ */
 @function _gr-multi-map-get($map, $targets...) {
 
   $val: $map;
@@ -12,11 +19,25 @@
   @return $val;
 }
 
-@function _gr-get-resp-val($br, $targets...) {
+/**
+ * Returns a value for the given keys from the state configuration map and the given state.
+ * A wrapper for the _gr-multi-map-get function to work with the state configuration.
+ * @param  {String}       $state    The state identifier for the searched value
+ * @param  {...String}    $targets  A string or a list of strings with key names
+ * @return {Mixed}                  The value of the last given key
+ */
+@function _gr-get-resp-val($state, $targets...) {
 
-  @return _gr-multi-map-get($_gr-states, $br, $targets...);
+  @return _gr-multi-map-get($_gr-states, $state, $targets...);
 }
 
+/**
+ * Set a new value for a new or existing key within the given map.
+ * @param  {Map}     $map    The map where the key and/or value should be set.
+ * @param  {String}  $key    The key for the map.
+ * @param  {Mixed}   $value  The value to set for the given key.
+ * @return {Map}             The new map
+ */
 @function _gr-map-set($map, $key, $value) {
 
   $new: ($key: $value);

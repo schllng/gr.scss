@@ -99,19 +99,27 @@
   }
 }
 
+/**
+ * Generates selectors for all columns for the given state ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
+ * @param  {String|null}  $state       null   The state identifier for which the selector should be build
+ * @param  {Boolean}      $only-state  false  Wheter classes without state should be added or not
+ */
 @mixin _gr-col-selector-all($state: null, $only-state: false) {
 
   $_gr-classes: '';
   $column-count: if($state, _gr-get-resp-val($state, columns) + 1, $gr-columns + 1);
 
-  @for $i from 1 to $column-count {
+  @if not $only-state {
 
-    @if $i == 1 {
+    @for $i from 1 to $column-count {
 
-      $_gr-classes: '.#{$gr-column-class}-#{$i}';
-    } @else {
+      @if $i == 1 {
 
-      $_gr-classes: $_gr-classes + ', ' + '.#{$gr-column-class}-#{$i}';
+        $_gr-classes: '.#{$gr-column-class}-#{$i}';
+      } @else {
+
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-column-class}-#{$i}';
+      }
     }
   }
 
@@ -135,6 +143,9 @@
   }
 }
 
+/**
+ * Generates selectors for all row elements (.row, .row@...) and sets styles for them
+ */
 @mixin _gr-row-selector-states() {
 
   $_gr-row-classes: '.row';
@@ -150,6 +161,12 @@
   }
 }
 
+/**
+ * Checks for activated modifiers and calls their build function
+ * @param  {Map}          $modifier       Map of all supported modifiers and if they are active ({String}: {Boolean})
+ * @param  {Number}       $columns        Column-count for modifiers to generate all necessary classes
+ * @param  {String|null}  $state    null  The state identifier for which the modifiers should be build
+ */
 @mixin _gr-build-modifier-classes($modifier, $columns, $state: null) {
 
   $set-no-gutter-classes: map-get($modifier, no-gutter);

@@ -1,3 +1,8 @@
+/**
+ * Builds the media query for the given state identifiers to wrap the styles in.
+ * @param  {String}          $start         The state identifier to get the maximum and/or minimum width from.
+ * @param  {String|Boolean}  $end    false  If given, the mixin uses the maximum value from this state.
+ */
 @mixin _gr-media($start, $end: false) {
 
   $str: null;
