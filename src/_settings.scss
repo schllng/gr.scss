@@ -19,7 +19,6 @@ $gr-states: () !default;
 $_gr-states: map-merge((), $gr-states);
 
 // extend state settings with defaults as fallbacks
-// TODO handle container-sizes
 @if length($_gr-states) > 0 {
 
   @each $state, $state-config in $_gr-states {
@@ -33,7 +32,7 @@ $_gr-states: map-merge((), $gr-states);
 
     $_container-max-width: _gr-multi-map-get($state-config, container, max-width);
     $_container-padding: _gr-multi-map-get($state-config, container, padding);
-// @debug $_container-max-width, $_container-padding;
+
     $_container: (
       max-width: if($_container-max-width, $_container-max-width, $gr-container-max-width),
       padding: if($_container-padding, $_container-padding, $gr-container-padding)
@@ -45,5 +44,3 @@ $_gr-states: map-merge((), $gr-states);
     $_gr-states: _gr-map-set($_gr-states, $state, $state-config);
   }
 }
-
-@debug $_gr-states;
