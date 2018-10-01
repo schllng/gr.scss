@@ -130,6 +130,6 @@
     }
   } @else {
 
-    @include _gr-container($gr-grid-max-width, $gr-container-padding);
+    @include _gr-container($gr-container-max-width, $gr-container-padding);
   }
 }
