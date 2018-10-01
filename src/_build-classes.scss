@@ -1,16 +1,16 @@
-@mixin gr-build-classes($modifier: ()) {
+@mixin gr-build-classes($features: ()) {
 
   // generate grid classes without media query definitions
   @if length($_gr-states) == 0 {
 
-    @include _gr-build-classes-without-states($modifier);
+    @include _gr-build-classes-without-states($features);
   } @else {
 
-    @include _gr-build-classes($modifier);
+    @include _gr-build-classes($features);
   }
 }
 
-@mixin _gr-build-classes-without-states($modifier) {
+@mixin _gr-build-classes-without-states($features) {
 
   @if $gr-set-container-style {
 
@@ -39,10 +39,10 @@
     }
   }
 
-  @include _gr-build-modifier-classes($modifier, $gr-columns);
+  @include _gr-build-modifier-classes($features, $gr-columns);
 }
 
-@mixin _gr-build-classes($modifier) {
+@mixin _gr-build-classes($features) {
 
   @include _gr-row-selector-states {
 
@@ -94,7 +94,7 @@
         }
       }
 
-      @include _gr-build-modifier-classes($modifier, _gr-get-resp-val($state, columns), $state);
+      @include _gr-build-modifier-classes($features, _gr-get-resp-val($state, columns), $state);
     }
   }
 }
@@ -163,22 +163,22 @@
 
 /**
  * Checks for activated modifiers and calls their build function
- * @param  {Map}          $modifier       Map of all supported modifiers and if they are active ({String}: {Boolean})
+ * @param  {Map}          $features       Map of all supported modifiers and if they are active ({String}: {Boolean})
  * @param  {Number}       $columns        Column-count for modifiers to generate all necessary classes
  * @param  {String|null}  $state    null  The state identifier for which the modifiers should be build
  */
-@mixin _gr-build-modifier-classes($modifier, $columns, $state: null) {
+@mixin _gr-build-modifier-classes($features, $columns, $state: null) {
 
-  $set-no-gutter-classes: map-get($modifier, no-gutter);
-  $set-row-full-classes: map-get($modifier, row-full);
-  $set-row-reverse-classes: map-get($modifier, row-reverse);
-  $set-align-classes: map-get($modifier, align);
-  $set-order-classes: map-get($modifier, order);
-  $set-hide-show-classes: map-get($modifier, hide-show);
-  $set-prefix-classes: map-get($modifier, prefix);
-  $set-suffix-classes: map-get($modifier, suffix);
-  $set-push-classes: map-get($modifier, push);
-  $set-pull-classes: map-get($modifier, pull);
+  $set-no-gutter-classes: map-get($features, no-gutter);
+  $set-row-full-classes: map-get($features, row-full);
+  $set-row-reverse-classes: map-get($features, row-reverse);
+  $set-align-classes: map-get($features, align);
+  $set-order-classes: map-get($features, order);
+  $set-hide-show-classes: map-get($features, hide-show);
+  $set-prefix-classes: map-get($features, prefix);
+  $set-suffix-classes: map-get($features, suffix);
+  $set-push-classes: map-get($features, push);
+  $set-pull-classes: map-get($features, pull);
 
   @if $set-prefix-classes or $set-suffix-classes {
 

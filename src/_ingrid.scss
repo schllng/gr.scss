@@ -3,14 +3,14 @@
 
 @import 'settings';
 
-@import 'modifiers/no-gutter';
-@import 'modifiers/row-full';
-@import 'modifiers/row-reverse';
-@import 'modifiers/align';
-@import 'modifiers/order';
-@import 'modifiers/hide-show';
-@import 'modifiers/prefix-suffix';
-@import 'modifiers/push-pull';
+@import 'features/no-gutter';
+@import 'features/row-full';
+@import 'features/row-reverse';
+@import 'features/align';
+@import 'features/order';
+@import 'features/hide-show';
+@import 'features/prefix-suffix';
+@import 'features/push-pull';
 
 @import 'base-mixins';
 
