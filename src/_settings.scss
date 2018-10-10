@@ -1,19 +1,40 @@
-// default settings
+// Default settings:
 
-//
+// {Boolean} - If you need styles for a wrapping container-element, set this to true
 $gr-set-container-style: false !default;
 
-// class names
+// ==============
+// Completly customizable class names:
+// ==============
+
+// {String} - The prefix for all classes (.#{$gr-namespace-class}-)
 $gr-namespace-class: 'gr' !default;
+
+// {String} - The classname for the container-selector: (.#{$gr-namespace-class}-#{$gr-container-class})
 $gr-container-class: 'container' !default;
+
+// {String} - The classname for the row-selector: (.#{$gr-namespace-class}-#{$gr-row-class})
 $gr-row-class: 'row' !default;
+
+// {String} - If you want to apply grid-styles only for a specific state, this divider (.#{$gr-namespace-class}-12#{$gr-state-class-divider}#{STATE_ID})
 $gr-state-class-divider: '\\@' !default;
 
-// grid
+// ==============
+// General grid definitions
+// ==============
+
+// {Number} - Number of columns to use
 $gr-columns: 12 !default;
+
+// {Number} - Space between one column and another
 $gr-gutter: 24px !default;
+
+// {Number} - The maximum width of the wrapping container
 $gr-container-max-width: 1200px !default;
+
+// {Number} - Spacing around the grid
 $gr-container-padding: 20px !default;
+
 $gr-states: () !default;
 
 $_gr-states: map-merge((), $gr-states);
