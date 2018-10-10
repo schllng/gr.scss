@@ -27,15 +27,15 @@
 
     @if $min and not $max {
 
-      $str: 'screen and (min-width: #{$min})';
+      $str: '(min-width: #{$min})';
 
     } @else if $max and not $min {
 
-      $str: 'screen and (max-width: #{$max})';
+      $str: '(max-width: #{$max})';
 
     } @else {
 
-      $str: 'screen and (min-width: #{$min}) and (max-width: #{$max})';
+      $str: '(min-width: #{$min}) and (max-width: #{$max})';
     }
   }
 
