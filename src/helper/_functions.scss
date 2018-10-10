@@ -31,6 +31,11 @@
   @return _gr-multi-map-get($gr-states, $state, $targets...);
 }
 
+@function gr-get-responsive-value($state, $targets...) {
+
+  @return _gr-get-resp-val($state, $targets...);
+}
+
 /**
  * Set a new value for a new or existing key within the given map.
  * @param  {Map}     $map    The map where the key and/or value should be set.

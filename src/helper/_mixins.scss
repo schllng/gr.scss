@@ -49,4 +49,12 @@
 
     @content
   }
-}
+};
+
+@mixin gr-media($start, $end: false) {
+
+  @include _gr-media($start, $end) {
+
+    @content
+  }
+};

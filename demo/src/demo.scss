@@ -35,21 +35,97 @@ $gr-set-container-style: true;
 
 @import '../../index';
 
-@include gr-build-classes((
-  prefix: false,
-  suffix: false,
-  push: false,
-  pull: false,
-  row-full: false,
-  row-reverse: false,
-  hide-show: false,
-  order: false,
-  align: false,
-  no-gutter: false,
-row-debug: false
-));
+// @include gr-build-classes((
+//   prefix: false,
+//   suffix: false,
+//   push: false,
+//   pull: false,
+//   row-full: false,
+//   row-reverse: false,
+//   hide-show: false,
+//   order: false,
+//   align: false,
+//   no-gutter: false,
+// row-debug: false
+// ));
+
+
+// /**@include _gr-media(s) {*/
+// @include _gr-media(s) {
 //
-// // TODO test
+//   .test-container {
+//     max-width: #{gr-get-responsive-value(l, container, max-width)};
+//   }
+// }
+// /**@include gr-media(s) {*/
+// @include gr-media(s) {
+//
+//   .test-container {
+//     background-color: #f02;
+//   }
+// }
+//
+// /**@include _gr-media(m) {*/
+// @include _gr-media(m) {
+//
+//   .test-container {
+//     background-color: #ff1;
+//   }
+// }
+// /**@include gr-media(m) {*/
+// @include gr-media(m) {
+//
+//   .test-container {
+//     background-color: #ff2;
+//   }
+// }
+//
+// /**@include _gr-media(l) {*/
+// @include _gr-media(l) {
+//
+//   .test-container {
+//     background-color: #ff1;
+//   }
+// }
+// /**@include gr-media(l) {*/
+// @include gr-media(l) {
+//
+//   .test-container {
+//     background-color: #ff2;
+//   }
+// }
+//
+// /**@include _gr-media(s, m) {*/
+// @include _gr-media(s, m) {
+//
+//   .test-container {
+//     background-color: #ff1;
+//   }
+// }
+// /**@include gr-media(s, m) {*/
+// @include gr-media(s, m) {
+//
+//   .test-container {
+//     background-color: #ff2;
+//   }
+// }
+//
+// /**@include _gr-media(s, l) {*/
+// @include _gr-media(s, l) {
+//
+//   .test-container {
+//     background-color: #ff1;
+//   }
+// }
+// /**@include gr-media(s, l) {*/
+// @include gr-media(s, l) {
+//
+//   .test-container {
+//     background-color: #ff2;
+//   }
+// }
+//
+//
 // .test-container {
 //   @include gr-container;
 // }
