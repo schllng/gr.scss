@@ -3,7 +3,7 @@ $gr-states: (
     min: null,
     max: 600px,
     gutter: 12px,
-    columns: null,
+    columns: 12,
     container: (
       max-width: 100%,
       padding: 30px
@@ -13,7 +13,7 @@ $gr-states: (
     min: 601px,
     max: 1000px,
     gutter: 14px,
-    columns: null,
+    columns: 12,
     container: (
       max-width: 600px,
       padding: null
@@ -22,8 +22,8 @@ $gr-states: (
   l: (
     min: 1001px,
     max: null,
-    gutter: null,
-    columns: null,
+    gutter: 40px,
+    columns: 12,
     container: (
       max-width: 1200px,
       padding: 60px
@@ -36,17 +36,17 @@ $gr-set-container-style: true;
 @import '../../index';
 
 @include gr-build-classes((
-  prefix: true,
-  suffix: true,
-  push: true,
-  pull: true,
-  row-full: true,
-  row-reverse: true,
-  hide-show: true,
-  order: true,
-  align: true,
-  no-gutter: true,
-row-debug: true
+  prefix: false,
+  suffix: false,
+  push: false,
+  pull: false,
+  row-full: false,
+  row-reverse: false,
+  hide-show: false,
+  order: false,
+  align: false,
+  no-gutter: false,
+row-debug: false
 ));
 //
 // // TODO test

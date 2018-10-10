@@ -54,16 +54,16 @@
 
 @mixin gr-col($width, $state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-col-base(_gr-get-resp-val($state, gutter));
       @include _gr-col($width, _gr-get-resp-val($state, columns));
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -80,18 +80,18 @@
 
 @mixin gr-row($state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-row-base;
       @include _gr-row(_gr-get-resp-val($state, gutter));
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
     @include _gr-row-base;
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -107,7 +107,7 @@
 
 @mixin gr-container($state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
@@ -116,9 +116,9 @@
 
       @include _gr-container($container-max-width, $container-padding);
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 

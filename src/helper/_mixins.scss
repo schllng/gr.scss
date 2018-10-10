@@ -8,7 +8,7 @@
   $str: null;
   $min: false;
   $max: false;
-  $state-start: map-get($_gr-states, $start);
+  $state-start: map-get($gr-states, $start);
 
   @if $state-start {
     @if $start and not $end {
@@ -17,7 +17,7 @@
       $max: map-get($state-start, 'max');
     } @else {
 
-      $state-end: map-get($_gr-states, $end);
+      $state-end: map-get($gr-states, $end);
       $min: map-get($state-start, 'min');
       $max: map-get($state-end, 'max');
     }

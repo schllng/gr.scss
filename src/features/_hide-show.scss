@@ -97,15 +97,15 @@ $_gr-hide-show-types: (
 
 @mixin gr-hide($state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-hide($state);
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -120,15 +120,15 @@ $_gr-hide-show-types: (
 
 @mixin gr-show($state: null, $disblay-type: 'block') {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-show($state, $disblay-type);
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -143,15 +143,15 @@ $_gr-hide-show-types: (
 
 @mixin gr-hidden($state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-hidden($state);
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -166,15 +166,15 @@ $_gr-hide-show-types: (
 
 @mixin gr-visible($state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-visible($state);
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 

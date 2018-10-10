@@ -28,7 +28,7 @@
  */
 @function _gr-get-resp-val($state, $targets...) {
 
-  @return _gr-multi-map-get($_gr-states, $state, $targets...);
+  @return _gr-multi-map-get($gr-states, $state, $targets...);
 }
 
 /**

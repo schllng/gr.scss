@@ -96,15 +96,15 @@
 
 @mixin gr-prefix($width, $state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-prefix($width, _gr-get-resp-val($state, columns));
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -119,15 +119,15 @@
 
 @mixin gr-suffix($width, $state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-suffix($width, _gr-get-resp-val($state, columns));
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 

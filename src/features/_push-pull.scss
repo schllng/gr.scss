@@ -127,16 +127,16 @@
 
 @mixin gr-push($width, $state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-push-pull-base;
       @include _gr-push($width, _gr-get-resp-val($state, columns));
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 
@@ -153,16 +153,16 @@
 
 @mixin gr-pull($width, $state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-push-pull-base;
       @include _gr-pull($width, _gr-get-resp-val($state, columns));
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 

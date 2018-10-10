@@ -50,15 +50,15 @@ $_gr-align-directions: (
 
 @mixin gr-align($direction, $state: null) {
 
-  @if $state and length($_gr-states) > 0 {
+  @if $state and length($gr-states) > 0 {
 
     @include _gr-media($state) {
 
       @include _gr-align($direction);
     }
-  } @elseif not $state and length($_gr-states) > 0 {
+  } @elseif not $state and length($gr-states) > 0 {
 
-    @each $state, $state-config in $_gr-states {
+    @each $state, $state-config in $gr-states {
 
       @include _gr-media($state) {
 

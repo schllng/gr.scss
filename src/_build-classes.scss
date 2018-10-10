@@ -1,7 +1,7 @@
 @mixin gr-build-classes($features: ()) {
 
   // generate grid classes without media query definitions
-  @if length($_gr-states) == 0 {
+  @if length($gr-states) == 0 {
 
     @include _gr-build-classes-without-states($features);
   } @else {
@@ -49,7 +49,7 @@
     @include _gr-row-base;
   }
 
-  @each $state, $state-config in $_gr-states {
+  @each $state, $state-config in $gr-states {
 
     @include _gr-media($state) {
 
@@ -150,7 +150,7 @@
 
   $_gr-row-classes: '.#{$gr-namespace-class}-#{$gr-row-class}';
 
-  @each $state, $state-config in $_gr-states {
+  @each $state, $state-config in $gr-states {
 
     $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-namespace-class}-#{$gr-row-class}#{$gr-state-class-divider}#{$state}';
   }

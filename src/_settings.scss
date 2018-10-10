@@ -36,32 +36,3 @@ $gr-container-max-width: 1200px !default;
 $gr-container-padding: 20px !default;
 
 $gr-states: () !default;
-
-$_gr-states: map-merge((), $gr-states);
-
-// extend state settings with defaults as fallbacks
-@if length($_gr-states) > 0 {
-
-  @each $state, $state-config in $_gr-states {
-
-    $_gutter: map-get($state-config, gutter);
-    $_gutter: if($_gutter, $_gutter, $gr-gutter);
-    $state-config: _gr-map-set($state-config, gutter, $_gutter);
-
-    $_columns: map-get($state-config, columns);
-    $_columns: if($_columns, $_columns, $gr-columns);
-
-    $_container-max-width: _gr-multi-map-get($state-config, container, max-width);
-    $_container-padding: _gr-multi-map-get($state-config, container, padding);
-
-    $_container: (
-      max-width: if($_container-max-width, $_container-max-width, $gr-container-max-width),
-      padding: if($_container-padding, $_container-padding, $gr-container-padding)
-    );
-
-    $state-config: _gr-map-set($state-config, columns, $_columns);
-    $state-config: _gr-map-set($state-config, container, $_container);
-
-    $_gr-states: _gr-map-set($_gr-states, $state, $state-config);
-  }
-}
