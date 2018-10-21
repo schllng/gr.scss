@@ -1,4 +1,4 @@
-$gr-states: (
+$gr-breakpoints: (
   s: (
     min: null,
     max: 600px,
@@ -35,19 +35,33 @@ $gr-set-container-style: true;
 
 @import '../../index';
 
-// @include gr-build-classes((
-//   prefix: false,
-//   suffix: false,
-//   push: false,
-//   pull: false,
-//   row-full: false,
-//   row-reverse: false,
-//   hide-show: false,
-//   order: false,
-//   align: false,
-//   no-gutter: false,
-// row-debug: false
-// ));
+@include gr-build-classes((
+  prefix: false,
+  suffix: false,
+  push: false,
+  pull: false,
+  row-full: false,
+  row-reverse: false,
+  hide-show: false,
+  order: false,
+  align: false,
+  no-gutter: false,
+row-debug: false
+));
+
+
+// @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+//
+//   @include _gr-media($breakpoint) {
+//
+//     .#{$gr-namespace-class}-#{$gr-container-class},
+//     .#{$gr-namespace-class}-#{$gr-container-class}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+//
+//       margin-right: auto;
+//       margin-left: auto;
+//     }
+//   }
+// }
 
 
 // /**@include _gr-media(s) {*/

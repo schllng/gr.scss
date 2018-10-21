@@ -3,7 +3,7 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-order-classes($columns, $state: null) {
+@mixin _gr-build-modifier-order-classes($columns, $breakpoint: null) {
 
   $order-list: first, last;
 
@@ -16,9 +16,9 @@
 
     $order-selector: '.#{$gr-namespace-class}--order-#{$position}';
 
-    @if $state {
+    @if $breakpoint {
 
-      $order-selector: '#{$order-selector}, #{$order-selector}#{$gr-state-class-divider}#{$state}';
+      $order-selector: '#{$order-selector}, #{$order-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
     }
 
     #{$order-selector} {
@@ -46,19 +46,19 @@
 // public
 // ==============
 
-@mixin gr-order($position, $state: null) {
+@mixin gr-order($position, $breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @include _gr-order($position);
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
         @include _gr-order($position);
       }

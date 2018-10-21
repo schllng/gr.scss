@@ -52,23 +52,23 @@
 // public
 // ==============
 
-@mixin gr-col($width, $state: null) {
+@mixin gr-col($width, $breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
-      @include _gr-col-base(_gr-get-resp-val($state, gutter));
-      @include _gr-col($width, _gr-get-resp-val($state, columns));
+      @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
+      @include _gr-col($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
-        @include _gr-col-base(_gr-get-resp-val($state, gutter));
-        @include _gr-col($width, _gr-get-resp-val($state, columns));
+        @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
+        @include _gr-col($width, _gr-get-resp-val($breakpoint, columns));
       }
     }
   } @else {
@@ -78,24 +78,24 @@
   }
 }
 
-@mixin gr-row($state: null) {
+@mixin gr-row($breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @include _gr-row-base;
-      @include _gr-row(_gr-get-resp-val($state, gutter));
+      @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
     @include _gr-row-base;
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
-        @include _gr-row(_gr-get-resp-val($state, gutter));
+        @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
       }
     }
   } @else {
@@ -105,25 +105,25 @@
   }
 }
 
-@mixin gr-container($state: null) {
+@mixin gr-container($breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
-      $container-max-width: _gr-get-resp-val($state, container, max-width);
-      $container-padding: _gr-get-resp-val($state, container, padding);
+      $container-max-width: _gr-get-resp-val($breakpoint, container, max-width);
+      $container-padding: _gr-get-resp-val($breakpoint, container, padding);
 
       @include _gr-container($container-max-width, $container-padding);
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
-        $container-max-width: _gr-get-resp-val($state, container, max-width);
-        $container-padding: _gr-get-resp-val($state, container, padding);
+        $container-max-width: _gr-get-resp-val($breakpoint, container, max-width);
+        $container-padding: _gr-get-resp-val($breakpoint, container, padding);
 
         @include _gr-container($container-max-width, $container-padding);
       }

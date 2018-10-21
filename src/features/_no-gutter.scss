@@ -3,7 +3,7 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-no-gutter-classes($state) {
+@mixin _gr-build-modifier-no-gutter-classes($breakpoint) {
 
   $no-gutter-row-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter';
   $no-gutter-row-selector-left: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter-left';
@@ -13,15 +13,15 @@
   $no-gutter-col-selector-left: '.#{$gr-namespace-class}--no-gutter-left';
   $no-gutter-col-selector-right: '.#{$gr-namespace-class}--no-gutter-right';
 
-  @if $state {
+  @if $breakpoint {
 
-    $no-gutter-row-selector: '#{$no-gutter-row-selector}, #{$no-gutter-row-selector}#{$gr-state-class-divider}#{$state}';
-    $no-gutter-row-selector-left: '#{$no-gutter-row-selector-left}, #{$no-gutter-row-selector-left}#{$gr-state-class-divider}#{$state}';
-    $no-gutter-row-selector-right: '#{$no-gutter-row-selector-right}, #{$no-gutter-row-selector-right}#{$gr-state-class-divider}#{$state}';
+    $no-gutter-row-selector: '#{$no-gutter-row-selector}, #{$no-gutter-row-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-row-selector-left: '#{$no-gutter-row-selector-left}, #{$no-gutter-row-selector-left}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-row-selector-right: '#{$no-gutter-row-selector-right}, #{$no-gutter-row-selector-right}#{$gr-breakpoint-class-divider}#{$breakpoint}';
 
-    $no-gutter-col-selector: '#{$no-gutter-col-selector}, #{$no-gutter-col-selector}#{$gr-state-class-divider}#{$state}';
-    $no-gutter-col-selector-left: '#{$no-gutter-col-selector-left}, #{$no-gutter-col-selector-left}#{$gr-state-class-divider}#{$state}';
-    $no-gutter-col-selector-right: '#{$no-gutter-col-selector-right}, #{$no-gutter-col-selector-right}#{$gr-state-class-divider}#{$state}';
+    $no-gutter-col-selector: '#{$no-gutter-col-selector}, #{$no-gutter-col-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-col-selector-left: '#{$no-gutter-col-selector-left}, #{$no-gutter-col-selector-left}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-col-selector-right: '#{$no-gutter-col-selector-right}, #{$no-gutter-col-selector-right}#{$gr-breakpoint-class-divider}#{$breakpoint}';
   }
 
   #{$no-gutter-row-selector} {
@@ -94,19 +94,19 @@
 // public
 // ==============
 
-@mixin gr-no-gutter-row($state: null, $left: false, $right: false) {
+@mixin gr-no-gutter-row($breakpoint: null, $left: false, $right: false) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @include _gr-row-no-gutter($left, $right);
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
         @include _gr-row-no-gutter($left, $right);
       }
@@ -117,19 +117,19 @@
   }
 }
 
-@mixin gr-no-gutter($state: null, $left: false, $right: false) {
+@mixin gr-no-gutter($breakpoint: null, $left: false, $right: false) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @include _gr-col-no-gutter($left, $right);
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
         @include _gr-col-no-gutter($left, $right);
       }

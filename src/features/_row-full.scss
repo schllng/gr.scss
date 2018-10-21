@@ -3,18 +3,18 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-row-full-classes($state: null) {
+@mixin _gr-build-modifier-row-full-classes($breakpoint: null) {
 
   $row-full-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--full';
 
-  @if $state {
+  @if $breakpoint {
 
-    $row-full-selector: '#{$row-full-selector}, #{$row-full-selector}#{$gr-state-class-divider}#{$state}';
+    $row-full-selector: '#{$row-full-selector}, #{$row-full-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
   }
 
   #{$row-full-selector} {
 
-    @include _gr-row-full($state);
+    @include _gr-row-full($breakpoint);
   }
 }
 
@@ -23,9 +23,9 @@
 // internals
 // ==============
 
-@mixin _gr-row-full($state: null) {
+@mixin _gr-row-full($breakpoint: null) {
 
-  $gutter: if($state, _gr-get-resp-val($state, gutter), $gr-gutter);
+  $gutter: if($breakpoint, _gr-get-resp-val($breakpoint, gutter), $gr-gutter);
 
   width: calc(100vw + #{$gutter});
   margin-left: 50%;
@@ -37,25 +37,25 @@
 // public
 // ==============
 
-@mixin gr-row-full($state: null) {
+@mixin gr-row-full($breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
-      @include _gr-row-full($state);
+      @include _gr-row-full($breakpoint);
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
-        @include _gr-row-full($state);
+        @include _gr-row-full($breakpoint);
       }
     }
   } @else {
 
-    @include _gr-row-full($state);
+    @include _gr-row-full($breakpoint);
   }
 }

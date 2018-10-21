@@ -1,16 +1,16 @@
 @mixin gr-build-classes($features: ()) {
 
   // generate grid classes without media query definitions
-  @if length($gr-states) == 0 {
+  @if length($gr-breakpoints) == 0 {
 
-    @include _gr-build-classes-without-states($features);
+    @include _gr-build-classes-without-breakpoints($features);
   } @else {
 
     @include _gr-build-classes($features);
   }
 }
 
-@mixin _gr-build-classes-without-states($features) {
+@mixin _gr-build-classes-without-breakpoints($features) {
 
   @if $gr-set-container-style {
 
@@ -44,72 +44,72 @@
 
 @mixin _gr-build-classes($features) {
 
-  @include _gr-row-selector-states {
+  @include _gr-row-selector-breakpoints {
 
     @include _gr-row-base;
   }
 
-  @each $state, $state-config in $gr-states {
+  @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @if $gr-set-container-style {
 
         .#{$gr-namespace-class}-#{$gr-container-class},
-        .#{$gr-namespace-class}-#{$gr-container-class}#{$gr-state-class-divider}#{$state} {
+        .#{$gr-namespace-class}-#{$gr-container-class}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
-          $container-max-width: _gr-get-resp-val($state, container, max-width);
-          $container-padding: _gr-get-resp-val($state, container, padding);
+          $container-max-width: _gr-get-resp-val($breakpoint, container, max-width);
+          $container-padding: _gr-get-resp-val($breakpoint, container, padding);
 
           @include _gr-container($container-max-width, $container-padding);
         }
       }
 
       .#{$gr-namespace-class}-#{$gr-row-class},
-      .#{$gr-namespace-class}-#{$gr-row-class}#{$gr-state-class-divider}#{$state} {
+      .#{$gr-namespace-class}-#{$gr-row-class}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
-        @include _gr-row(_gr-get-resp-val($state, gutter));
+        @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
       }
 
-      @include _gr-col-selector-all($state) {
+      @include _gr-col-selector-all($breakpoint) {
 
-        @include _gr-col-base(_gr-get-resp-val($state, gutter));
+        @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
       }
 
-      // seperate columns without state modifier
+      // seperate columns without breakpoint modifier
       // to override them by column classes with modifier
-      @for $i from 1 to _gr-get-resp-val($state, columns) + 1 {
+      @for $i from 1 to _gr-get-resp-val($breakpoint, columns) + 1 {
 
         .#{$gr-namespace-class}-#{$i} {
 
-          @include _gr-col($i, _gr-get-resp-val($state, columns));
+          @include _gr-col($i, _gr-get-resp-val($breakpoint, columns));
         }
       }
 
-      @for $i from 1 to _gr-get-resp-val($state, columns) + 1 {
+      @for $i from 1 to _gr-get-resp-val($breakpoint, columns) + 1 {
 
-        .#{$gr-namespace-class}-#{$i}#{$gr-state-class-divider}#{$state} {
+        .#{$gr-namespace-class}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
-          @include _gr-col($i, _gr-get-resp-val($state, columns));
+          @include _gr-col($i, _gr-get-resp-val($breakpoint, columns));
         }
       }
 
-      @include _gr-build-modifier-classes($features, _gr-get-resp-val($state, columns), $state);
+      @include _gr-build-modifier-classes($features, _gr-get-resp-val($breakpoint, columns), $breakpoint);
     }
   }
 }
 
 /**
- * Generates selectors for all columns for the given state ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
- * @param  {String|null}  $state       null   The state identifier for which the selector should be build
- * @param  {Boolean}      $only-state  false  Wheter classes without state should be added or not
+ * Generates selectors for all columns for the given breakpoint ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
+ * @param  {String|null}  $breakpoint       null   The breakpoint identifier for which the selector should be build
+ * @param  {Boolean}      $only-breakpoint  false  Wheter classes without breakpoint should be added or not
  */
-@mixin _gr-col-selector-all($state: null, $only-state: false) {
+@mixin _gr-col-selector-all($breakpoint: null, $only-breakpoint: false) {
 
   $_gr-classes: '';
-  $column-count: if($state, _gr-get-resp-val($state, columns) + 1, $gr-columns + 1);
+  $column-count: if($breakpoint, _gr-get-resp-val($breakpoint, columns) + 1, $gr-columns + 1);
 
-  @if not $only-state {
+  @if not $only-breakpoint {
 
     @for $i from 1 to $column-count {
 
@@ -123,16 +123,16 @@
     }
   }
 
-  @if $state {
+  @if $breakpoint {
 
     @for $i from 1 to $column-count {
 
-      @if $i == 1 and $only-state {
+      @if $i == 1 and $only-breakpoint {
 
-        $_gr-classes: '.#{$gr-namespace-class}-#{$i}#{$gr-state-class-divider}#{$state}';
+        $_gr-classes: '.#{$gr-namespace-class}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}';
       } @else {
 
-        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-namespace-class}-#{$i}#{$gr-state-class-divider}#{$state}';
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-namespace-class}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}';
       }
     }
   }
@@ -146,13 +146,13 @@
 /**
  * Generates selectors for all row elements (.gr-row, .gr-row@...) and sets styles for them
  */
-@mixin _gr-row-selector-states() {
+@mixin _gr-row-selector-breakpoints() {
 
   $_gr-row-classes: '.#{$gr-namespace-class}-#{$gr-row-class}';
 
-  @each $state, $state-config in $gr-states {
+  @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-    $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-namespace-class}-#{$gr-row-class}#{$gr-state-class-divider}#{$state}';
+    $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-namespace-class}-#{$gr-row-class}#{$gr-breakpoint-class-divider}#{$breakpoint}';
   }
 
   #{$_gr-row-classes} {
@@ -165,9 +165,9 @@
  * Checks for activated modifiers and calls their build function
  * @param  {Map}          $features       Map of all supported modifiers and if they are active ({String}: {Boolean})
  * @param  {Number}       $columns        Column-count for modifiers to generate all necessary classes
- * @param  {String|null}  $state    null  The state identifier for which the modifiers should be build
+ * @param  {String|null}  $breakpoint    null  The breakpoint identifier for which the modifiers should be build
  */
-@mixin _gr-build-modifier-classes($features, $columns, $state: null) {
+@mixin _gr-build-modifier-classes($features, $columns, $breakpoint: null) {
 
   $set-no-gutter-classes: map-get($features, no-gutter);
   $set-row-full-classes: map-get($features, row-full);
@@ -182,41 +182,41 @@
 
   @if $set-prefix-classes or $set-suffix-classes {
 
-    @include _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes, $set-suffix-classes, $state);
+    @include _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes, $set-suffix-classes, $breakpoint);
   }
 
   @if $set-push-classes or $set-pull-classes {
 
-    @include _gr-build-modifier-push-pull-classes($columns, $set-push-classes, $set-pull-classes, $state);
+    @include _gr-build-modifier-push-pull-classes($columns, $set-push-classes, $set-pull-classes, $breakpoint);
   }
 
   @if $set-no-gutter-classes {
 
-    @include _gr-build-modifier-no-gutter-classes($state);
+    @include _gr-build-modifier-no-gutter-classes($breakpoint);
   }
 
   @if $set-row-full-classes {
 
-    @include _gr-build-modifier-row-full-classes($state);
+    @include _gr-build-modifier-row-full-classes($breakpoint);
   }
 
   @if $set-row-reverse-classes {
 
-    @include _gr-build-modifier-row-reverse-classes($state);
+    @include _gr-build-modifier-row-reverse-classes($breakpoint);
   }
 
   @if $set-align-classes {
 
-    @include _gr-build-modifier-align-classes($state);
+    @include _gr-build-modifier-align-classes($breakpoint);
   }
 
   @if $set-order-classes {
 
-    @include _gr-build-modifier-order-classes($columns, $state);
+    @include _gr-build-modifier-order-classes($columns, $breakpoint);
   }
 
   @if $set-hide-show-classes {
 
-    @include _gr-build-modifier-hide-show-classes($state);
+    @include _gr-build-modifier-hide-show-classes($breakpoint);
   }
 }

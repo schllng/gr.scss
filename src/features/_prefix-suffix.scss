@@ -3,22 +3,22 @@
 // build classes
 // ==============
 // .gr--prefix-2@s
-@mixin _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes: false, $set-suffix-classes: false, $state: null) {
+@mixin _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes: false, $set-suffix-classes: false, $breakpoint: null) {
 
   $prefix-selector: '.#{$gr-namespace-class}--prefix';
   $suffix-selector: '.#{$gr-namespace-class}--suffix';
 
-  @if $state {
+  @if $breakpoint {
 
-    // seperate columns without state modifier
+    // seperate columns without breakpoint modifier
     // to override them by column classes with modifier
-    @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+    @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
 
       @if $set-prefix-classes {
 
         #{$prefix-selector}-#{$i} {
 
-          @include _gr-prefix($i, _gr-get-resp-val($state, columns));
+          @include _gr-prefix($i, _gr-get-resp-val($breakpoint, columns));
         }
       }
 
@@ -26,32 +26,32 @@
 
         #{$suffix-selector}-#{$i} {
 
-          @include _gr-suffix($i, _gr-get-resp-val($state, columns));
+          @include _gr-suffix($i, _gr-get-resp-val($breakpoint, columns));
         }
       }
     }
 
-    @for $i from 0 to _gr-get-resp-val($state, columns) + 1 {
+    @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
 
       @if $set-prefix-classes {
 
-        #{$prefix-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
+        #{$prefix-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
-          @include _gr-prefix($i, _gr-get-resp-val($state, columns));
+          @include _gr-prefix($i, _gr-get-resp-val($breakpoint, columns));
         }
       }
 
       @if $set-suffix-classes {
 
-        #{$suffix-selector}-#{$i}#{$gr-state-class-divider}#{$state} {
+        #{$suffix-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
-          @include _gr-suffix($i, _gr-get-resp-val($state, columns));
+          @include _gr-suffix($i, _gr-get-resp-val($breakpoint, columns));
         }
       }
     }
   } @else {
 
-    // seperate columns without state modifier
+    // seperate columns without breakpoint modifier
     // to override them by column classes with modifier
     @for $i from 0 to $gr-columns + 1 {
 
@@ -94,21 +94,21 @@
 // public
 // ==============
 
-@mixin gr-prefix($width, $state: null) {
+@mixin gr-prefix($width, $breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
-      @include _gr-prefix($width, _gr-get-resp-val($state, columns));
+      @include _gr-prefix($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
-        @include _gr-prefix($width, _gr-get-resp-val($state, columns));
+        @include _gr-prefix($width, _gr-get-resp-val($breakpoint, columns));
       }
     }
   } @else {
@@ -117,21 +117,21 @@
   }
 }
 
-@mixin gr-suffix($width, $state: null) {
+@mixin gr-suffix($width, $breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
-      @include _gr-suffix($width, _gr-get-resp-val($state, columns));
+      @include _gr-suffix($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
-        @include _gr-suffix($width, _gr-get-resp-val($state, columns));
+        @include _gr-suffix($width, _gr-get-resp-val($breakpoint, columns));
       }
     }
   } @else {

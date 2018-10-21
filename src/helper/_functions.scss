@@ -20,20 +20,20 @@
 }
 
 /**
- * Returns a value for the given keys from the state configuration map and the given state.
- * A wrapper for the _gr-multi-map-get function to work with the state configuration.
- * @param  {String}       $state    The state identifier for the searched value
+ * Returns a value for the given keys from the breakpoint configuration map and the given breakpoint.
+ * A wrapper for the _gr-multi-map-get function to work with the breakpoint configuration.
+ * @param  {String}       $breakpoint    The breakpoint identifier for the searched value
  * @param  {...String}    $targets  A string or a list of strings with key names
  * @return {Mixed}                  The value of the last given key
  */
-@function _gr-get-resp-val($state, $targets...) {
+@function _gr-get-resp-val($breakpoint, $targets...) {
 
-  @return _gr-multi-map-get($gr-states, $state, $targets...);
+  @return _gr-multi-map-get($gr-breakpoints, $breakpoint, $targets...);
 }
 
-@function gr-get-responsive-value($state, $targets...) {
+@function gr-get-responsive-value($breakpoint, $targets...) {
 
-  @return _gr-get-resp-val($state, $targets...);
+  @return _gr-get-resp-val($breakpoint, $targets...);
 }
 
 /**

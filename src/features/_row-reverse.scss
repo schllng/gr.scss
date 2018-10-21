@@ -3,18 +3,18 @@
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-row-reverse-classes($state: null) {
+@mixin _gr-build-modifier-row-reverse-classes($breakpoint: null) {
 
   $row-reverse-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--reverse';
 
-  @if $state {
+  @if $breakpoint {
 
-    $row-reverse-selector: '#{$row-reverse-selector}, #{$row-reverse-selector}#{$gr-state-class-divider}#{$state}';
+    $row-reverse-selector: '#{$row-reverse-selector}, #{$row-reverse-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
   }
 
   #{$row-reverse-selector} {
 
-    @include _gr-row-reverse($state);
+    @include _gr-row-reverse($breakpoint);
   }
 }
 
@@ -23,7 +23,7 @@
 // internals
 // ==============
 
-@mixin _gr-row-reverse($state: null) {
+@mixin _gr-row-reverse($breakpoint: null) {
 
   flex-direction: row-reverse;
 }
@@ -33,19 +33,19 @@
 // public
 // ==============
 
-@mixin gr-row-reverse($state: null) {
+@mixin gr-row-reverse($breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @include _gr-row-reverse();
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
         @include _gr-row-reverse();
       }

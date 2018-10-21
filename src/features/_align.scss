@@ -14,15 +14,15 @@ $_gr-align-directions: (
 // build classes
 // ==============
 
-@mixin _gr-build-modifier-align-classes($state) {
+@mixin _gr-build-modifier-align-classes($breakpoint) {
 
   @each $direction, $direction-styles in $_gr-align-directions {
 
     $align-row-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--align-#{$direction}';
 
-    @if $state {
+    @if $breakpoint {
 
-      $align-row-selector: '#{$align-row-selector}, #{$align-row-selector}#{$gr-state-class-divider}#{$state}';
+      $align-row-selector: '#{$align-row-selector}, #{$align-row-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
     }
 
     #{$align-row-selector} {
@@ -48,19 +48,19 @@ $_gr-align-directions: (
 // public
 // ==============
 
-@mixin gr-align($direction, $state: null) {
+@mixin gr-align($direction, $breakpoint: null) {
 
-  @if $state and length($gr-states) > 0 {
+  @if $breakpoint and length($gr-breakpoints) > 0 {
 
-    @include _gr-media($state) {
+    @include _gr-media($breakpoint) {
 
       @include _gr-align($direction);
     }
-  } @elseif not $state and length($gr-states) > 0 {
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
 
-    @each $state, $state-config in $gr-states {
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
-      @include _gr-media($state) {
+      @include _gr-media($breakpoint) {
 
         @include _gr-align($direction);
       }

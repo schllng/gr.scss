@@ -16,8 +16,8 @@ $gr-container-class: 'container' !default;
 // {String} - The classname for the row-selector: (.#{$gr-namespace-class}-#{$gr-row-class})
 $gr-row-class: 'row' !default;
 
-// {String} - If you want to apply grid-styles only for a specific state, this divider (.#{$gr-namespace-class}-12#{$gr-state-class-divider}#{STATE_ID})
-$gr-state-class-divider: '\\@' !default;
+// {String} - If you want to apply grid-styles only for a specific breakpoint, this divider (.#{$gr-namespace-class}-12#{$gr-breakpoint-class-divider}#{BREAKPOINT_ID})
+$gr-breakpoint-class-divider: '\\@' !default;
 
 // ==============
 // General grid definitions
@@ -35,4 +35,4 @@ $gr-container-max-width: 1200px !default;
 // {Number} - Spacing around the grid
 $gr-container-padding: 20px !default;
 
-$gr-states: () !default;
+$gr-breakpoints: () !default;
