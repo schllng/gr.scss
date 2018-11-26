@@ -1,16 +1,16 @@
 
 $_gr-hide-show-types: (
   hide: (
-    selector: '.#{$gr-namespace-class}-hide'
+    selector: '.#{$gr-namespace-class}--hide'
   ),
   show: (
-    selector: '.#{$gr-namespace-class}-show'
+    selector: '.#{$gr-namespace-class}--show'
   ),
   hidden: (
-    selector: '.#{$gr-namespace-class}-hidden'
+    selector: '.#{$gr-namespace-class}--hidden'
   ),
   visible: (
-    selector: '.#{$gr-namespace-class}-visible'
+    selector: '.#{$gr-namespace-class}--visible'
   )
 );
 
