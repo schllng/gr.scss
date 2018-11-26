@@ -3,6 +3,9 @@
 // {Boolean} - If you need styles for a wrapping container-element, set this to true
 $gr-set-container-style: false !default;
 
+// {Boolean} - If the container should be centered to the screen, set this to true
+$gr-center-container: false !default;
+
 // ==============
 // Completly customizable class names:
 // ==============
