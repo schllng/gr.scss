@@ -99,11 +99,11 @@
   }
 }
 
-/**
- * Generates selectors for all columns for the given breakpoint ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
- * @param  {String|null}  $breakpoint       null   The breakpoint identifier for which the selector should be build
- * @param  {Boolean}      $only-breakpoint  false  Wheter classes without breakpoint should be added or not
- */
+
+/// Generates selectors for all columns for the given breakpoint ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
+/// @param  {String|null}  $breakpoint       null   The breakpoint identifier for which the selector should be build
+/// @param  {Boolean}      $only-breakpoint  false  Wheter classes without breakpoint should be added or not
+
 @mixin _gr-col-selector-all($breakpoint: null, $only-breakpoint: false) {
 
   $_gr-classes: '';
@@ -143,9 +143,7 @@
   }
 }
 
-/**
- * Generates selectors for all row elements (.gr-row, .gr-row@...) and sets styles for them
- */
+/// Generates selectors for all row elements (.gr-row, .gr-row@...) and sets styles for them
 @mixin _gr-row-selector-breakpoints() {
 
   $_gr-row-classes: '.#{$gr-namespace-class}-#{$gr-row-class}';
@@ -161,12 +159,10 @@
   }
 }
 
-/**
- * Checks for activated modifiers and calls their build function
- * @param  {Map}          $features       Map of all supported modifiers and if they are active ({String}: {Boolean})
- * @param  {Number}       $columns        Column-count for modifiers to generate all necessary classes
- * @param  {String|null}  $breakpoint    null  The breakpoint identifier for which the modifiers should be build
- */
+/// Checks for activated modifiers and calls their build function
+/// @param  {Map}          $features       Map of all supported modifiers and if they are active ({String}: {Boolean})
+/// @param  {Number}       $columns        Column-count for modifiers to generate all necessary classes
+/// @param  {String|null}  $breakpoint    null  The breakpoint identifier for which the modifiers should be build
 @mixin _gr-build-modifier-classes($features, $columns, $breakpoint: null) {
 
   $set-no-gutter-classes: map-get($features, no-gutter);

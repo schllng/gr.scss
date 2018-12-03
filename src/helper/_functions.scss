@@ -1,10 +1,8 @@
-/**
- * Iterates over given keys to get the value of a multi dimensional map.
- * Each given key but the last must return another map with the next key in it.
- * @param  {Map}          $map       The map containing the first given key
- * @param  {...String}    $targets   A string or a list of strings with key names
- * @return {Mixed}                   The value of the last given key
- */
+/// Iterates over given keys to get the value of a multi dimensional map.
+/// Each given key but the last must return another map with the next key in it.
+/// @param  {Map}          $map       The map containing the first given key
+/// @param  {...String}    $targets   A string or a list of strings with key names
+/// @return {Mixed}                   The value of the last given key
 @function _gr-multi-map-get($map, $targets...) {
 
   $val: $map;
@@ -19,13 +17,11 @@
   @return $val;
 }
 
-/**
- * Returns a value for the given keys from the breakpoint configuration map and the given breakpoint.
- * A wrapper for the _gr-multi-map-get function to work with the breakpoint configuration.
- * @param  {String}       $breakpoint    The breakpoint identifier for the searched value
- * @param  {...String}    $targets  A string or a list of strings with key names
- * @return {Mixed}                  The value of the last given key
- */
+/// Returns a value for the given keys from the breakpoint configuration map and the given breakpoint.
+/// A wrapper for the _gr-multi-map-get function to work with the breakpoint configuration.
+/// @param  {String}       $breakpoint    The breakpoint identifier for the searched value
+/// @param  {...String}    $targets  A string or a list of strings with key names
+/// @return {Mixed}                  The value of the last given key
 @function _gr-get-resp-val($breakpoint, $targets...) {
 
   @return _gr-multi-map-get($gr-breakpoints, $breakpoint, $targets...);
@@ -36,13 +32,11 @@
   @return _gr-get-resp-val($breakpoint, $targets...);
 }
 
-/**
- * Set a new value for a new or existing key within the given map.
- * @param  {Map}     $map    The map where the key and/or value should be set.
- * @param  {String}  $key    The key for the map.
- * @param  {Mixed}   $value  The value to set for the given key.
- * @return {Map}             The new map
- */
+/// Set a new value for a new or existing key within the given map.
+/// @param  {Map}     $map    The map where the key and/or value should be set.
+/// @param  {String}  $key    The key for the map.
+/// @param  {Mixed}   $value  The value to set for the given key.
+/// @return {Map}             The new map
 @function _gr-map-set($map, $key, $value) {
 
   $new: ($key: $value);

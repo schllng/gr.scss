@@ -1,8 +1,6 @@
-/**
- * Builds the media query for the given breakpoint identifiers to wrap the styles in.
- * @param  {String}          $start         The breakpoint identifier to get the maximum and/or minimum width from.
- * @param  {String|Boolean}  $end    false  If given, the mixin uses the maximum value from this breakpoint.
- */
+/// Builds the media query for the given breakpoint identifiers to wrap the styles in.
+/// @param  {String}          $start         The breakpoint identifier to get the maximum and/or minimum width from.
+/// @param  {String|Boolean}  $end    false  If given, the mixin uses the maximum value from this breakpoint.
 @mixin _gr-media($start, $end: false) {
 
   $str: null;

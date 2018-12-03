@@ -2,7 +2,7 @@
 // ==============
 // build classes
 // ==============
-// .gr--prefix-2@s
+
 @mixin _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes: false, $set-suffix-classes: false, $breakpoint: null) {
 
   $prefix-selector: '.#{$gr-namespace-class}--prefix';

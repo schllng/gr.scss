@@ -2,7 +2,7 @@
 // ==============
 // build classes
 // ==============
-// .gr--prefix-2@s
+
 @mixin _gr-build-modifier-push-pull-classes($columns, $set-push-classes: false, $set-pull-classes: false, $breakpoint: null) {
 
   $push-selector: '.#{$gr-namespace-class}--push';
@@ -86,8 +86,6 @@
       }
     }
   }
-
-  // @debug $push-pull-classes;
 
   @if length($push-pull-classes) > 0 {
 
