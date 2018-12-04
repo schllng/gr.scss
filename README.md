@@ -27,6 +27,10 @@ You can enable additional features as soon as you need them. By that, you  keep 
     - [hide-show](#hide-show)
     - [no-gutter](#no-gutter)
     - [order](#order)
+- [Helpers](#Helpers)
+  - [gr-media](#gr-media)
+  - [gr-get-value](#gr-get-value)
+- [Browser Support](#Browser-Support)
 
 ## Installation
 
@@ -711,3 +715,105 @@ Markup example:
   </div>
 </div>
 ```
+
+## Helpers
+
+gr.scss provides some useful helpers for you to work with your defined breakpoints.
+
+### gr-media
+
+By using the `gr-media` mixin, you can set styles within the breakpoints of your grid, without redefining the media queries over and over again. It receives one or two breakpoint identifiers, defined in your [grid settings](#Grid-with-breakpoint-definitions). Calling it with one breakpoint identifier `gr-media` sets the minimum and maximum value by the definitions of this single breakpoint. Otherwise the mixin uses the first breakpoint to get the minimum and the second to get the maximum value, if it is set.
+
+Usage:
+```scss
+@include gr-media(breakpoint-name1[, breakpoint-name2]) {
+  // Your style definitions
+}
+```
+
+Examples:
+
+Breakpoint with defined min and max value:
+
+```scss
+@include gr-media(m) { ... }
+
+// CSS output:
+@media (min-width: 601px) and (max-width: 1000px) { ... }
+```
+Breakpoint with min value of null:
+
+```scss
+@include gr-media(s) { ... }
+
+// CSS output:
+@media (max-width: 600px) { ... }
+```
+One breakpoint with defined min value and the a second breakpoint with a defined max value:
+
+```scss
+@include gr-media(m, l) { ... }
+
+// CSS output:
+@media (min-width: 601px) and (max-width: 1200px) { ... }
+```
+Onebreakpoint with defined min value and the a second breakpoint with max value set to null:
+
+```scss
+@include gr-media(m, xl) { ... }
+
+// CSS output:
+@media (min-width: 601px) { ... }
+```
+### gr-get-value
+
+Sometimes it comes in handy, to fetch grid facts for specific breakpoints to apply them to non grid elements. You can use the `gr-get-value` function for this very reason. You need to provide the breakpoint identifier followed by the keys to describe the nesting path to the value you want to get access to.
+
+Usage:
+
+```scss
+.some-selector {
+  property: gr-get-value(breakpoint-name, key1[, key2[, ...[, keyN]]]);  
+}
+
+```
+Examples:
+
+Access the first level of a single breakpoint's map:
+```scss
+.tile {
+  padding-left: gr-get-value(s, gutter) / 2;
+}
+
+// CSS output:
+.tile {
+  padding-left: 6px;
+}
+```
+Access a deeper nested level of a breakpoint::
+```scss
+.custom-container {
+  max-width: gr-get-value(l, container, max-width);
+}
+
+// CSS output:
+.custom-container {
+  max-width: 1200px;
+}
+```
+Access values for each breakpoint and wrap them in a media query condition related to that breakpoint:
+```scss
+@each $breakpoint, $breakpoint-config in $gr-breakpoints {
+  @include gr-media($breakpoint) {
+    .tile {
+      padding-left: gr-get-value($breakpoint, gutter) / 2;
+    }
+  }
+}
+```
+
+## Browser Support
+
+| ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png)<br />IE11 / Edge | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png)<br />Firefox | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png)<br />Chrome | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png)<br />Safari | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari-ios.png)<br />iOS Safari | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome-android.png)<br />Chrome for Android |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | :----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| IE11 / Edge                                                  | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
