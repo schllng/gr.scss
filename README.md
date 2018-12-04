@@ -83,7 +83,7 @@ $gr-row-class: 'row' !default;
 $gr-breakpoint-class-divider: '\\@' !default;
 ```
 
-####Grid without breakpoints
+#### Grid without breakpoints
 
 If you don't maintain breakpoints you can use the following variables to define the grid behaviour:
 
