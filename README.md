@@ -44,7 +44,7 @@ Simply import the grid, apply your configuration and let gr.scss generate the cl
 
 ```scss
 // Import gr.scss
-@import 'gr.scss/index';
+@import 'node_modules/gr.scss/index';
 
 // Your custom settings
 $gr-columns: 12;
