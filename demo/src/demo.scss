@@ -69,7 +69,7 @@ row-debug: false
 // @include _gr-media(s) {
 //
 //   .test-container {
-//     max-width: #{gr-get-responsive-value(l, container, max-width)};
+//     max-width: #{gr-get-value(l, container, max-width)};
 //   }
 // }
 // /**@include gr-media(s) {*/

@@ -27,7 +27,7 @@
   @return _gr-multi-map-get($gr-breakpoints, $breakpoint, $targets...);
 }
 
-@function gr-get-responsive-value($breakpoint, $targets...) {
+@function gr-get-value($breakpoint, $targets...) {
 
   @return _gr-get-resp-val($breakpoint, $targets...);
 }
