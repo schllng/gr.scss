@@ -1,8 +1,8 @@
-# InGrid
+# gr.scss
 
-A small and customizable flexbox based grid system.
+A small and customizable flexbox based grid system, written in SCSS.
 
-By default InGrid generates just the classes you need to get started working on your grid based layouts.
+By default gr.scss generates just the classes you need to get started working on your grid based layouts.
 You can enable additional features as soon as you need them. By that, you  keep your CSS as small as possible.
 
 - [Installation](#Installation)
@@ -31,16 +31,16 @@ You can enable additional features as soon as you need them. By that, you  keep 
 ## Installation
 
 ```
-npm install ingrid --save
+npm install gr.scss
 ```
 
 ## Setup
 
-Simply import the grid, apply your configuration and let InGrid generate the classes for you:
+Simply import the grid, apply your configuration and let gr.scss generate the classes for you:
 
 ```scss
-// Import InGrid
-@import 'ingrid/index';
+// Import gr.scss
+@import 'gr.scss/index';
 
 // Your custom settings
 $gr-columns: 12;
@@ -157,7 +157,7 @@ $gr-breakpoints: (
 
 ### Class Generation
 
-After configuring your grid, you can let InGrid generate classes for you:
+After configuring your grid, you can let gr.scss generate classes for you:
 ```scss
 @include gr-build-classes();
 ```

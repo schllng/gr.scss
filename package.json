@@ -1,16 +1,16 @@
 {
-  "name": "ingrid",
-  "version": "0.2.0",
+  "name": "gr.scss",
+  "version": "0.2.1",
   "description": "Flexbox based grid system",
   "main": "index.scss",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node-sass demo/src/demo.scss demo/styles/ingrid.css && node-sass -w -r --include-path src demo/src/demo.scss demo/styles/ingrid.css",
-    "build": "node-sass --output-style compressed demo/src/demo.scss demo/styles/ingrid.css"
+    "dev": "node-sass demo/src/demo.scss demo/styles/gr.css && node-sass -w -r --include-path src demo/src/demo.scss demo/styles/gr.css",
+    "build": "node-sass --output-style compressed demo/src/demo.scss demo/styles/gr.css"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/schllng/ingrid.git"
+    "url": "git+https://github.com/schllng/gr.scss.git"
   },
   "keywords": [
     "grid",
@@ -20,9 +20,9 @@
   "author": "Peter Schilling",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/schllng/ingrid/issues"
+    "url": "https://github.com/schllng/gr.scss/issues"
   },
-  "homepage": "https://github.com/schllng/ingrid#readme",
+  "homepage": "https://github.com/schllng/gr.scss#readme",
   "dependencies": {},
   "devDependencies": {
     "node-sass": "^4.9.3"
