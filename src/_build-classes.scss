@@ -44,11 +44,6 @@
 
 @mixin _gr-build-classes($features) {
 
-  @include _gr-row-selector-breakpoints {
-
-    @include _gr-row-base;
-  }
-
   @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
     @include _gr-media($breakpoint) {
@@ -68,6 +63,7 @@
       .#{$gr-namespace-class}-#{$gr-row-class},
       .#{$gr-namespace-class}-#{$gr-row-class}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
+        @include _gr-row-base;
         @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
       }
 
@@ -153,7 +149,7 @@
     $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-namespace-class}-#{$gr-row-class}#{$gr-breakpoint-class-divider}#{$breakpoint}';
   }
 
-  #{$_gr-row-classes} {
+  .#{$gr-namespace-class}-#{$gr-row-class} {
 
     @content;
   }
