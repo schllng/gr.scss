@@ -5,18 +5,18 @@ A small and customizable flexbox based grid system, written in SCSS.
 By default gr.scss generates just the classes you need to get started working on your grid based layouts.
 You can enable additional features as soon as you need them. By that, you  keep your CSS as small as possible.
 
-- [Installation](#Installation)
-- [Setup](#Setup)
-  - [Settings](#Settings)
-    - [Grid without breakpoints](#Grid-without-breakpoints)
-    - [Grid with breakpoint definitions](#Grid-with-breakpoint-definitions)
-  - [Generate Classes](#Generate-Classes)
-- [Classes](#Classes)
-  - [Base](#Base)
-    - [Container](#Container)
-    - [Row](#Row)
-    - [Columns](#Columns)
-  - [Features](#Features)
+- [Installation](#installation)
+- [Setup](#setup)
+  - [Settings](#settings)
+    - [Grid without breakpoints](#grid-without-breakpoints)
+    - [Grid with breakpoint definitions](#grid-with-breakpoint-definitions)
+  - [Generate Classes](#generate-Classes)
+- [Classes](#classes)
+  - [Base](#base)
+    - [Container](#container)
+    - [Row](#row)
+    - [Columns](#columns)
+  - [Features](#features)
     - [row-full](#row-full)
     - [row-reverse](#row-reverse)
     - [prefix](#prefix)
@@ -27,10 +27,10 @@ You can enable additional features as soon as you need them. By that, you  keep 
     - [hide-show](#hide-show)
     - [no-gutter](#no-gutter)
     - [order](#order)
-- [Helpers](#Helpers)
+- [Helpers](#helpers)
   - [gr-media](#gr-media)
   - [gr-get-value](#gr-get-value)
-- [Browser Support](#Browser-Support)
+- [Browser Support](#browser-Support)
 
 ## Installation
 
@@ -165,7 +165,7 @@ After configuring your grid, you can let gr.scss generate classes for you:
 ```scss
 @include gr-build-classes();
 ```
-By default this will only generate the bare minimum of the grid. Each additional [feature](#Features) can be enabled by a config map sent to the `gr-build-classes` function:
+By default this will only generate the bare minimum of the grid. Each additional [feature](#features) can be enabled by a config map sent to the `gr-build-classes` function:
 
 ```scss
 // {Map} - Map of feature identifiers pointing to booleans
@@ -592,13 +592,13 @@ Markup example:
 ```html
 <div class="gr-row">
   <div class="gr-12 gr--hide gr--show@m">
-    <!-- Your content - visible at m -->  
+    <!-- Your content - visible at m -->
   </div>
   <div class="gr-12 gr--hide gr--show@l">
-    <!-- Your content - visible at l -->  
+    <!-- Your content - visible at l -->
   </div>
   <div class="gr-12 gr--hide@m gr--hide@l">
-    <!-- Your content - visible at s -->  
+    <!-- Your content - visible at s -->
   </div>
 </div>
 ```
@@ -639,27 +639,27 @@ Markup example:
 <!-- Completly remove gutter -->
 <div class="gr-row gr-row--no-gutter">
   <div class="gr-4 gr--no-gutter">
-    <!-- Your content -->  
+    <!-- Your content -->
   </div>
   <div class="gr-4 gr--no-gutter">
-    <!-- Your content -->  
+    <!-- Your content -->
   </div>
   <div class="gr-4 gr--no-gutter">
-    <!-- Your content -->  
+    <!-- Your content -->
   </div>
 </div>
 
-<!-- Or highly customized -->  
+<!-- Or highly customized -->
 
 <div class="gr-row gr-row--no-gutter-left gr-row--no-gutter@l">
   <div class="gr-4 gr--no-gutter-left gr--no-gutter-right@m gr--no-gutter-right@l">
-    <!-- Your content -->  
+    <!-- Your content -->
   </div>
   <div class="gr-4 gr--no-gutter@m gr--no-gutter@l">
-    <!-- Your content -->  
+    <!-- Your content -->
   </div>
   <div class="gr-4 gr--no-gutter@l">
-    <!-- Your content -->  
+    <!-- Your content -->
   </div>
 </div>
 ```
@@ -722,7 +722,7 @@ gr.scss provides some useful helpers for you to work with your defined breakpoin
 
 ### gr-media
 
-By using the `gr-media` mixin, you can set styles within the breakpoints of your grid, without redefining the media queries over and over again. It receives one or two breakpoint identifiers, defined in your [grid settings](#Grid-with-breakpoint-definitions). Calling it with one breakpoint identifier `gr-media` sets the minimum and maximum value by the definitions of this single breakpoint. Otherwise the mixin uses the first breakpoint to get the minimum and the second to get the maximum value, if it is set.
+By using the `gr-media` mixin, you can set styles within the breakpoints of your grid, without redefining the media queries over and over again. It receives one or two breakpoint identifiers, defined in your [grid settings](#grid-with-breakpoint-definitions). Calling it with one breakpoint identifier `gr-media` sets the minimum and maximum value by the definitions of this single breakpoint. Otherwise the mixin uses the first breakpoint to get the minimum and the second to get the maximum value, if it is set.
 
 Usage:
 ```scss
@@ -773,7 +773,7 @@ Usage:
 
 ```scss
 .some-selector {
-  property: gr-get-value(breakpoint-name, key1[, key2[, ...[, keyN]]]);  
+  property: gr-get-value(breakpoint-name, key1[, key2[, ...[, keyN]]]);
 }
 
 ```
