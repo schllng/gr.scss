@@ -570,23 +570,23 @@ Available classes:
 
 `display: none;`
 
-- `gr-hide`
-- `gr-hide@{{breakpoint-name}}`
+- `gr--hide`
+- `gr--hide@{{breakpoint-name}}`
 
 `display: block;`
 
-- `gr-show`
-- `gr-show@{{breakpoint-name}}`
+- `gr--show`
+- `gr--show@{{breakpoint-name}}`
 
 `visibility: hidden;`
 
-- `gr-hidden`
-- `gr-hidden@{{breakpoint-name}}`
+- `gr--hidden`
+- `gr--hidden@{{breakpoint-name}}`
 
 `visibility: visible;`
 
-- `gr-visible`
-- `gr-visible@{{breakpoint-name}}`
+- `gr--visible`
+- `gr--visible@{{breakpoint-name}}`
 
 Markup example:
 ```html
