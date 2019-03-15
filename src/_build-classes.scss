@@ -164,6 +164,8 @@
   $set-no-gutter-classes: map-get($features, no-gutter);
   $set-row-full-classes: map-get($features, row-full);
   $set-row-reverse-classes: map-get($features, row-reverse);
+  $set-row-column-classes: map-get($features, row-column);
+  $set-row-column-reverse-classes: map-get($features, row-column-reverse);
   $set-align-classes: map-get($features, align);
   $set-order-classes: map-get($features, order);
   $set-hide-show-classes: map-get($features, hide-show);
@@ -195,6 +197,16 @@
   @if $set-row-reverse-classes {
 
     @include _gr-build-modifier-row-reverse-classes($breakpoint);
+  }
+
+  @if $set-row-column-classes {
+
+    @include _gr-build-modifier-row-column-classes($breakpoint);
+  }
+
+  @if $set-row-column-reverse-classes {
+
+    @include _gr-build-modifier-row-column-reverse-classes($breakpoint);
   }
 
   @if $set-align-classes {

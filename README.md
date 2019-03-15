@@ -18,7 +18,9 @@ You can enable additional features as soon as you need them. By that, you  keep 
     - [Columns](#columns)
   - [Features](#features)
     - [row-full](#row-full)
+    - [row-column](#row-column)
     - [row-reverse](#row-reverse)
+    - [row-column-reverse](#row-column-reverse)
     - [prefix](#prefix)
     - [suffix](#suffix)
     - [push](#push)
@@ -176,7 +178,9 @@ By default this will only generate the bare minimum of the grid. Each additional
   push: false,
   pull: false,
   row-full: false,
+  row-column: false,
   row-reverse: false,
+  row-column-reverse: false,
   hide-show: false,
   order: false,
   align: false,
@@ -312,6 +316,37 @@ Markup example:
 </div>
 ```
 
+#### row-column
+
+With this feature you can arrange the columns vertically independently of their width.
+
+Activate:
+```scss
+@include gr-build-classes((
+  row-column: true
+));
+```
+
+Available classes:
+
+- `gr-row--column`
+- `gr-row--column@{{breakpoint-name}}`
+
+Markup example:
+```html
+<div class="gr-row gr-row--column">
+  <div class="gr-4">
+    <!-- Your content -->
+  </div>
+  <div class="gr-4">
+    <!-- Your content -->
+  </div>
+  <div class="gr-4">
+    <!-- Your content -->
+  </div>
+</div>
+```
+
 #### row-reverse
 
 This feature allows you to reverse the visible order of the columns within a row.
@@ -331,6 +366,37 @@ Available classes:
 Markup example:
 ```html
 <div class="gr-row gr-row--reverse">
+  <div class="gr-4">
+    <!-- Displayed as third item -->
+  </div>
+  <div class="gr-4">
+    <!-- Displayed as second item -->
+  </div>
+  <div class="gr-4">
+    <!-- Displayed as first item -->
+  </div>
+</div>
+```
+
+#### row-column-reverse
+
+In addition to the [row-reverse](#row-reverse) feature you can use column-reverse to reverse the visible order within a row but have the columns arranged vertically.
+
+Activate:
+```scss
+@include gr-build-classes((
+  row-column-reverse: true
+));
+```
+
+Available classes:
+
+- `gr-row--column-reverse`
+- `gr-row--column-reverse@{{breakpoint-name}}`
+
+Markup example:
+```html
+<div class="gr-row gr-row--column-reverse">
   <div class="gr-4">
     <!-- Displayed as third item -->
   </div>

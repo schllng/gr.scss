@@ -1,0 +1,57 @@
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-column-classes($breakpoint: null) {
+
+  $row-column-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--column';
+
+  @if $breakpoint {
+
+    $row-column-selector: '#{$row-column-selector}, #{$row-column-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  #{$row-column-selector} {
+
+    @include _gr-row-column($breakpoint);
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-column($breakpoint: null) {
+
+  flex-direction: column;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-column($breakpoint: null) {
+
+  @if $breakpoint and length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-column();
+    }
+  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row-column();
+      }
+    }
+  } @else {
+
+    @include _gr-row-column();
+  }
+}
