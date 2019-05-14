@@ -103,7 +103,7 @@ $_gr-hide-show-types: (
 
       @include _gr-hide($breakpoint);
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -126,7 +126,7 @@ $_gr-hide-show-types: (
 
       @include _gr-show($breakpoint, $disblay-type);
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -149,7 +149,7 @@ $_gr-hide-show-types: (
 
       @include _gr-hidden($breakpoint);
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -172,7 +172,7 @@ $_gr-hide-show-types: (
 
       @include _gr-visible($breakpoint);
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

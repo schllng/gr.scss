@@ -132,7 +132,7 @@
       @include _gr-push-pull-base;
       @include _gr-push($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -158,7 +158,7 @@
       @include _gr-push-pull-base;
       @include _gr-pull($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

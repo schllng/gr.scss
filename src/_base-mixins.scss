@@ -67,7 +67,7 @@
       @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
       @include _gr-col($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -93,7 +93,7 @@
       @include _gr-row-base;
       @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @include _gr-row-base;
 
@@ -122,7 +122,7 @@
 
       @include _gr-container($container-max-width, $container-padding);
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

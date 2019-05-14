@@ -54,7 +54,7 @@
 
       @include _gr-order($position);
     }
-  } @elseif not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
