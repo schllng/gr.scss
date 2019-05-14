@@ -1,6 +1,6 @@
 {
   "name": "gr.scss",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Flexbox based grid system",
   "main": "index.scss",
   "scripts": {
