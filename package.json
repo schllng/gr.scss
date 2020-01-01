@@ -25,6 +25,6 @@
   "homepage": "https://github.com/schllng/gr.scss#readme",
   "dependencies": {},
   "devDependencies": {
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.13.0"
   }
 }
