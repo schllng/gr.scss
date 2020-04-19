@@ -69,7 +69,7 @@ $gr-set-container-style: false !default;
 $gr-center-container: false !default;
 
 // ==============
-// Completly customizable class names:
+// Completely customizable class names:
 // ==============
 
 // {String} - The prefix for all classes (.#{$gr-namespace-class}-*)
@@ -87,7 +87,7 @@ $gr-breakpoint-class-divider: '\\@' !default;
 
 #### Grid without breakpoints
 
-If you don't maintain breakpoints you can use the following variables to define the grid behaviour:
+If you don't maintain breakpoints you can use the following variables to define the grid behavior:
 
 ```scss
 // ==============
@@ -113,7 +113,7 @@ Breakpoints are boundary definitions for layout and/or other style changes. They
 
 When maintaining multiple breakpoints the grid needs to be configured for each of them. The variable `$gr-breakpoints` maps each breakpoint to a set of grid definitions. You can define as many breakpoints as you need and name them as you wish. The names will be used as an extension to the class names of all grid components and features. The `min` and `max` values specify the bounds (screen widths) of the current breakpoint:
 
-ℹ️ The `min` and `max` values will be omitted inside the media query if the value is set to `null`. This is useful for the narrowest and especially for the widest breakpoint to cover all possible screen sizes. In addition `min` values should always be 1px bigger than the previous breakpoint's `max` value.
+ℹ️ The `min` and `max` values will be omitted inside the media query if the value is set to `null`. This is useful for the narrowest and especially for the widest breakpoint to cover all possible screen sizes. In addition `min` values should always be 1px bigger than the previous breakpoints `max` value.
 
 ⚠️ Please avoid overlapping or undefined screen width ranges within your breakpoint definitions.
 
@@ -228,7 +228,7 @@ Markup example:
 ```
 #### Row
 
-Embed columns to ensure the correct alignment and behaviour.
+Embed columns to ensure the correct alignment and behavior.
 
 Available classes:
 
@@ -445,7 +445,7 @@ Markup example:
 
 #### suffix
 
-By applying a suffix, you can add space to the right side, without having empty colums.
+By applying a suffix, you can add space to the right side, without having empty columns.
 
 ℹ️ If you have set an suffix class without a specific breakpoint-name the suffix applies for all screen resolutions. If you need to remove the suffix for a certain breakpoint you can use the `gr--suffix-0@{{breakpoint-name}}` class to override the default. By that you don't have to specify suffix class names for all breakpoints.
 
@@ -514,7 +514,7 @@ Markup example:
 
 #### pull
 
-The pull feature is used to translate a grid element to the left. In contrast to a suffix a pull doesn't effect the postion of other grid elements (It gets translated to the left instead of forcing the following elements to make the room):
+The pull feature is used to translate a grid element to the left. In contrast to a suffix a pull doesn't effect the position of other grid elements (It gets translated to the left instead of forcing the following elements to make the room):
 
 Activate:
 ```scss
@@ -702,7 +702,7 @@ column:
 
 Markup example:
 ```html
-<!-- Completly remove gutter -->
+<!-- Completely remove gutter -->
 <div class="gr-row gr-row--no-gutter">
   <div class="gr-4 gr--no-gutter">
     <!-- Your content -->
@@ -823,7 +823,7 @@ One breakpoint with defined min value and the a second breakpoint with a defined
 // CSS output:
 @media (min-width: 601px) and (max-width: 1200px) { ... }
 ```
-Onebreakpoint with defined min value and the a second breakpoint with max value set to null:
+One breakpoint with defined min value and the a second breakpoint with max value set to null:
 
 ```scss
 @include gr-media(m, xl) { ... }
@@ -845,7 +845,7 @@ Usage:
 ```
 Examples:
 
-Access the first level of a single breakpoint's map:
+Access the first level of a single breakpoints map:
 ```scss
 .tile {
   padding-left: gr-get-value(s, gutter) / 2;
@@ -856,7 +856,7 @@ Access the first level of a single breakpoint's map:
   padding-left: 6px;
 }
 ```
-Access a deeper nested level of a breakpoint::
+Access a deeper nested level of a breakpoint:
 ```scss
 .custom-container {
   max-width: gr-get-value(l, container, max-width);
