@@ -14,7 +14,7 @@
 
   #{$row-reverse-selector} {
 
-    @include _gr-row-reverse($breakpoint);
+    @include _gr-row-reverse();
   }
 }
 
@@ -23,7 +23,7 @@
 // internals
 // ==============
 
-@mixin _gr-row-reverse($breakpoint: null) {
+@mixin _gr-row-reverse() {
 
   flex-direction: row-reverse;
 }

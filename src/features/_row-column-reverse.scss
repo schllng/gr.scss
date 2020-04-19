@@ -14,7 +14,7 @@
 
   #{$row-column-reverse-selector} {
 
-    @include _gr-row-column-reverse($breakpoint);
+    @include _gr-row-column-reverse();
   }
 }
 
@@ -23,7 +23,7 @@
 // internals
 // ==============
 
-@mixin _gr-row-column-reverse($breakpoint: null) {
+@mixin _gr-row-column-reverse() {
 
   flex-direction: column-reverse;
 }

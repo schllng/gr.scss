@@ -14,7 +14,7 @@
 
   #{$row-column-selector} {
 
-    @include _gr-row-column($breakpoint);
+    @include _gr-row-column();
   }
 }
 
@@ -23,7 +23,7 @@
 // internals
 // ==============
 
-@mixin _gr-row-column($breakpoint: null) {
+@mixin _gr-row-column() {
 
   flex-direction: column;
 }
