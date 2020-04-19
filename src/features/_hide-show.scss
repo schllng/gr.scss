@@ -35,7 +35,7 @@ $_gr-hide-show-types: (
 
       #{$selector} {
 
-        @include _gr-hide($breakpoint);
+        @include _gr-hide();
       }
     }
 
@@ -43,7 +43,7 @@ $_gr-hide-show-types: (
 
       #{$selector} {
 
-        @include _gr-show(', $breakpointblock');
+        @include _gr-show();
       }
     }
 
@@ -51,7 +51,7 @@ $_gr-hide-show-types: (
 
       #{$selector} {
 
-        @include _gr-hidden($breakpoint);
+        @include _gr-hidden();
       }
     }
 
@@ -59,7 +59,7 @@ $_gr-hide-show-types: (
 
       #{$selector} {
 
-        @include _gr-visible($breakpoint);
+        @include _gr-visible();
       }
     }
   }
@@ -70,22 +70,22 @@ $_gr-hide-show-types: (
 // internals
 // ==============
 
-@mixin _gr-hide($breakpoint: null) {
+@mixin _gr-hide() {
 
   display: none;
 }
 
-@mixin _gr-show($breakpoint: null, $disblay-type: 'block') {
+@mixin _gr-show($display-type: 'block') {
 
-  display: #{$disblay-type};
+  display: #{$display-type};
 }
 
-@mixin _gr-hidden($breakpoint: null) {
+@mixin _gr-hidden() {
 
   visibility: hidden;
 }
 
-@mixin _gr-visible($breakpoint: null) {
+@mixin _gr-visible() {
 
   visibility: visible;
 }
@@ -101,7 +101,7 @@ $_gr-hide-show-types: (
 
     @include _gr-media($breakpoint) {
 
-      @include _gr-hide($breakpoint);
+      @include _gr-hide();
     }
   } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
@@ -109,22 +109,22 @@ $_gr-hide-show-types: (
 
       @include _gr-media($breakpoint) {
 
-        @include _gr-hide($breakpoint);
+        @include _gr-hide();
       }
     }
   } @else {
 
-    @include _gr-hide($breakpoint);
+    @include _gr-hide();
   }
 }
 
-@mixin gr-show($breakpoint: null, $disblay-type: 'block') {
+@mixin gr-show($breakpoint: null, $display-type: 'block') {
 
   @if $breakpoint and length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
-      @include _gr-show($breakpoint, $disblay-type);
+      @include _gr-show($display-type);
     }
   } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
@@ -132,12 +132,12 @@ $_gr-hide-show-types: (
 
       @include _gr-media($breakpoint) {
 
-        @include _gr-show($breakpoint, $disblay-type);
+        @include _gr-show($display-type);
       }
     }
   } @else {
 
-    @include _gr-show($breakpoint, $disblay-type);
+    @include _gr-show($display-type);
   }
 }
 
@@ -147,7 +147,7 @@ $_gr-hide-show-types: (
 
     @include _gr-media($breakpoint) {
 
-      @include _gr-hidden($breakpoint);
+      @include _gr-hidden();
     }
   } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
@@ -155,12 +155,12 @@ $_gr-hide-show-types: (
 
       @include _gr-media($breakpoint) {
 
-        @include _gr-hidden($breakpoint);
+        @include _gr-hidden();
       }
     }
   } @else {
 
-    @include _gr-hidden($breakpoint);
+    @include _gr-hidden();
   }
 }
 
@@ -170,7 +170,7 @@ $_gr-hide-show-types: (
 
     @include _gr-media($breakpoint) {
 
-      @include _gr-visible($breakpoint);
+      @include _gr-visible();
     }
   } @else if not $breakpoint and length($gr-breakpoints) > 0 {
 
@@ -178,11 +178,11 @@ $_gr-hide-show-types: (
 
       @include _gr-media($breakpoint) {
 
-        @include _gr-visible($breakpoint);
+        @include _gr-visible();
       }
     }
   } @else {
 
-    @include _gr-visible($breakpoint);
+    @include _gr-visible();
   }
 }
