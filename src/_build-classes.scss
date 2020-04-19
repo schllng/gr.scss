@@ -72,7 +72,7 @@
         @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
       }
 
-      // seperate columns without breakpoint modifier
+      // separate columns without breakpoint modifier
       // to override them by column classes with modifier
       @for $i from 1 to _gr-get-resp-val($breakpoint, columns) + 1 {
 
@@ -98,7 +98,7 @@
 
 /// Generates selectors for all columns for the given breakpoint ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
 /// @param  {String|null}  $breakpoint       null   The breakpoint identifier for which the selector should be build
-/// @param  {Boolean}      $only-breakpoint  false  Wheter classes without breakpoint should be added or not
+/// @param  {Boolean}      $only-breakpoint  false  Whether classes without breakpoint should be added or not
 
 @mixin _gr-col-selector-all($breakpoint: null, $only-breakpoint: false) {
 

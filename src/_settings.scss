@@ -7,16 +7,16 @@ $gr-set-container-style: false !default;
 $gr-center-container: false !default;
 
 // ==============
-// Completly customizable class names:
+// Completely customizable class names:
 // ==============
 
 // {String} - The prefix for all classes (.#{$gr-namespace-class}-)
 $gr-namespace-class: 'gr' !default;
 
-// {String} - The classname for the container-selector: (.#{$gr-namespace-class}-#{$gr-container-class})
+// {String} - The class name for the container-selector: (.#{$gr-namespace-class}-#{$gr-container-class})
 $gr-container-class: 'container' !default;
 
-// {String} - The classname for the row-selector: (.#{$gr-namespace-class}-#{$gr-row-class})
+// {String} - The class name for the row-selector: (.#{$gr-namespace-class}-#{$gr-row-class})
 $gr-row-class: 'row' !default;
 
 // {String} - If you want to apply grid-styles only for a specific breakpoint, this divider (.#{$gr-namespace-class}-12#{$gr-breakpoint-class-divider}#{BREAKPOINT_ID})

@@ -12,7 +12,7 @@
 
   @if $breakpoint {
 
-    // seperate columns without breakpoint modifier
+    // separate columns without breakpoint modifier
     // to override them by column classes with modifier
     @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
 
@@ -61,7 +61,7 @@
     }
   } @else {
 
-    // seperate columns without breakpoint modifier
+    // separate columns without breakpoint modifier
     // to override them by column classes with modifier
     @for $i from 0 to $gr-columns + 1 {
 
