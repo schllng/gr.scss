@@ -81,12 +81,12 @@
 
 @mixin _gr-prefix($width, $columns) {
 
-  margin-left: #{100% / $columns * $width};
+  margin-left: #{_div(100%, $columns) * $width};
 }
 
 @mixin _gr-suffix($width, $columns) {
 
-  margin-right: #{100% / $columns * $width};
+  margin-right: #{_div(100%, $columns) * $width};
 }
 
 

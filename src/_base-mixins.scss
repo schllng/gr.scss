@@ -6,14 +6,14 @@
 
 @mixin _gr-col-base($gutter) {
 
-  padding-left: $gutter / 2;
-  padding-right: $gutter / 2;
+  padding-left: _div($gutter, 2);
+  padding-right: _div($gutter, 2);
   box-sizing: border-box;
 }
 
 @mixin _gr-col($width, $columns) {
 
-  width: #{100% / $columns * $width};
+  width: #{_div(100%, $columns) * $width};
 }
 
 @mixin _gr-row-base() {
@@ -27,8 +27,8 @@
 
 @mixin _gr-row($gutter) {
 
-  margin-left: #{ $gutter / -2};
-  margin-right: #{ $gutter / -2};
+  margin-left: #{_div($gutter, -2)};
+  margin-right: #{_div($gutter, -2)};
 };
 
 @mixin _gr-container($max-width, $padding) {
