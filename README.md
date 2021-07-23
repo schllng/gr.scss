@@ -41,16 +41,9 @@ You can enable additional features as soon as you need them. By that, you  keep 
 | -------------- | ------------ | -------------- |
 | ✅ 1.33.0+     | ❌           | ❌             |
 
-Dart Sass
-since 1.33.0
-LibSass
-✗
-Ruby Sass
-✗
-
 ## Installation
 
-```
+```shell
 npm install gr.scss
 ```
 
@@ -65,7 +58,8 @@ Simply import the grid, apply your configuration and let gr.scss generate the cl
 // Your custom settings
 $gr-columns: 12;
 $gr-gutter: 24px;
-[...]
+
+// ...
 
 // Generate classes
 @include gr-build-classes();
@@ -178,9 +172,11 @@ $gr-breakpoints: (
 ### Class Generation
 
 After configuring your grid, you can let gr.scss generate classes for you:
+
 ```scss
 @include gr-build-classes();
 ```
+
 By default this will only generate the bare minimum of the grid. Each additional [feature](#features) can be enabled by a config map sent to the `gr-build-classes` function:
 
 ```scss
@@ -231,6 +227,7 @@ Available classes:
 - `gr-container@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-container">
   <!-- Your grid -->
@@ -240,6 +237,7 @@ Markup example:
   <!-- Your grid -->
 </div>
 ```
+
 #### Row
 
 Embed columns to ensure the correct alignment and behavior.
@@ -249,8 +247,8 @@ Available classes:
 - `gr-row`
 - `gr-row@{{breakpoint-name}}`
 
-
 Markup example:
+
 ```html
 <div class="gr-container">
   <div class="gr-row">
@@ -275,6 +273,7 @@ Available classes:
 - `gr-{{column-count}}@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-container">
   <div class="gr-row">
@@ -302,6 +301,7 @@ If you have a container you can force a row to push itself out of the containers
 ⚠️ The container has to be centered, for this feature to work properly.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   row-full: true
@@ -314,6 +314,7 @@ Available classes:
 - `gr-row--full@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-container">
   <div class="gr-row gr-row--full">
@@ -335,6 +336,7 @@ Markup example:
 With this feature you can arrange the columns vertically independently of their width.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   row-column: true
@@ -347,6 +349,7 @@ Available classes:
 - `gr-row--column@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row gr-row--column">
   <div class="gr-4">
@@ -366,6 +369,7 @@ Markup example:
 This feature allows you to reverse the visible order of the columns within a row.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   row-reverse: true
@@ -378,6 +382,7 @@ Available classes:
 - `gr-row--reverse@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row gr-row--reverse">
   <div class="gr-4">
@@ -397,6 +402,7 @@ Markup example:
 In addition to the [row-reverse](#row-reverse) feature you can use column-reverse to reverse the visible order within a row but have the columns arranged vertically.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   row-column-reverse: true
@@ -409,6 +415,7 @@ Available classes:
 - `gr-row--column-reverse@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row gr-row--column-reverse">
   <div class="gr-4">
@@ -430,6 +437,7 @@ By applying a prefix, you can add space to the left side, without having empty c
 ℹ️ If you have set a prefix class without a specific breakpoint name the prefix applies to all screen resolutions. If you need to remove the prefix for a certain breakpoint you can use the `gr--prefix-0@{{breakpoint-name}}` class to override the default. By that you don't have to specify prefix class names for all breakpoints.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   prefix: true
@@ -443,6 +451,7 @@ Available classes:
 - `gr--prefix-{{column-count}}@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row">
   <div class="gr-4 gr--prefix-3 gr--prefix-0@m">
@@ -464,6 +473,7 @@ By applying a suffix, you can add space to the right side, without having empty 
 ℹ️ If you have set an suffix class without a specific breakpoint-name the suffix applies for all screen resolutions. If you need to remove the suffix for a certain breakpoint you can use the `gr--suffix-0@{{breakpoint-name}}` class to override the default. By that you don't have to specify suffix class names for all breakpoints.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   suffix: true
@@ -477,6 +487,7 @@ Available classes:
 - `gr--suffix-{{column-count}}@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row">
   <div class="gr-4 gr--suffix-2 gr--suffix-0@m">
@@ -496,6 +507,7 @@ Markup example:
 The push feature is used to translate a grid element to the right. In contrast to a prefix a push doesn't effect the position of other grid elements (It gets translated to the right without forcing the following elements to adjust their position accordingly):
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   push: true
@@ -509,6 +521,7 @@ Available classes:
 - `gr--push-{{column-count}}@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row">
   <!-- Gets pushed to the position of the second element -->
@@ -531,6 +544,7 @@ Markup example:
 The pull feature is used to translate a grid element to the left. In contrast to a suffix a pull doesn't effect the position of other grid elements (It gets translated to the left instead of forcing the following elements to make the room):
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   pull: true
@@ -544,6 +558,7 @@ Available classes:
 - `gr--pull-{{column-count}}@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row">
   <!-- Gets pushed to the position of the second element -->
@@ -568,6 +583,7 @@ The align feature is used to define the horizontal and vertical alignment of the
 ℹ️ Horizontal and vertical alignment can be used together.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   align: true
@@ -621,6 +637,7 @@ Space between elements (`justify-content: space-between;`):
 - `gr-row--align-between@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row gr-row--align-between gr-row--align-middle">
   <div class="gr-2">
@@ -640,6 +657,7 @@ Markup example:
 The hide-show feature can be used to make elements visible or invisible either by setting the display or the visibility property:
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   hide-show: true
@@ -669,6 +687,7 @@ Available classes:
 - `gr--visible@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row">
   <div class="gr-12 gr--hide gr--show@m">
@@ -688,6 +707,7 @@ Markup example:
 The no-gutter feature enables you to completely or partially remove the gutter. To do so, you can remove the negative margin on the row and the paddings on the grid elements as needed.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   no-gutter: true
@@ -715,6 +735,7 @@ column:
 - `gr--no-gutter-right@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <!-- Completely remove gutter -->
 <div class="gr-row gr-row--no-gutter">
@@ -751,6 +772,7 @@ The order feature is used to reorder elements without changing the markup struct
 ℹ️ `gr--order-first` will put the element at the very first position even if you have defined an element with `gr--order-1`. `gr--order-last` will put the element at the very end of a list of grid elements.
 
 Activate:
+
 ```scss
 @include gr-build-classes((
   order: true
@@ -767,6 +789,7 @@ Available classes:
 - `gr--order-{{column-count}}@{{breakpoint-name}}`
 
 Markup example:
+
 ```html
 <div class="gr-row">
   <!-- 2. -->
@@ -805,6 +828,7 @@ gr.scss provides some useful helpers for you to work with your defined breakpoin
 By using the `gr-media` mixin, you can set styles within the breakpoints of your grid, without redefining the media queries over and over again. It receives one or two breakpoint identifiers, defined in your [grid settings](#grid-with-breakpoint-definitions). Calling it with one breakpoint identifier `gr-media` sets the minimum and maximum value by the definitions of this single breakpoint. Otherwise the mixin uses the first breakpoint to get the minimum and the second to get the maximum value, if it is set.
 
 Usage:
+
 ```scss
 @include gr-media(breakpoint-name1[, breakpoint-name2]) {
   // Your style definitions
@@ -816,35 +840,39 @@ Examples:
 Breakpoint with defined min and max value:
 
 ```scss
-@include gr-media(m) { ... }
+@include gr-media(m) { /* ... */ }
 
 // CSS output:
-@media (min-width: 601px) and (max-width: 1000px) { ... }
+@media (min-width: 601px) and (max-width: 1000px) { /* ... */ }
 ```
+
 Breakpoint with min value of null:
 
 ```scss
-@include gr-media(s) { ... }
+@include gr-media(s) { /* ... */ }
 
 // CSS output:
-@media (max-width: 600px) { ... }
+@media (max-width: 600px) { /* ... */ }
 ```
+
 One breakpoint with defined min value and the a second breakpoint with a defined max value:
 
 ```scss
-@include gr-media(m, l) { ... }
+@include gr-media(m, l) { /* ... */ }
 
 // CSS output:
-@media (min-width: 601px) and (max-width: 1200px) { ... }
+@media (min-width: 601px) and (max-width: 1200px) { /* ... */ }
 ```
+
 One breakpoint with defined min value and the a second breakpoint with max value set to null:
 
 ```scss
-@include gr-media(m, xl) { ... }
+@include gr-media(m, xl) { /* ... */ }
 
 // CSS output:
-@media (min-width: 601px) { ... }
+@media (min-width: 601px) { /* ... */ }
 ```
+
 ### gr-get-value
 
 Sometimes it comes in handy, to fetch grid facts for specific breakpoints to apply them to non grid elements. You can use the `gr-get-value` function for this very reason. You need to provide the breakpoint identifier followed by the keys to describe the nesting path to the value you want to get access to.
@@ -855,11 +883,12 @@ Usage:
 .some-selector {
   property: gr-get-value(breakpoint-name, key1[, key2[, ...[, keyN]]]);
 }
-
 ```
+
 Examples:
 
 Access the first level of a single breakpoints map:
+
 ```scss
 .tile {
   padding-left: gr-get-value(s, gutter) / 2;
@@ -870,7 +899,9 @@ Access the first level of a single breakpoints map:
   padding-left: 6px;
 }
 ```
+
 Access a deeper nested level of a breakpoint:
+
 ```scss
 .custom-container {
   max-width: gr-get-value(l, container, max-width);
@@ -881,7 +912,9 @@ Access a deeper nested level of a breakpoint:
   max-width: 1200px;
 }
 ```
+
 Access values for each breakpoint and wrap them in a media query condition related to that breakpoint:
+
 ```scss
 @each $breakpoint, $breakpoint-config in $gr-breakpoints {
   @include gr-media($breakpoint) {
@@ -894,6 +927,6 @@ Access values for each breakpoint and wrap them in a media query condition relat
 
 ## Browser Support
 
-| ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png)<br />IE11 / Edge | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png)<br />Firefox | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png)<br />Chrome | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png)<br />Safari | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari-ios.png)<br />iOS Safari | ![](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome-android.png)<br />Chrome for Android |
+| ![Logo Edge](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/edge.png) | ![Logo Firefox](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/firefox.png) | ![Logo Chrome](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome.png) | ![Logo Safari](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari.png) | ![Logo Safari iOS](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/safari-ios.png) | ![Logo Chrome Android](https://raw.githubusercontent.com/godban/browsers-support-badges/master/src/images/chrome-android.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | :----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | IE11 / Edge                                                  | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
