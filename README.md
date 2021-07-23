@@ -5,6 +5,7 @@ A small and customizable flexbox based grid system, written in SCSS.
 By default gr.scss generates just the classes you need to get started working on your grid based layouts.
 You can enable additional features as soon as you need them. By that, you  keep your CSS as small as possible.
 
+- [Compatibility](#compatibility)
 - [Installation](#installation)
 - [Setup](#setup)
   - [Settings](#settings)
@@ -33,6 +34,19 @@ You can enable additional features as soon as you need them. By that, you  keep 
   - [gr-media](#gr-media)
   - [gr-get-value](#gr-get-value)
 - [Browser Support](#browser-Support)
+
+## Compatibility
+
+| Dart Sass      | LibSass      | Ruby Sass      |
+| -------------- | ------------ | -------------- |
+| ✅ 1.33.0+     | ❌           | ❌             |
+
+Dart Sass
+since 1.33.0
+LibSass
+✗
+Ruby Sass
+✗
 
 ## Installation
 
