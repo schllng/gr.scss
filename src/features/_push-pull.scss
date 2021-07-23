@@ -104,12 +104,12 @@
 @mixin _gr-push($width, $columns) {
 
   right: auto;
-  left: #{100% / $columns * $width};
+  left: #{_div(100%, $columns) * $width};
 }
 
 @mixin _gr-pull($width, $columns) {
 
-  right: #{100% / $columns * $width};
+  right: #{_div(100%, $columns) * $width};
   left: auto;
 }
 

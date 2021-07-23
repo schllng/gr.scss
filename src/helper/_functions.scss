@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /// Iterates over given keys to get the value of a multi dimensional map.
 /// Each given key but the last must return another map with the next key in it.
 /// @param  {Map}          $map       The map containing the first given key
@@ -42,4 +44,12 @@
   $new: ($key: $value);
 
   @return map-merge($map, $new);
+}
+
+/// Returns the result of dividing $dividend by $divisor.
+/// @param  {Number}  $dividend
+/// @param  {Number}  $divisor
+/// @return {Number}            Result
+@function _div($dividend, $divisor) {
+  @return math.div($dividend, $divisor);
 }
