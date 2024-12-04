@@ -1,3 +1,4 @@
+@use 'sass:list';
 
 // ==============
 // build classes
@@ -18,7 +19,7 @@
 
       @if $set-push-classes {
 
-        $push-pull-classes: append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
+        $push-pull-classes: list.append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
 
         #{$push-selector}-#{$i} {
 
@@ -28,7 +29,7 @@
 
       @if $set-pull-classes {
 
-        $push-pull-classes: append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
+        $push-pull-classes: list.append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
 
         #{$pull-selector}-#{$i} {
 
@@ -41,7 +42,7 @@
 
       @if $set-push-classes {
 
-        $push-pull-classes: append($push-pull-classes, #{$push-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}, 'comma');
+        $push-pull-classes: list.append($push-pull-classes, #{$push-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}, 'comma');
 
         #{$push-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
@@ -51,7 +52,7 @@
 
       @if $set-pull-classes {
 
-        $push-pull-classes: append($push-pull-classes, #{$pull-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}, 'comma');
+        $push-pull-classes: list.append($push-pull-classes, #{$pull-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}, 'comma');
 
         #{$pull-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
 
@@ -67,7 +68,7 @@
 
       @if $set-push-classes {
 
-        $push-pull-classes: append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
+        $push-pull-classes: list.append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
 
         #{$push-selector}-#{$i} {
 
@@ -77,7 +78,7 @@
 
       @if $set-pull-classes {
 
-        $push-pull-classes: append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
+        $push-pull-classes: list.append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
 
         #{$pull-selector}-#{$i} {
 
@@ -87,7 +88,7 @@
     }
   }
 
-  @if length($push-pull-classes) > 0 {
+  @if list.length($push-pull-classes) > 0 {
 
     #{$push-pull-classes} {
 
@@ -125,14 +126,14 @@
 
 @mixin gr-push($width, $breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-push-pull-base;
       @include _gr-push($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -151,14 +152,14 @@
 
 @mixin gr-pull($width, $breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-push-pull-base;
       @include _gr-pull($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

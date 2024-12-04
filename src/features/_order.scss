@@ -1,3 +1,4 @@
+@use 'sass:list';
 
 // ==============
 // build classes
@@ -9,7 +10,7 @@
 
   @for $i from 1 to $columns + 1 {
 
-    $order-list: append($order-list, $i);
+    $order-list: list.append($order-list, $i);
   }
 
   @each $position in $order-list {
@@ -48,13 +49,13 @@
 
 @mixin gr-order($position, $breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-order($position);
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

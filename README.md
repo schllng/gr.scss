@@ -8,32 +8,32 @@ You can enable additional features as soon as you need them. By that, you  keep 
 - [Compatibility](#compatibility)
 - [Installation](#installation)
 - [Setup](#setup)
-  - [Settings](#settings)
-    - [Grid without breakpoints](#grid-without-breakpoints)
-    - [Grid with breakpoint definitions](#grid-with-breakpoint-definitions)
-  - [Generate Classes](#generate-Classes)
+	- [Settings](#settings)
+		- [Grid without breakpoints](#grid-without-breakpoints)
+		- [Grid with breakpoint definitions](#grid-with-breakpoint-definitions)
+	- [Class Generation](#class-generation)
 - [Classes](#classes)
-  - [Base](#base)
-    - [Container](#container)
-    - [Row](#row)
-    - [Columns](#columns)
-  - [Features](#features)
-    - [row-full](#row-full)
-    - [row-column](#row-column)
-    - [row-reverse](#row-reverse)
-    - [row-column-reverse](#row-column-reverse)
-    - [prefix](#prefix)
-    - [suffix](#suffix)
-    - [push](#push)
-    - [pull](#pull)
-    - [align](#align)
-    - [hide-show](#hide-show)
-    - [no-gutter](#no-gutter)
-    - [order](#order)
+	- [Base](#base)
+		- [Container](#container)
+		- [Row](#row)
+		- [Columns](#columns)
+	- [Features](#features)
+		- [row-full](#row-full)
+		- [row-column](#row-column)
+		- [row-reverse](#row-reverse)
+		- [row-column-reverse](#row-column-reverse)
+		- [prefix](#prefix)
+		- [suffix](#suffix)
+		- [push](#push)
+		- [pull](#pull)
+		- [align](#align)
+		- [hide-show](#hide-show)
+		- [no-gutter](#no-gutter)
+		- [order](#order)
 - [Helpers](#helpers)
-  - [gr-media](#gr-media)
-  - [gr-get-value](#gr-get-value)
-- [Browser Support](#browser-Support)
+	- [gr-media](#gr-media)
+	- [gr-get-value](#gr-get-value)
+- [Browser Support](#browser-support)
 
 ## Compatibility
 
@@ -53,11 +53,11 @@ Simply import the grid, apply your configuration and let gr.scss generate the cl
 
 ```scss
 // Import gr.scss
-@import 'node_modules/gr.scss/index';
-
-// Your custom settings
-$gr-columns: 12;
-$gr-gutter: 24px;
+@use 'node_modules/gr.scss/index' as * with (
+	// Your custom settings
+	$gr-columns: 12,
+	$gr-gutter: 24px,
+);
 
 // ...
 
@@ -128,44 +128,44 @@ When maintaining multiple breakpoints the grid needs to be configured for each o
 ```scss
 // {Map} - Contains the definitions for every breakpoint
 $gr-breakpoints: (
-  // {Map} - The key is used as a breakpoint identifier (breakpoint-name) and has to be unique
-  s: (
-    // {Number|null} - Minimum screen width for this breakpoint
-    min: null,
-    // {Number|null} - Maximum screen width for this breakpoint
-    max: 600px,
-    // {Number} - Space between columns
-    gutter: 12px,
-    // {Number} - Number of columns to use (how many columns have to fit in one row)
-    columns: 12,
-    // {Map} - Wrapping container definitions
-    container: (
-      // {Number|null} - The maximum width
-      max-width: 100%,
-      // {Number|null} - Container padding
-      padding: 30px
-    )
-  ),
-  m: (
-    min: 601px,
-    max: 1000px,
-    gutter: 24px,
-    columns: 12,
-    container: (
-      max-width: 768px,
-      padding: 20px
-    )
-  ),
-  l: (
-    min: 1001px,
-    max: null,
-    gutter: 40px,
-    columns: 12,
-    container: (
-      max-width: 1200px,
-      padding: 60px
-    )
-  )
+	// {Map} - The key is used as a breakpoint identifier (breakpoint-name) and has to be unique
+	s: (
+		// {Number|null} - Minimum screen width for this breakpoint
+		min: null,
+		// {Number|null} - Maximum screen width for this breakpoint
+		max: 600px,
+		// {Number} - Space between columns
+		gutter: 12px,
+		// {Number} - Number of columns to use (how many columns have to fit in one row)
+		columns: 12,
+		// {Map} - Wrapping container definitions
+		container: (
+			// {Number|null} - The maximum width
+			max-width: 100%,
+			// {Number|null} - Container padding
+			padding: 30px
+		)
+	),
+	m: (
+		min: 601px,
+		max: 1000px,
+		gutter: 24px,
+		columns: 12,
+		container: (
+			max-width: 768px,
+			padding: 20px
+		)
+	),
+	l: (
+		min: 1001px,
+		max: null,
+		gutter: 40px,
+		columns: 12,
+		container: (
+			max-width: 1200px,
+			padding: 60px
+		)
+	)
 );
 ```
 
@@ -183,24 +183,24 @@ By default this will only generate the bare minimum of the grid. Each additional
 // {Map} - Map of feature identifiers pointing to booleans
 // Set the boolean to true to enable the feature and to generate classes for it
 @include gr-build-classes((
-  prefix: false,
-  suffix: false,
-  push: false,
-  pull: false,
-  row-full: false,
-  row-column: false,
-  row-reverse: false,
-  row-column-reverse: false,
-  hide-show: false,
-  order: false,
-  align: false,
-  no-gutter: false
+	prefix: false,
+	suffix: false,
+	push: false,
+	pull: false,
+	row-full: false,
+	row-column: false,
+	row-reverse: false,
+	row-column-reverse: false,
+	hide-show: false,
+	order: false,
+	align: false,
+	no-gutter: false
 ));
 
 // Example: Build the grid including classes for the prefix and suffix features
 @include gr-build-classes((
-  prefix: true,
-  suffix: true
+	prefix: true,
+	suffix: true
 ));
 ```
 
@@ -230,11 +230,11 @@ Markup example:
 
 ```html
 <div class="gr-container">
-  <!-- Your grid -->
+	<!-- Your grid -->
 </div>
 
 <div class="gr-container@s">
-  <!-- Your grid -->
+	<!-- Your grid -->
 </div>
 ```
 
@@ -251,15 +251,15 @@ Markup example:
 
 ```html
 <div class="gr-container">
-  <div class="gr-row">
-    <!-- Your columns -->
-  </div>
+	<div class="gr-row">
+		<!-- Your columns -->
+	</div>
 </div>
 
 <div class="gr-container@s">
-  <div class="gr-row@s">
-    <!-- Your columns -->
-  </div>
+	<div class="gr-row@s">
+		<!-- Your columns -->
+	</div>
 </div>
 ```
 
@@ -276,19 +276,19 @@ Markup example:
 
 ```html
 <div class="gr-container">
-  <div class="gr-row">
-    <div class="gr-12">
-      <!-- Your content -->
-    </div>
-    <div class="gr-4 gr-12@s">
-      <!-- Your content -->
-    </div>
-    <div class="gr-4 gr-6@s">
-      <!-- Your content -->
-    </div>
-    <div class="gr-4 gr-6@s">
-      <!-- Your content -->
-    </div>
+	<div class="gr-row">
+		<div class="gr-12">
+			<!-- Your content -->
+		</div>
+		<div class="gr-4 gr-12@s">
+			<!-- Your content -->
+		</div>
+		<div class="gr-4 gr-6@s">
+			<!-- Your content -->
+		</div>
+		<div class="gr-4 gr-6@s">
+			<!-- Your content -->
+		</div>
 </div>
 ```
 
@@ -304,7 +304,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  row-full: true
+	row-full: true
 ));
 ```
 
@@ -317,17 +317,17 @@ Markup example:
 
 ```html
 <div class="gr-container">
-  <div class="gr-row gr-row--full">
-    <div class="gr-4">
-      <!-- Your content -->
-    </div>
-    <div class="gr-4">
-      <!-- Your content -->
-    </div>
-    <div class="gr-4">
-      <!-- Your content -->
-    </div>
-  </div>
+	<div class="gr-row gr-row--full">
+		<div class="gr-4">
+			<!-- Your content -->
+		</div>
+		<div class="gr-4">
+			<!-- Your content -->
+		</div>
+		<div class="gr-4">
+			<!-- Your content -->
+		</div>
+	</div>
 </div>
 ```
 
@@ -339,7 +339,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  row-column: true
+	row-column: true
 ));
 ```
 
@@ -352,15 +352,15 @@ Markup example:
 
 ```html
 <div class="gr-row gr-row--column">
-  <div class="gr-4">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4">
-    <!-- Your content -->
-  </div>
+	<div class="gr-4">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -372,7 +372,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  row-reverse: true
+	row-reverse: true
 ));
 ```
 
@@ -385,15 +385,15 @@ Markup example:
 
 ```html
 <div class="gr-row gr-row--reverse">
-  <div class="gr-4">
-    <!-- Displayed as third item -->
-  </div>
-  <div class="gr-4">
-    <!-- Displayed as second item -->
-  </div>
-  <div class="gr-4">
-    <!-- Displayed as first item -->
-  </div>
+	<div class="gr-4">
+		<!-- Displayed as third item -->
+	</div>
+	<div class="gr-4">
+		<!-- Displayed as second item -->
+	</div>
+	<div class="gr-4">
+		<!-- Displayed as first item -->
+	</div>
 </div>
 ```
 
@@ -405,7 +405,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  row-column-reverse: true
+	row-column-reverse: true
 ));
 ```
 
@@ -418,15 +418,15 @@ Markup example:
 
 ```html
 <div class="gr-row gr-row--column-reverse">
-  <div class="gr-4">
-    <!-- Displayed as third item -->
-  </div>
-  <div class="gr-4">
-    <!-- Displayed as second item -->
-  </div>
-  <div class="gr-4">
-    <!-- Displayed as first item -->
-  </div>
+	<div class="gr-4">
+		<!-- Displayed as third item -->
+	</div>
+	<div class="gr-4">
+		<!-- Displayed as second item -->
+	</div>
+	<div class="gr-4">
+		<!-- Displayed as first item -->
+	</div>
 </div>
 ```
 
@@ -440,7 +440,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  prefix: true
+	prefix: true
 ));
 ```
 
@@ -454,15 +454,15 @@ Markup example:
 
 ```html
 <div class="gr-row">
-  <div class="gr-4 gr--prefix-3 gr--prefix-0@m">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--prefix-1 gr--prefix-0@m">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--prefix-8 gr--prefix-0@m">
-    <!-- Your content -->
-  </div>
+	<div class="gr-4 gr--prefix-3 gr--prefix-0@m">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--prefix-1 gr--prefix-0@m">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--prefix-8 gr--prefix-0@m">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -476,7 +476,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  suffix: true
+	suffix: true
 ));
 ```
 
@@ -490,15 +490,15 @@ Markup example:
 
 ```html
 <div class="gr-row">
-  <div class="gr-4 gr--suffix-2 gr--suffix-0@m">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--suffix-1 gr--suffix-0@m">
-    <!-- Your content -->
-  </div>
-  <div class="gr-2">
-    <!-- Your content -->
-  </div>
+	<div class="gr-4 gr--suffix-2 gr--suffix-0@m">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--suffix-1 gr--suffix-0@m">
+		<!-- Your content -->
+	</div>
+	<div class="gr-2">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -510,7 +510,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  push: true
+	push: true
 ));
 ```
 
@@ -524,18 +524,18 @@ Markup example:
 
 ```html
 <div class="gr-row">
-  <!-- Gets pushed to the position of the second element -->
-  <div class="gr-4 gr--push-4">
-    <!-- Your content -->
-  </div>
-  <!-- Gets pulled to the position of the first element -->
-  <div class="gr-4 gr--pull-4">
-    <!-- Your content -->
-  </div>
-  <!-- Gets pushed by the width of two columns and lands outside of the grid bounds -->
-  <div class="gr-4 gr--push-2@m">
-    <!-- Your content -->
-  </div>
+	<!-- Gets pushed to the position of the second element -->
+	<div class="gr-4 gr--push-4">
+		<!-- Your content -->
+	</div>
+	<!-- Gets pulled to the position of the first element -->
+	<div class="gr-4 gr--pull-4">
+		<!-- Your content -->
+	</div>
+	<!-- Gets pushed by the width of two columns and lands outside of the grid bounds -->
+	<div class="gr-4 gr--push-2@m">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -547,7 +547,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  pull: true
+	pull: true
 ));
 ```
 
@@ -561,18 +561,18 @@ Markup example:
 
 ```html
 <div class="gr-row">
-  <!-- Gets pushed to the position of the second element -->
-  <div class="gr-4 gr--push-4">
-    <!-- Your content -->
-  </div>
-  <!-- Gets pulled to the position of the first element -->
-  <div class="gr-4 gr--pull-4">
-    <!-- Your content -->
-  </div>
-  <!-- Gets pulled by the width of two columns and overlaps the previous element -->
-  <div class="gr-4 gr--pull-2@m">
-    <!-- Your content -->
-  </div>
+	<!-- Gets pushed to the position of the second element -->
+	<div class="gr-4 gr--push-4">
+		<!-- Your content -->
+	</div>
+	<!-- Gets pulled to the position of the first element -->
+	<div class="gr-4 gr--pull-4">
+		<!-- Your content -->
+	</div>
+	<!-- Gets pulled by the width of two columns and overlaps the previous element -->
+	<div class="gr-4 gr--pull-2@m">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -586,7 +586,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  align: true
+	align: true
 ));
 ```
 
@@ -640,15 +640,15 @@ Markup example:
 
 ```html
 <div class="gr-row gr-row--align-between gr-row--align-middle">
-  <div class="gr-2">
-    <!-- Your content -->
-  </div>
-  <div class="gr-2">
-    <!-- Your content -->
-  </div>
-  <div class="gr-2">
-    <!-- Your content -->
-  </div>
+	<div class="gr-2">
+		<!-- Your content -->
+	</div>
+	<div class="gr-2">
+		<!-- Your content -->
+	</div>
+	<div class="gr-2">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -660,7 +660,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  hide-show: true
+	hide-show: true
 ));
 ```
 
@@ -690,15 +690,15 @@ Markup example:
 
 ```html
 <div class="gr-row">
-  <div class="gr-12 gr--hide gr--show@m">
-    <!-- Your content - visible at m -->
-  </div>
-  <div class="gr-12 gr--hide gr--show@l">
-    <!-- Your content - visible at l -->
-  </div>
-  <div class="gr-12 gr--hide@m gr--hide@l">
-    <!-- Your content - visible at s -->
-  </div>
+	<div class="gr-12 gr--hide gr--show@m">
+		<!-- Your content - visible at m -->
+	</div>
+	<div class="gr-12 gr--hide gr--show@l">
+		<!-- Your content - visible at l -->
+	</div>
+	<div class="gr-12 gr--hide@m gr--hide@l">
+		<!-- Your content - visible at s -->
+	</div>
 </div>
 ```
 
@@ -710,7 +710,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  no-gutter: true
+	no-gutter: true
 ));
 ```
 
@@ -739,29 +739,29 @@ Markup example:
 ```html
 <!-- Completely remove gutter -->
 <div class="gr-row gr-row--no-gutter">
-  <div class="gr-4 gr--no-gutter">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--no-gutter">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--no-gutter">
-    <!-- Your content -->
-  </div>
+	<div class="gr-4 gr--no-gutter">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--no-gutter">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--no-gutter">
+		<!-- Your content -->
+	</div>
 </div>
 
 <!-- Or highly customized -->
 
 <div class="gr-row gr-row--no-gutter-left gr-row--no-gutter@l">
-  <div class="gr-4 gr--no-gutter-left gr--no-gutter-right@m gr--no-gutter-right@l">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--no-gutter@m gr--no-gutter@l">
-    <!-- Your content -->
-  </div>
-  <div class="gr-4 gr--no-gutter@l">
-    <!-- Your content -->
-  </div>
+	<div class="gr-4 gr--no-gutter-left gr--no-gutter-right@m gr--no-gutter-right@l">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--no-gutter@m gr--no-gutter@l">
+		<!-- Your content -->
+	</div>
+	<div class="gr-4 gr--no-gutter@l">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -775,7 +775,7 @@ Activate:
 
 ```scss
 @include gr-build-classes((
-  order: true
+	order: true
 ));
 ```
 
@@ -792,30 +792,30 @@ Markup example:
 
 ```html
 <div class="gr-row">
-  <!-- 2. -->
-  <div class="gr-2 gr--order-2">
-    <!-- Your content -->
-  </div>
-  <!-- 5. -->
-  <div class="gr-2 gr--order-5">
-    <!-- Your content -->
-  </div>
-  <!-- 1. -->
-  <div class="gr-2 gr--order-first">
-    <!-- Your content -->
-  </div>
-  <!-- 6. -->
-  <div class="gr-2 gr--order-last">
-    <!-- Your content -->
-  </div>
-  <!-- 4. -->
-  <div class="gr-2 gr--order-4">
-    <!-- Your content -->
-  </div>
-  <!-- 3. -->
-  <div class="gr-2 gr--order-3">
-    <!-- Your content -->
-  </div>
+	<!-- 2. -->
+	<div class="gr-2 gr--order-2">
+		<!-- Your content -->
+	</div>
+	<!-- 5. -->
+	<div class="gr-2 gr--order-5">
+		<!-- Your content -->
+	</div>
+	<!-- 1. -->
+	<div class="gr-2 gr--order-first">
+		<!-- Your content -->
+	</div>
+	<!-- 6. -->
+	<div class="gr-2 gr--order-last">
+		<!-- Your content -->
+	</div>
+	<!-- 4. -->
+	<div class="gr-2 gr--order-4">
+		<!-- Your content -->
+	</div>
+	<!-- 3. -->
+	<div class="gr-2 gr--order-3">
+		<!-- Your content -->
+	</div>
 </div>
 ```
 
@@ -831,7 +831,7 @@ Usage:
 
 ```scss
 @include gr-media(breakpoint-name1[, breakpoint-name2]) {
-  // Your style definitions
+	// Your style definitions
 }
 ```
 
@@ -881,7 +881,7 @@ Usage:
 
 ```scss
 .some-selector {
-  property: gr-get-value(breakpoint-name, key1[, key2[, ...[, keyN]]]);
+	property: gr-get-value(breakpoint-name, key1[, key2[, ...[, keyN]]]);
 }
 ```
 
@@ -891,12 +891,12 @@ Access the first level of a single breakpoints map:
 
 ```scss
 .tile {
-  padding-left: gr-get-value(s, gutter) / 2;
+	padding-left: gr-get-value(s, gutter) / 2;
 }
 
 // CSS output:
 .tile {
-  padding-left: 6px;
+	padding-left: 6px;
 }
 ```
 
@@ -904,12 +904,12 @@ Access a deeper nested level of a breakpoint:
 
 ```scss
 .custom-container {
-  max-width: gr-get-value(l, container, max-width);
+	max-width: gr-get-value(l, container, max-width);
 }
 
 // CSS output:
 .custom-container {
-  max-width: 1200px;
+	max-width: 1200px;
 }
 ```
 
@@ -917,11 +917,11 @@ Access values for each breakpoint and wrap them in a media query condition relat
 
 ```scss
 @each $breakpoint, $breakpoint-config in $gr-breakpoints {
-  @include gr-media($breakpoint) {
-    .tile {
-      padding-left: gr-get-value($breakpoint, gutter) / 2;
-    }
-  }
+	@include gr-media($breakpoint) {
+		.tile {
+			padding-left: gr-get-value($breakpoint, gutter) / 2;
+		}
+	}
 }
 ```
 

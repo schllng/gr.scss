@@ -1,1 +1,1619 @@
-@import './src/gr';
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:map';
+
+// Default settings:
+
+// {Boolean} - If you need styles for a wrapping container-element, set this to true
+$gr-set-container-style: false !default;
+
+// {Boolean} - If the container should be centered to the screen, set this to true
+$gr-center-container: false !default;
+
+// ==============
+// Completely customizable class names:
+// ==============
+
+// {String} - The prefix for all classes (.#{$gr-namespace-class}-)
+$gr-namespace-class: 'gr' !default;
+
+// {String} - The class name for the container-selector: (.#{$gr-namespace-class}-#{$gr-container-class})
+$gr-container-class: 'container' !default;
+
+// {String} - The class name for the row-selector: (.#{$gr-namespace-class}-#{$gr-row-class})
+$gr-row-class: 'row' !default;
+
+// {String} - If you want to apply grid-styles only for a specific breakpoint, this divider (.#{$gr-namespace-class}-12#{$gr-breakpoint-class-divider}#{BREAKPOINT_ID})
+$gr-breakpoint-class-divider: '\\@' !default;
+
+// ==============
+// General grid definitions
+// ==============
+
+// {Number} - Number of columns to use
+$gr-columns: 12 !default;
+
+// {Number} - Space between one column and another
+$gr-gutter: 24px !default;
+
+// {Number} - The maximum width of the wrapping container
+$gr-container-max-width: 1200px !default;
+
+// {Number} - Spacing around the grid
+$gr-container-padding: 20px !default;
+
+$gr-breakpoints: () !default;
+
+
+/// Iterates over given keys to get the value of a multi dimensional map.
+/// Each given key but the last must return another map with the next key in it.
+/// @param  {Map}          $map       The map containing the first given key
+/// @param  {...String}    $targets   A string or a list of strings with key names
+/// @return {Mixed}                   The value of the last given key
+@function _gr-multi-map-get($map, $targets...) {
+
+  $val: $map;
+  $curr-map: $val;
+
+  @each $target in $targets {
+
+    $val: map.get($curr-map, $target);
+    $curr-map: $val;
+  }
+
+  @return $val;
+}
+
+/// Returns a value for the given keys from the breakpoint configuration map and the given breakpoint.
+/// A wrapper for the _gr-multi-map-get function to work with the breakpoint configuration.
+/// @param  {String}       $breakpoint    The breakpoint identifier for the searched value
+/// @param  {...String}    $targets  A string or a list of strings with key names
+/// @return {Mixed}                  The value of the last given key
+@function _gr-get-resp-val($breakpoint, $targets...) {
+
+  @return _gr-multi-map-get($gr-breakpoints, $breakpoint, $targets...);
+}
+
+@function gr-get-value($breakpoint, $targets...) {
+
+  @return _gr-get-resp-val($breakpoint, $targets...);
+}
+
+/// Set a new value for a new or existing key within the given map.
+/// @param  {Map}     $map    The map where the key and/or value should be set.
+/// @param  {String}  $key    The key for the map.
+/// @param  {Mixed}   $value  The value to set for the given key.
+/// @return {Map}             The new map
+@function _gr-map-set($map, $key, $value) {
+
+  $new: ($key: $value);
+
+  @return map-merge($map, $new);
+}
+
+/// Returns the result of dividing $dividend by $divisor.
+/// @param  {Number}  $dividend
+/// @param  {Number}  $divisor
+/// @return {Number}            Result
+@function _div($dividend, $divisor) {
+  @return math.div($dividend, $divisor);
+}
+
+/// Builds the media query for the given breakpoint identifiers to wrap the styles in.
+/// @param  {String}          $start         The breakpoint identifier to get the maximum and/or minimum width from.
+/// @param  {String|Boolean}  $end    false  If given, the mixin uses the maximum value from this breakpoint.
+@mixin _gr-media($start, $end: false) {
+
+  $str: null;
+  $min: false;
+  $max: false;
+  $breakpoint-start: map.get($gr-breakpoints, $start);
+
+  @if $breakpoint-start {
+    @if $start and not $end {
+
+      $min: map.get($breakpoint-start, 'min');
+      $max: map.get($breakpoint-start, 'max');
+    } @else {
+
+      $breakpoint-end: map.get($gr-breakpoints, $end);
+      $min: map.get($breakpoint-start, 'min');
+      $max: map.get($breakpoint-end, 'max');
+    }
+  }
+
+  @if $max or $min {
+
+    @if $min and not $max {
+
+      $str: '(min-width: #{$min})';
+
+    } @else if $max and not $min {
+
+      $str: '(max-width: #{$max})';
+
+    } @else {
+
+      $str: '(min-width: #{$min}) and (max-width: #{$max})';
+    }
+  }
+
+  @if $str {
+
+    @media #{$str} {
+
+      @content;
+    }
+  } @else {
+
+    @content
+  }
+};
+
+@mixin gr-media($start, $end: false) {
+
+  @include _gr-media($start, $end) {
+
+    @content
+  }
+};
+
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-col-base($gutter) {
+
+  padding-left: _div($gutter, 2);
+  padding-right: _div($gutter, 2);
+  box-sizing: border-box;
+}
+
+@mixin _gr-col($width, $columns) {
+
+  width: #{_div(100%, $columns) * $width};
+}
+
+@mixin _gr-row-base() {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: auto;
+  box-sizing: border-box;
+};
+
+@mixin _gr-row($gutter) {
+
+  margin-left: #{_div($gutter, -2)};
+  margin-right: #{_div($gutter, -2)};
+};
+
+@mixin _gr-container($max-width, $padding) {
+
+  @if $max-width {
+
+    max-width: $max-width;
+  }
+
+  @if $padding {
+
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  @if $gr-center-container {
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  box-sizing: border-box;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-col($width, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
+      @include _gr-col($width, _gr-get-resp-val($breakpoint, columns));
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
+        @include _gr-col($width, _gr-get-resp-val($breakpoint, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-col-base($gr-gutter);
+    @include _gr-col($width, $gr-columns);
+  }
+}
+
+@mixin gr-row($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-base;
+      @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-row-base;
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
+      }
+    }
+  } @else {
+
+    @include _gr-row-base;
+    @include _gr-row($gr-gutter);
+  }
+}
+
+@mixin gr-container($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      $container-max-width: _gr-get-resp-val($breakpoint, container, max-width);
+      $container-padding: _gr-get-resp-val($breakpoint, container, padding);
+
+      @include _gr-container($container-max-width, $container-padding);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        $container-max-width: _gr-get-resp-val($breakpoint, container, max-width);
+        $container-padding: _gr-get-resp-val($breakpoint, container, padding);
+
+        @include _gr-container($container-max-width, $container-padding);
+      }
+    }
+  } @else {
+
+    @include _gr-container($gr-container-max-width, $gr-container-padding);
+  }
+}
+
+@mixin gr-build-classes($features: ()) {
+
+  // generate grid classes without media query definitions
+  @if list.length($gr-breakpoints) == 0 {
+
+    @include _gr-build-classes-without-breakpoints($features);
+  } @else {
+
+    @include _gr-build-classes($features);
+  }
+}
+
+@mixin _gr-build-classes-without-breakpoints($features) {
+
+  @if $gr-set-container-style {
+
+    .#{$gr-namespace-class}-#{$gr-container-class} {
+
+      @include _gr-container($gr-container-max-width, $gr-container-padding);
+    }
+  }
+
+  .#{$gr-namespace-class}-#{$gr-row-class} {
+
+    @include _gr-row-base;
+    @include _gr-row($gr-gutter);
+  }
+
+  @include _gr-col-selector-all {
+
+    @include _gr-col-base($gr-gutter);
+  }
+
+  @for $i from 1 to $gr-columns + 1 {
+
+    .#{$gr-namespace-class}-#{$i} {
+
+      @include _gr-col($i, $gr-columns);
+    }
+  }
+
+  @include _gr-build-modifier-classes($features, $gr-columns);
+}
+
+@mixin _gr-build-classes($features) {
+
+  @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+    @include gr-media($breakpoint) {
+
+      @if $gr-set-container-style {
+
+        .#{$gr-namespace-class}-#{$gr-container-class},
+        .#{$gr-namespace-class}-#{$gr-container-class}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+          $container-max-width: _gr-get-resp-val($breakpoint, container, max-width);
+          $container-padding: _gr-get-resp-val($breakpoint, container, padding);
+
+          @include _gr-container($container-max-width, $container-padding);
+        }
+      }
+
+      .#{$gr-namespace-class}-#{$gr-row-class},
+      .#{$gr-namespace-class}-#{$gr-row-class}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+        @include _gr-row-base;
+        @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
+      }
+
+      @include _gr-col-selector-all($breakpoint) {
+
+        @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
+      }
+
+      // separate columns without breakpoint modifier
+      // to override them by column classes with modifier
+      @for $i from 1 to _gr-get-resp-val($breakpoint, columns) + 1 {
+
+        .#{$gr-namespace-class}-#{$i} {
+
+          @include _gr-col($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+
+      @for $i from 1 to _gr-get-resp-val($breakpoint, columns) + 1 {
+
+        .#{$gr-namespace-class}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+          @include _gr-col($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+
+      @include _gr-build-modifier-classes($features, _gr-get-resp-val($breakpoint, columns), $breakpoint);
+    }
+  }
+}
+
+
+/// Generates selectors for all columns for the given breakpoint ([.gr-1, .gr-2..., ].gr-1@...) and sets styles for them
+/// @param  {String|null}  $breakpoint       null   The breakpoint identifier for which the selector should be build
+/// @param  {Boolean}      $only-breakpoint  false  Whether classes without breakpoint should be added or not
+
+@mixin _gr-col-selector-all($breakpoint: null, $only-breakpoint: false) {
+
+  $_gr-classes: '';
+  $column-count: if($breakpoint, _gr-get-resp-val($breakpoint, columns) + 1, $gr-columns + 1);
+
+  @if not $only-breakpoint {
+
+    @for $i from 1 to $column-count {
+
+      @if $i == 1 {
+
+        $_gr-classes: '.#{$gr-namespace-class}-#{$i}';
+      } @else {
+
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-namespace-class}-#{$i}';
+      }
+    }
+  }
+
+  @if $breakpoint {
+
+    @for $i from 1 to $column-count {
+
+      @if $i == 1 and $only-breakpoint {
+
+        $_gr-classes: '.#{$gr-namespace-class}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+      } @else {
+
+        $_gr-classes: $_gr-classes + ', ' + '.#{$gr-namespace-class}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+      }
+    }
+  }
+
+  #{$_gr-classes} {
+
+    @content;
+  }
+}
+
+/// Generates selectors for all row elements (.gr-row, .gr-row@...) and sets styles for them
+@mixin _gr-row-selector-breakpoints() {
+
+  $_gr-row-classes: '.#{$gr-namespace-class}-#{$gr-row-class}';
+
+  @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+    $_gr-row-classes: $_gr-row-classes + ', ' + '.#{$gr-namespace-class}-#{$gr-row-class}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  .#{$gr-namespace-class}-#{$gr-row-class} {
+
+    @content;
+  }
+}
+
+/// Checks for activated modifiers and calls their build function
+/// @param  {Map}          $features       Map of all supported modifiers and if they are active ({String}: {Boolean})
+/// @param  {Number}       $columns        Column-count for modifiers to generate all necessary classes
+/// @param  {String|null}  $breakpoint    null  The breakpoint identifier for which the modifiers should be build
+@mixin _gr-build-modifier-classes($features, $columns, $breakpoint: null) {
+
+  $set-no-gutter-classes: map.get($features, no-gutter);
+  $set-row-full-classes: map.get($features, row-full);
+  $set-row-reverse-classes: map.get($features, row-reverse);
+  $set-row-column-classes: map.get($features, row-column);
+  $set-row-column-reverse-classes: map.get($features, row-column-reverse);
+  $set-align-classes: map.get($features, align);
+  $set-order-classes: map.get($features, order);
+  $set-hide-show-classes: map.get($features, hide-show);
+  $set-prefix-classes: map.get($features, prefix);
+  $set-suffix-classes: map.get($features, suffix);
+  $set-push-classes: map.get($features, push);
+  $set-pull-classes: map.get($features, pull);
+
+  @if $set-prefix-classes or $set-suffix-classes {
+
+    @include _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes, $set-suffix-classes, $breakpoint);
+  }
+
+  @if $set-push-classes or $set-pull-classes {
+
+    @include _gr-build-modifier-push-pull-classes($columns, $set-push-classes, $set-pull-classes, $breakpoint);
+  }
+
+  @if $set-no-gutter-classes {
+
+    @include _gr-build-modifier-no-gutter-classes($breakpoint);
+  }
+
+  @if $set-row-full-classes {
+
+    @include _gr-build-modifier-row-full-classes($breakpoint);
+  }
+
+  @if $set-row-reverse-classes {
+
+    @include _gr-build-modifier-row-reverse-classes($breakpoint);
+  }
+
+  @if $set-row-column-classes {
+
+    @include _gr-build-modifier-row-column-classes($breakpoint);
+  }
+
+  @if $set-row-column-reverse-classes {
+
+    @include _gr-build-modifier-row-column-reverse-classes($breakpoint);
+  }
+
+  @if $set-align-classes {
+
+    @include _gr-build-modifier-align-classes($breakpoint);
+  }
+
+  @if $set-order-classes {
+
+    @include _gr-build-modifier-order-classes($columns, $breakpoint);
+  }
+
+  @if $set-hide-show-classes {
+
+    @include _gr-build-modifier-hide-show-classes($breakpoint);
+  }
+}
+
+
+$_gr-align-directions: (
+  start: (property: 'justify-content', value: 'flex-start'),
+  center: (property: 'justify-content', value: 'center'),
+  end: (property: 'justify-content', value: 'flex-end'),
+  top: (property: 'align-items', value: 'flex-start'),
+  middle: (property: 'align-items', value: 'center'),
+  bottom: (property: 'align-items', value: 'flex-end'),
+  around: (property: 'justify-content', value: 'space-around'),
+  between: (property: 'justify-content', value: 'space-between')
+);
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-align-classes($breakpoint) {
+
+  @each $direction, $direction-styles in $_gr-align-directions {
+
+    $align-row-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--align-#{$direction}';
+
+    @if $breakpoint {
+
+      $align-row-selector: '#{$align-row-selector}, #{$align-row-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    }
+
+    #{$align-row-selector} {
+
+      @include _gr-align($direction);
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+// $direction: start, center, end, top, middle, bottom, around, between
+@mixin _gr-align($direction) {
+
+  #{_gr-multi-map-get($_gr-align-directions, $direction, property)}: #{_gr-multi-map-get($_gr-align-directions, $direction, value)};
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-align($direction, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-align($direction);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-align($direction);
+      }
+    }
+  } @else {
+
+    @include _gr-align($direction);
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-order-classes($columns, $breakpoint: null) {
+
+  $order-list: first, last;
+
+  @for $i from 1 to $columns + 1 {
+
+    $order-list: list.append($order-list, $i);
+  }
+
+  @each $position in $order-list {
+
+    $order-selector: '.#{$gr-namespace-class}--order-#{$position}';
+
+    @if $breakpoint {
+
+      $order-selector: '#{$order-selector}, #{$order-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    }
+
+    #{$order-selector} {
+
+      @include _gr-order($position);
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-order($position) {
+
+  $position: if($position == 'first', -1, $position);
+  $position: if($position == 'last', 9999, $position);
+
+  order: $position;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-order($position, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-order($position);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-order($position);
+      }
+    }
+  } @else {
+
+    @include _gr-order($position);
+  }
+}
+
+$_gr-hide-show-types: (
+  hide: (
+    selector: '.#{$gr-namespace-class}--hide'
+  ),
+  show: (
+    selector: '.#{$gr-namespace-class}--show'
+  ),
+  hidden: (
+    selector: '.#{$gr-namespace-class}--hidden'
+  ),
+  visible: (
+    selector: '.#{$gr-namespace-class}--visible'
+  )
+);
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-hide-show-classes($breakpoint: null) {
+
+  $_gr-hide-show-type-selectors: $_gr-hide-show-types;
+
+  @each $type, $selector-map in $_gr-hide-show-types {
+
+    $selector: map.get($selector-map, selector);
+
+    @if $breakpoint {
+
+      $selector: '#{$selector}, #{$selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    }
+
+    @if $type == hide {
+
+      #{$selector} {
+
+        @include _gr-hide();
+      }
+    }
+
+    @if $type == show {
+
+      #{$selector} {
+
+        @include _gr-show();
+      }
+    }
+
+    @if $type == hidden {
+
+      #{$selector} {
+
+        @include _gr-hidden();
+      }
+    }
+
+    @if $type == visible {
+
+      #{$selector} {
+
+        @include _gr-visible();
+      }
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-hide() {
+
+  display: none;
+}
+
+@mixin _gr-show($display-type: 'block') {
+
+  display: #{$display-type};
+}
+
+@mixin _gr-hidden() {
+
+  visibility: hidden;
+}
+
+@mixin _gr-visible() {
+
+  visibility: visible;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-hide($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-hide();
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-hide();
+      }
+    }
+  } @else {
+
+    @include _gr-hide();
+  }
+}
+
+@mixin gr-show($breakpoint: null, $display-type: 'block') {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-show($display-type);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-show($display-type);
+      }
+    }
+  } @else {
+
+    @include _gr-show($display-type);
+  }
+}
+
+@mixin gr-hidden($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-hidden();
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-hidden();
+      }
+    }
+  } @else {
+
+    @include _gr-hidden();
+  }
+}
+
+@mixin gr-visible($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-visible();
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-visible();
+      }
+    }
+  } @else {
+
+    @include _gr-visible();
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-no-gutter-classes($breakpoint) {
+
+  $no-gutter-row-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter';
+  $no-gutter-row-selector-left: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter-left';
+  $no-gutter-row-selector-right: '.#{$gr-namespace-class}-#{$gr-row-class}--no-gutter-right';
+
+  $no-gutter-col-selector: '.#{$gr-namespace-class}--no-gutter';
+  $no-gutter-col-selector-left: '.#{$gr-namespace-class}--no-gutter-left';
+  $no-gutter-col-selector-right: '.#{$gr-namespace-class}--no-gutter-right';
+
+  @if $breakpoint {
+
+    $no-gutter-row-selector: '#{$no-gutter-row-selector}, #{$no-gutter-row-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-row-selector-left: '#{$no-gutter-row-selector-left}, #{$no-gutter-row-selector-left}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-row-selector-right: '#{$no-gutter-row-selector-right}, #{$no-gutter-row-selector-right}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+
+    $no-gutter-col-selector: '#{$no-gutter-col-selector}, #{$no-gutter-col-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-col-selector-left: '#{$no-gutter-col-selector-left}, #{$no-gutter-col-selector-left}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    $no-gutter-col-selector-right: '#{$no-gutter-col-selector-right}, #{$no-gutter-col-selector-right}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  #{$no-gutter-row-selector} {
+
+    @include _gr-row-no-gutter;
+  }
+
+  #{$no-gutter-row-selector-left} {
+
+    @include _gr-row-no-gutter(true);
+  }
+
+  #{$no-gutter-row-selector-right} {
+
+    @include _gr-row-no-gutter(false, true);
+  }
+
+  #{$no-gutter-col-selector} {
+
+    @include _gr-col-no-gutter;
+  }
+
+  #{$no-gutter-col-selector-left} {
+
+    @include _gr-col-no-gutter(true);
+  }
+
+  #{$no-gutter-col-selector-right} {
+
+    @include _gr-col-no-gutter(false, true);
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-no-gutter($left: false, $right: false) {
+
+  @include _gr-no-gutter('margin', $left, $right);
+}
+
+@mixin _gr-col-no-gutter($left: false, $right: false) {
+
+  @include _gr-no-gutter('padding', $left, $right);
+}
+
+@mixin _gr-no-gutter($prop, $left: false, $right: false) {
+
+  @if not $left and not $right {
+
+    $left: true;
+    $right: true;
+  }
+
+  @if $left {
+
+    #{$prop}-left: 0;
+  }
+
+  @if $right {
+
+    #{$prop}-right: 0;
+  }
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-no-gutter-row($breakpoint: null, $left: false, $right: false) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-no-gutter($left, $right);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row-no-gutter($left, $right);
+      }
+    }
+  } @else {
+
+    @include _gr-row-no-gutter($left, $right);
+  }
+}
+
+@mixin gr-no-gutter($breakpoint: null, $left: false, $right: false) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-col-no-gutter($left, $right);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-col-no-gutter($left, $right);
+      }
+    }
+  } @else {
+
+    @include _gr-col-no-gutter($left, $right);
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-order-classes($columns, $breakpoint: null) {
+
+  $order-list: first, last;
+
+  @for $i from 1 to $columns + 1 {
+
+    $order-list: list.append($order-list, $i);
+  }
+
+  @each $position in $order-list {
+
+    $order-selector: '.#{$gr-namespace-class}--order-#{$position}';
+
+    @if $breakpoint {
+
+      $order-selector: '#{$order-selector}, #{$order-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+    }
+
+    #{$order-selector} {
+
+      @include _gr-order($position);
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-order($position) {
+
+  $position: if($position == 'first', -1, $position);
+  $position: if($position == 'last', 9999, $position);
+
+  order: $position;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-order($position, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-order($position);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-order($position);
+      }
+    }
+  } @else {
+
+    @include _gr-order($position);
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-prefix-suffix-classes($columns, $set-prefix-classes: false, $set-suffix-classes: false, $breakpoint: null) {
+
+  $prefix-selector: '.#{$gr-namespace-class}--prefix';
+  $suffix-selector: '.#{$gr-namespace-class}--suffix';
+
+  @if $breakpoint {
+
+    // separate columns without breakpoint modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
+
+      @if $set-prefix-classes {
+
+        #{$prefix-selector}-#{$i} {
+
+          @include _gr-prefix($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+
+      @if $set-suffix-classes {
+
+        #{$suffix-selector}-#{$i} {
+
+          @include _gr-suffix($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+    }
+
+    @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
+
+      @if $set-prefix-classes {
+
+        #{$prefix-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+          @include _gr-prefix($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+
+      @if $set-suffix-classes {
+
+        #{$suffix-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+          @include _gr-suffix($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+    }
+  } @else {
+
+    // separate columns without breakpoint modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to $gr-columns + 1 {
+
+      @if $set-prefix-classes {
+
+        #{$prefix-selector}-#{$i} {
+
+          @include _gr-prefix($i, $gr-columns);
+        }
+      }
+
+      @if $set-suffix-classes {
+
+        #{$suffix-selector}-#{$i} {
+
+          @include _gr-suffix($i, $gr-columns);
+        }
+      }
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-prefix($width, $columns) {
+
+  margin-left: #{_div(100%, $columns) * $width};
+}
+
+@mixin _gr-suffix($width, $columns) {
+
+  margin-right: #{_div(100%, $columns) * $width};
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-prefix($width, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-prefix($width, _gr-get-resp-val($breakpoint, columns));
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-prefix($width, _gr-get-resp-val($breakpoint, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-prefix($width, $gr-columns);
+  }
+}
+
+@mixin gr-suffix($width, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-suffix($width, _gr-get-resp-val($breakpoint, columns));
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-suffix($width, _gr-get-resp-val($breakpoint, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-suffix($width, $gr-columns);
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-push-pull-classes($columns, $set-push-classes: false, $set-pull-classes: false, $breakpoint: null) {
+
+  $push-selector: '.#{$gr-namespace-class}--push';
+  $pull-selector: '.#{$gr-namespace-class}--pull';
+
+  $push-pull-classes: ();
+
+  @if $breakpoint {
+
+    // separate columns without breakpoint modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
+
+      @if $set-push-classes {
+
+        $push-pull-classes: list.append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
+
+        #{$push-selector}-#{$i} {
+
+          @include _gr-push($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+
+      @if $set-pull-classes {
+
+        $push-pull-classes: list.append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
+
+        #{$pull-selector}-#{$i} {
+
+          @include _gr-pull($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+    }
+
+    @for $i from 0 to _gr-get-resp-val($breakpoint, columns) + 1 {
+
+      @if $set-push-classes {
+
+        $push-pull-classes: list.append($push-pull-classes, #{$push-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}, 'comma');
+
+        #{$push-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+          @include _gr-push($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+
+      @if $set-pull-classes {
+
+        $push-pull-classes: list.append($push-pull-classes, #{$pull-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint}, 'comma');
+
+        #{$pull-selector}-#{$i}#{$gr-breakpoint-class-divider}#{$breakpoint} {
+
+          @include _gr-pull($i, _gr-get-resp-val($breakpoint, columns));
+        }
+      }
+    }
+  } @else {
+
+    // separate columns without breakpoint modifier
+    // to override them by column classes with modifier
+    @for $i from 0 to $gr-columns + 1 {
+
+      @if $set-push-classes {
+
+        $push-pull-classes: list.append($push-pull-classes, #{$push-selector}-#{$i}, 'comma');
+
+        #{$push-selector}-#{$i} {
+
+          @include _gr-push($i, $gr-columns);
+        }
+      }
+
+      @if $set-pull-classes {
+
+        $push-pull-classes: list.append($push-pull-classes, #{$pull-selector}-#{$i}, 'comma');
+
+        #{$pull-selector}-#{$i} {
+
+          @include _gr-pull($i, $gr-columns);
+        }
+      }
+    }
+  }
+
+  @if list.length($push-pull-classes) > 0 {
+
+    #{$push-pull-classes} {
+
+      @include _gr-push-pull-base;
+    }
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-push($width, $columns) {
+
+  right: auto;
+  left: #{_div(100%, $columns) * $width};
+}
+
+@mixin _gr-pull($width, $columns) {
+
+  right: #{_div(100%, $columns) * $width};
+  left: auto;
+}
+
+@mixin _gr-push-pull-base {
+
+  position: relative;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-push($width, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-push-pull-base;
+      @include _gr-push($width, _gr-get-resp-val($breakpoint, columns));
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-push-pull-base;
+        @include _gr-push($width, _gr-get-resp-val($breakpoint, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-push-pull-base;
+    @include _gr-push($width, $gr-columns);
+  }
+}
+
+@mixin gr-pull($width, $breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-push-pull-base;
+      @include _gr-pull($width, _gr-get-resp-val($breakpoint, columns));
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-push-pull-base;
+        @include _gr-pull($width, _gr-get-resp-val($breakpoint, columns));
+      }
+    }
+  } @else {
+
+    @include _gr-push-pull-base;
+    @include _gr-pull($width, $gr-columns);
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-column-reverse-classes($breakpoint: null) {
+
+  $row-column-reverse-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--column-reverse';
+
+  @if $breakpoint {
+
+    $row-column-reverse-selector: '#{$row-column-reverse-selector}, #{$row-column-reverse-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  #{$row-column-reverse-selector} {
+
+    @include _gr-row-column-reverse();
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-column-reverse() {
+
+  flex-direction: column-reverse;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-column-reverse($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-column-reverse();
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row-column-reverse();
+      }
+    }
+  } @else {
+
+    @include _gr-row-column-reverse();
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-column-classes($breakpoint: null) {
+
+  $row-column-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--column';
+
+  @if $breakpoint {
+
+    $row-column-selector: '#{$row-column-selector}, #{$row-column-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  #{$row-column-selector} {
+
+    @include _gr-row-column();
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-column() {
+
+  flex-direction: column;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-column($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-column();
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row-column();
+      }
+    }
+  } @else {
+
+    @include _gr-row-column();
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-full-classes($breakpoint: null) {
+
+  $row-full-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--full';
+
+  @if $breakpoint {
+
+    $row-full-selector: '#{$row-full-selector}, #{$row-full-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  #{$row-full-selector} {
+
+    @include _gr-row-full($breakpoint);
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-full($breakpoint: null) {
+
+  $gutter: if($breakpoint, _gr-get-resp-val($breakpoint, gutter), $gr-gutter);
+
+  width: calc(100vw + #{$gutter});
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-full($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-full($breakpoint);
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row-full($breakpoint);
+      }
+    }
+  } @else {
+
+    @include _gr-row-full($breakpoint);
+  }
+}
+
+// ==============
+// build classes
+// ==============
+
+@mixin _gr-build-modifier-row-reverse-classes($breakpoint: null) {
+
+  $row-reverse-selector: '.#{$gr-namespace-class}-#{$gr-row-class}--reverse';
+
+  @if $breakpoint {
+
+    $row-reverse-selector: '#{$row-reverse-selector}, #{$row-reverse-selector}#{$gr-breakpoint-class-divider}#{$breakpoint}';
+  }
+
+  #{$row-reverse-selector} {
+
+    @include _gr-row-reverse();
+  }
+}
+
+
+// ==============
+// internals
+// ==============
+
+@mixin _gr-row-reverse() {
+
+  flex-direction: row-reverse;
+}
+
+
+// ==============
+// public
+// ==============
+
+@mixin gr-row-reverse($breakpoint: null) {
+
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @include _gr-media($breakpoint) {
+
+      @include _gr-row-reverse();
+    }
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
+
+    @each $breakpoint, $breakpoint-config in $gr-breakpoints {
+
+      @include _gr-media($breakpoint) {
+
+        @include _gr-row-reverse();
+      }
+    }
+  } @else {
+
+    @include _gr-row-reverse();
+  }
+}

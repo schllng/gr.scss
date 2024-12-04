@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:map';
 
 /// Iterates over given keys to get the value of a multi dimensional map.
 /// Each given key but the last must return another map with the next key in it.
@@ -12,7 +13,7 @@
 
   @each $target in $targets {
 
-    $val: map-get($curr-map, $target);
+    $val: map.get($curr-map, $target);
     $curr-map: $val;
   }
 

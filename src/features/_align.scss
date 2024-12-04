@@ -1,3 +1,4 @@
+@use 'sass:list';
 
 $_gr-align-directions: (
   start: (property: 'justify-content', value: 'flex-start'),
@@ -50,13 +51,13 @@ $_gr-align-directions: (
 
 @mixin gr-align($direction, $breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-align($direction);
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
