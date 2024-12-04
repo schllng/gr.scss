@@ -1,4 +1,4 @@
-
+@use 'sass:list';
 
 // ==============
 // internals
@@ -60,14 +60,14 @@
 
 @mixin gr-col($width, $breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-col-base(_gr-get-resp-val($breakpoint, gutter));
       @include _gr-col($width, _gr-get-resp-val($breakpoint, columns));
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -86,14 +86,14 @@
 
 @mixin gr-row($breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-row-base;
       @include _gr-row(_gr-get-resp-val($breakpoint, gutter));
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-row-base;
 
@@ -113,7 +113,7 @@
 
 @mixin gr-container($breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
@@ -122,7 +122,7 @@
 
       @include _gr-container($container-max-width, $container-padding);
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

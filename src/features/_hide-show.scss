@@ -1,3 +1,7 @@
+@use 'sass:list';
+@use 'sass:map';
+
+@use '../settings' as *;
 
 $_gr-hide-show-types: (
   hide: (
@@ -24,7 +28,7 @@ $_gr-hide-show-types: (
 
   @each $type, $selector-map in $_gr-hide-show-types {
 
-    $selector: map-get($selector-map, selector);
+    $selector: map.get($selector-map, selector);
 
     @if $breakpoint {
 
@@ -97,13 +101,13 @@ $_gr-hide-show-types: (
 
 @mixin gr-hide($breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-hide();
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -120,13 +124,13 @@ $_gr-hide-show-types: (
 
 @mixin gr-show($breakpoint: null, $display-type: 'block') {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-show($display-type);
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -143,13 +147,13 @@ $_gr-hide-show-types: (
 
 @mixin gr-hidden($breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-hidden();
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 
@@ -166,13 +170,13 @@ $_gr-hide-show-types: (
 
 @mixin gr-visible($breakpoint: null) {
 
-  @if $breakpoint and length($gr-breakpoints) > 0 {
+  @if $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @include _gr-media($breakpoint) {
 
       @include _gr-visible();
     }
-  } @else if not $breakpoint and length($gr-breakpoints) > 0 {
+  } @else if not $breakpoint and list.length($gr-breakpoints) > 0 {
 
     @each $breakpoint, $breakpoint-config in $gr-breakpoints {
 

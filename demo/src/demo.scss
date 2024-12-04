@@ -1,55 +1,54 @@
-$gr-breakpoints: (
-  s: (
-    min: null,
-    max: 600px,
-    gutter: 12px,
-    columns: 12,
-    container: (
-      max-width: 100%,
-      padding: 30px
+@use '../../index' as * with (
+  $gr-breakpoints: (
+    s: (
+      min: null,
+      max: 600px,
+      gutter: 12px,
+      columns: 12,
+      container: (
+        max-width: 100%,
+        padding: 30px
+      )
+    ),
+    m: (
+      min: 601px,
+      max: 1000px,
+      gutter: 14px,
+      columns: 12,
+      container: (
+        max-width: 600px,
+        padding: null
+      )
+    ),
+    l: (
+      min: 1001px,
+      max: null,
+      gutter: 40px,
+      columns: 12,
+      container: (
+        max-width: 1200px,
+        padding: 60px
+      )
     )
   ),
-  m: (
-    min: 601px,
-    max: 1000px,
-    gutter: 14px,
-    columns: 12,
-    container: (
-      max-width: 600px,
-      padding: null
-    )
-  ),
-  l: (
-    min: 1001px,
-    max: null,
-    gutter: 40px,
-    columns: 12,
-    container: (
-      max-width: 1200px,
-      padding: 60px
-    )
-  )
+  $gr-set-container-style: true,
+  $gr-center-container: true,
 );
 
-$gr-set-container-style: true;
-$gr-center-container: true;
-
-@import '../../index';
-
 @include gr-build-classes((
-  prefix: false,
-  suffix: false,
-  push: false,
-  pull: false,
-  row-full: false,
-  row-column: false,
-  row-reverse: false,
-  row-column-reverse: false,
-  hide-show: false,
-  order: false,
-  align: false,
-  no-gutter: false,
-row-debug: false
+  prefix: true,
+  suffix: true,
+  push: true,
+  pull: true,
+  row-full: true,
+  row-column: true,
+  row-reverse: true,
+  row-column-reverse: true,
+  hide-show: true,
+  order: true,
+  align: true,
+  no-gutter: true,
+  row-debug: true
 ));
 
 

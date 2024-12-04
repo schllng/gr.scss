@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 /// Builds the media query for the given breakpoint identifiers to wrap the styles in.
 /// @param  {String}          $start         The breakpoint identifier to get the maximum and/or minimum width from.
 /// @param  {String|Boolean}  $end    false  If given, the mixin uses the maximum value from this breakpoint.
@@ -6,18 +8,18 @@
   $str: null;
   $min: false;
   $max: false;
-  $breakpoint-start: map-get($gr-breakpoints, $start);
+  $breakpoint-start: map.get($gr-breakpoints, $start);
 
   @if $breakpoint-start {
     @if $start and not $end {
 
-      $min: map-get($breakpoint-start, 'min');
-      $max: map-get($breakpoint-start, 'max');
+      $min: map.get($breakpoint-start, 'min');
+      $max: map.get($breakpoint-start, 'max');
     } @else {
 
-      $breakpoint-end: map-get($gr-breakpoints, $end);
-      $min: map-get($breakpoint-start, 'min');
-      $max: map-get($breakpoint-end, 'max');
+      $breakpoint-end: map.get($gr-breakpoints, $end);
+      $min: map.get($breakpoint-start, 'min');
+      $max: map.get($breakpoint-end, 'max');
     }
   }
 
