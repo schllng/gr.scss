@@ -405,7 +405,7 @@ $gr-breakpoints: () !default;
 @mixin _gr-col-selector-all($breakpoint: null, $only-breakpoint: false) {
 
   $_gr-classes: '';
-  $column-count: if($breakpoint, _gr-get-resp-val($breakpoint, columns) + 1, $gr-columns + 1);
+  $column-count: if(sass($breakpoint): _gr-get-resp-val($breakpoint, columns) + 1; else: $gr-columns + 1);
 
   @if not $only-breakpoint {
 
@@ -636,8 +636,8 @@ $_gr-align-directions: (
 
 @mixin _gr-order($position) {
 
-  $position: if($position == 'first', -1, $position);
-  $position: if($position == 'last', 9999, $position);
+  $position: if(sass($position == 'first'): -1; else: $position);
+  $position: if(sass($position == 'last'): 9999; else: $position);
 
   order: $position;
 }
@@ -1035,8 +1035,8 @@ $_gr-hide-show-types: (
 
 @mixin _gr-order($position) {
 
-  $position: if($position == 'first', -1, $position);
-  $position: if($position == 'last', 9999, $position);
+  $position: if(sass($position == 'first'): -1; else: $position);
+  $position: if(sass($position == 'last'): 9999; else: $position);
 
   order: $position;
 }
@@ -1526,7 +1526,7 @@ $_gr-hide-show-types: (
 
 @mixin _gr-row-full($breakpoint: null) {
 
-  $gutter: if($breakpoint, _gr-get-resp-val($breakpoint, gutter), $gr-gutter);
+  $gutter: if(sass($breakpoint): _gr-get-resp-val($breakpoint, gutter); else: $gr-gutter);
 
   width: calc(100vw + #{$gutter});
   margin-left: 50%;
